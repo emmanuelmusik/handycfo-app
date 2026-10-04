@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { api } from '../lib/api';
 
 export function useExpenses(businessId) {
   const [expenses, setExpenses] = useState([]);
@@ -32,8 +33,7 @@ export function useExpenses(businessId) {
   }
 
   async function deleteExpense(id) {
-    const { error } = await supabase.from('expenses').delete().eq('id', id);
-    if (error) throw error;
+    await api.deleteExpense(id); // server also removes our stored copy of the receipt
     setExpenses((prev) => prev.filter((e) => e.id !== id));
   }
 

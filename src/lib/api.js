@@ -26,7 +26,31 @@ async function authedFetch(path, options = {}) {
   return res.json();
 }
 
+const post = (path, body) => authedFetch(path, { method: 'POST', body: JSON.stringify(body || {}) });
+const del = (path) => authedFetch(path, { method: 'DELETE' });
+
 export const api = {
   startDropboxConnect: () => authedFetch('/auth/dropbox/start'),
   disconnectDropbox: () => authedFetch('/auth/dropbox/disconnect', { method: 'POST' }),
+
+  // Financial Inbox
+  scanReceipt: (payload) => post('/receipts/scan', payload),
+  inboxFileLink: (docId) => authedFetch(`/inbox/${docId}/file`),
+  confirmInboxDoc: (docId, fields) => post(`/inbox/${docId}/confirm`, fields),
+  discardInboxDoc: (docId) => del(`/inbox/${docId}`),
+
+  // Expenses
+  expenseReceiptLink: (expenseId) => authedFetch(`/expenses/${expenseId}/receipt`),
+  deleteExpense: (expenseId) => del(`/expenses/${expenseId}`),
+
+  // Network, messages, invoices between users
+  addContact: (fields) => post('/contacts', fields),
+  deleteContact: (id) => del(`/contacts/${id}`),
+  refreshNetwork: () => post('/network/refresh'),
+  sendMessage: (contactId, body) => post('/messages', { contactId, body }),
+  sendInvoice: (invoiceId) => post(`/invoices/${invoiceId}/send`),
+
+  // Account
+  deleteBusiness: (id) => del(`/businesses/${id}`),
+  deleteAccount: (confirmEmail) => post('/account/delete', { confirmEmail }),
 };

@@ -16,6 +16,11 @@ const PATHS = {
   trash: <><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></>,
   check: <path d="M20 6L9 17l-5-5"/>,
   close: <path d="M18 6L6 18M6 6l12 12"/>,
+  camera: <><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></>,
+  sparkle: <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/>,
+  send: <path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>,
+  dropbox: <path d="M7 3l5 3.3L7 9.6 2 6.3zM17 3l5 3.3-5 3.3-5-3.3zM2 12.9l5-3.3 5 3.3-5 3.3zM12 12.9l5-3.3 5 3.3-5 3.3zM7 17.4l5-3.3 5 3.3-5 3.3z"/>,
+  eye: <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></>,
 };
 
 export default function Icon({ name, size = 17, strokeWidth = 1.8 }) {

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { useAuth } from './useAuth';
+import { api } from '../lib/api';
 
 const AVATAR_PALETTE = ['#3FBF9C', '#E3A768', '#7FA8D9', '#C77DBE', '#D97C63', '#8FBF6A', '#B79ADB', '#5FB8B8'];
 
@@ -42,12 +43,26 @@ export function useBusinesses() {
     return data;
   }
 
-  async function deleteBusiness(id) {
-    // Relies on ON DELETE CASCADE from businesses -> invoices/expenses/inbox_documents.
-    const { error } = await supabase.from('businesses').delete().eq('id', id);
+  async function updateBusiness(id, { name, businessType, vatNumber, currency }) {
+    const patch = {
+      name,
+      business_type: businessType || null,
+      vat_number: vatNumber || null,
+      currency,
+      short_code: initials(name),
+    };
+    const { data, error } = await supabase.from('businesses').update(patch).eq('id', id).select().single();
     if (error) throw error;
+    setBusinesses((prev) => prev.map((b) => (b.id === id ? data : b)));
+    return data;
+  }
+
+  async function deleteBusiness(id) {
+    // The server clears stored receipt files, then the database cascades
+    // businesses -> invoices/expenses/inbox_documents.
+    await api.deleteBusiness(id);
     setBusinesses((prev) => prev.filter((b) => b.id !== id));
   }
 
-  return { businesses, loading, refetch, createBusiness, deleteBusiness };
+  return { businesses, loading, refetch, createBusiness, updateBusiness, deleteBusiness };
 }

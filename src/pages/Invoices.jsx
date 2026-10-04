@@ -3,6 +3,8 @@ import { useInvoices } from '../hooks/useInvoices';
 import Modal from '../components/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
+import { useContacts } from '../hooks/useContacts';
+import { api } from '../lib/api';
 
 const FILTERS = [
   { key: 'all', label: 'All' },
@@ -43,12 +45,15 @@ function displayStatus(inv) {
 }
 
 export default function Invoices({ business }) {
-  const { invoices, loading, createInvoice, updateInvoice, deleteInvoice } = useInvoices(business.id);
+  const { invoices, loading, refetch, createInvoice, updateInvoice, deleteInvoice } = useInvoices(business.id);
   const [filter, setFilter] = useState('all');
   const [showCreate, setShowCreate] = useState(false);
   const [toDelete, setToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const { contacts } = useContacts();
+  const [sendingId, setSendingId] = useState(null);
 
   const rows = useMemo(
     () => invoices
@@ -63,6 +68,21 @@ export default function Invoices({ business }) {
       await updateInvoice(inv.id, { auto_reminders: !inv.auto_reminders });
     } catch (err) {
       setError(err.message || 'Could not update reminders');
+    }
+  }
+
+  async function handleSend(inv) {
+    setError('');
+    setNotice('');
+    setSendingId(inv.id);
+    try {
+      const r = await api.sendInvoice(inv.id);
+      await refetch();
+      setNotice(r.deliveredInApp ? 'Invoice sent. It is now in their HandyCFO inbox.' : 'Invoice marked as sent.');
+    } catch (err) {
+      setError(err.message || 'Could not send the invoice');
+    } finally {
+      setSendingId(null);
     }
   }
 
@@ -102,6 +122,7 @@ export default function Invoices({ business }) {
       </div>
 
       {error && <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 0 }}>{error}</p>}
+      {notice && <p style={{ color: 'var(--accent-strong)', fontSize: 13, marginTop: 0 }}>{notice}</p>}
 
       <div className="panel">
         <div className="table-toolbar">
@@ -173,6 +194,11 @@ export default function Invoices({ business }) {
                   </td>
                   <td>
                     <div className="row-actions" style={{ gap: 6, alignItems: 'center' }}>
+                      {inv.status === 'Draft' && (
+                        <button className="btn btn-sm btn-primary" disabled={sendingId === inv.id} onClick={() => handleSend(inv)}>
+                          {sendingId === inv.id ? 'Sending…' : 'Send'}
+                        </button>
+                      )}
                       {inv.status !== 'Paid' && (
                         <button className="btn btn-sm" onClick={() => handleMarkPaid(inv)}>Mark paid</button>
                       )}
@@ -190,10 +216,20 @@ export default function Invoices({ business }) {
 
       {showCreate && (
         <CreateInvoiceModal
+          contacts={contacts.filter((c) => c.relationship === 'Client')}
           onClose={() => setShowCreate(false)}
           onCreate={async (fields) => {
-            await createInvoice(fields);
+            const created = await createInvoice(fields);
             setShowCreate(false);
+            // A Sent invoice to a client who uses HandyCFO also goes into their inbox.
+            if (created.status === 'Sent' && created.client_contact_id) {
+              try {
+                const r = await api.sendInvoice(created.id);
+                setNotice(r.deliveredInApp ? 'Invoice created and delivered to their HandyCFO inbox.' : '');
+              } catch (err) {
+                setError(err.message || 'The invoice was saved but could not be delivered in the app.');
+              }
+            }
           }}
         />
       )}
@@ -211,7 +247,8 @@ export default function Invoices({ business }) {
   );
 }
 
-function CreateInvoiceModal({ onClose, onCreate }) {
+function CreateInvoiceModal({ contacts = [], onClose, onCreate }) {
+  const [contactId, setContactId] = useState('');
   const [client, setClient] = useState('');
   const [email, setEmail] = useState('');
   const [issue, setIssue] = useState(todayISO());
@@ -231,6 +268,7 @@ function CreateInvoiceModal({ onClose, onCreate }) {
     setBusy(true);
     try {
       await onCreate({
+        client_contact_id: contactId || null,
         client_name: client.trim(),
         client_email: email.trim() || null,
         issue_date: issue,
@@ -257,6 +295,25 @@ function CreateInvoiceModal({ onClose, onCreate }) {
         </>
       }
     >
+      {contacts.length > 0 && (
+        <div className="field">
+          <label>From your network (optional)</label>
+          <select
+            value={contactId}
+            onChange={(e) => {
+              const id = e.target.value;
+              setContactId(id);
+              const c = contacts.find((x) => x.id === id);
+              if (c) { setClient(c.name); setEmail(c.email || ''); }
+            }}
+          >
+            <option value="">Someone new</option>
+            {contacts.map((c) => (
+              <option key={c.id} value={c.id}>{c.name}{c.on_platform ? ' · on HandyCFO' : ''}</option>
+            ))}
+          </select>
+        </div>
+      )}
       <div className="field">
         <label>Client</label>
         <input type="text" autoFocus placeholder="e.g. Brantwood Ltd." value={client} onChange={(e) => setClient(e.target.value)} />

@@ -3,6 +3,7 @@ import { useExpenses } from '../hooks/useExpenses';
 import Modal from '../components/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
+import { api } from '../lib/api';
 
 const DEFAULT_CATEGORIES = ['Software', 'Travel', 'Office', 'Meals', 'Marketing', 'Materials', 'Shipping', 'Other'];
 
@@ -34,6 +35,16 @@ export default function Expenses({ business }) {
     () => expenses.filter((e) => filter === 'all' || e.category === filter),
     [expenses, filter]
   );
+
+  async function openReceipt(e) {
+    setError('');
+    try {
+      const { url } = await api.expenseReceiptLink(e.id);
+      window.open(url, '_blank', 'noopener');
+    } catch (err) {
+      setError(err.message || 'Could not open the receipt');
+    }
+  }
 
   async function handleConfirmDelete() {
     setDeleting(true);
@@ -98,7 +109,7 @@ export default function Expenses({ business }) {
                 <tr>
                   <td colSpan={6} className="empty-hint">
                     {expenses.length === 0
-                      ? 'No expenses yet. Add one here, or scan a receipt once the Financial Inbox is live.'
+                      ? 'No expenses yet. Add one here, or scan a receipt in the Financial Inbox.'
                       : 'No expenses in this category.'}
                   </td>
                 </tr>
@@ -128,6 +139,11 @@ export default function Expenses({ business }) {
                   </td>
                   <td>
                     <div className="row-actions">
+                      {e.receipt_provider !== 'none' && e.receipt_external_id && (
+                        <button className="icon-btn" title="View receipt" onClick={() => openReceipt(e)}>
+                          <Icon name="eye" size={14} strokeWidth={2} />
+                        </button>
+                      )}
                       <button className="icon-btn" title="Delete expense" onClick={() => setToDelete(e)}>
                         <Icon name="trash" size={14} strokeWidth={2} />
                       </button>
