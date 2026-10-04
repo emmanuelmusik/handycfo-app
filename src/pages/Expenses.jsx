@@ -65,7 +65,7 @@ export default function Expenses({ business }) {
       <div className="page-head">
         <div>
           <h1 className="page-title">Expenses</h1>
-          <p className="page-sub">Everything you have spent, with the bank match status for each entry.</p>
+          <p className="page-sub">Money going out. Everything you have spent on the business. Add one by hand, or scan a receipt in the Financial Inbox.</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowCreate(true)}>
           <Icon name="plus" size={15} strokeWidth={2} />

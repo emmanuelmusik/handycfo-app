@@ -47,7 +47,7 @@ export default function Inbox({ business, onChanged }) {
         <div>
           <h1 className="page-title">Financial Inbox</h1>
           <p className="page-sub">
-            Snap a receipt or drop a PDF. We read it, you check it, and it becomes an expense.
+            Where receipts wait to be checked. Snap a receipt or drop a PDF, we read it, you confirm it, and it becomes an expense.
             {' '}Files are kept in your connected cloud storage — only the text lives here.
           </p>
         </div>

@@ -44,6 +44,15 @@ function displayStatus(inv) {
   return inv.status;
 }
 
+function describeSend(r, prefix) {
+  const parts = [];
+  if (r.emailed) parts.push(`Emailed to ${r.emailedTo}`);
+  if (r.deliveredInApp) parts.push('delivered to their HandyCFO inbox');
+  if (!parts.length) return `${prefix}${r.emailError || 'Marked as sent.'}`;
+  const text = parts.join(' and ');
+  return `${prefix}${text.charAt(0).toUpperCase()}${text.slice(1)}.${r.emailError ? ` ${r.emailError}` : ''}`;
+}
+
 export default function Invoices({ business }) {
   const { invoices, loading, refetch, createInvoice, updateInvoice, deleteInvoice } = useInvoices(business.id);
   const [filter, setFilter] = useState('all');
@@ -78,7 +87,7 @@ export default function Invoices({ business }) {
     try {
       const r = await api.sendInvoice(inv.id);
       await refetch();
-      setNotice(r.deliveredInApp ? 'Invoice sent. It is now in their HandyCFO inbox.' : 'Invoice marked as sent.');
+      setNotice(describeSend(r, ''));
     } catch (err) {
       setError(err.message || 'Could not send the invoice');
     } finally {
@@ -113,7 +122,7 @@ export default function Invoices({ business }) {
       <div className="page-head">
         <div>
           <h1 className="page-title">Invoices</h1>
-          <p className="page-sub">Money owed to you, with reminders sent automatically so you don't have to chase.</p>
+          <p className="page-sub">Money coming in. Send a bill to a client, then mark it paid when the money arrives. Reminders go out automatically if it is late.</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowCreate(true)}>
           <Icon name="plus" size={15} strokeWidth={2} />
@@ -221,14 +230,16 @@ export default function Invoices({ business }) {
           onCreate={async (fields) => {
             const created = await createInvoice(fields);
             setShowCreate(false);
-            // A Sent invoice to a client who uses HandyCFO also goes into their inbox.
-            if (created.status === 'Sent' && created.client_contact_id) {
+            // Sending also emails the client (when we have an address) and, if they
+            // use HandyCFO, drops it into their inbox.
+            if (created.status === 'Sent' && (created.client_contact_id || created.client_email)) {
               try {
-                const r = await api.sendInvoice(created.id);
-                setNotice(r.deliveredInApp ? 'Invoice created and delivered to their HandyCFO inbox.' : '');
+                setNotice(describeSend(await api.sendInvoice(created.id), 'Invoice created. '));
               } catch (err) {
-                setError(err.message || 'The invoice was saved but could not be delivered in the app.');
+                setError(err.message || 'The invoice was saved but could not be sent.');
               }
+            } else if (created.status === 'Sent') {
+              setNotice('Invoice created. Add the client\'s email next time and we will email it for you.');
             }
           }}
         />
