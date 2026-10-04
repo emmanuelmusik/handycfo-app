@@ -21,13 +21,15 @@ actual test.
 - Dashboard: revenue/expenses/outstanding computed live from real
   `invoices`/`expenses` rows — no mock numbers anywhere
 
-**Still mock-free but not yet built** (shows a "coming soon" placeholder
-when you navigate to them): Financial Inbox, Invoices table, Expenses
-table, Reports, Messages, Network, Settings. Each one is a matter of
-porting the matching screen from the HTML prototype the same way
-Dashboard was done — same CSS classes already exist in `global.css`,
-just needs the React markup + a Supabase-backed hook per screen (follow
-`useInvoices.js` / `useExpenses.js` as the pattern).
+**Also live now:** Invoices (create, filter, mark paid, automatic-reminder
+toggle, delete) and Expenses (add, filter by category, delete), both on
+real Supabase rows. A Sent invoice past its due date shows as Overdue
+immediately; the server's daily job makes that permanent.
+
+**Not built yet** (shows a "coming soon" placeholder): Financial Inbox
+(receipt scanning needs the AI-parsing endpoint on the server first),
+Reports, Messages, Network, Settings (including account deletion, which
+needs a server endpoint and is required before App Store submission).
 
 **Known simplification worth knowing about:** the prototype's Dashboard
 had a "Bills coming due" stat — that mapped to nothing real in the

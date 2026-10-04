@@ -4,6 +4,8 @@ import { useBusinesses } from './hooks/useBusinesses';
 import Login from './pages/Login';
 import CreateFirstBusiness from './pages/CreateFirstBusiness';
 import Dashboard from './pages/Dashboard';
+import Invoices from './pages/Invoices';
+import Expenses from './pages/Expenses';
 import ComingSoon from './pages/ComingSoon';
 import Sidebar from './components/layout/Sidebar';
 import MobileTopbar from './components/layout/MobileTopbar';
@@ -88,7 +90,11 @@ function AuthenticatedApp({ userEmail, onSignOut }) {
 }
 
 function renderView(view, business, userEmail) {
-  if (view === 'dashboard') return <Dashboard business={business} userEmail={userEmail} />;
+  // key={business.id} remounts the page on business switch, so each
+  // screen refetches instead of briefly showing the previous business.
+  if (view === 'dashboard') return <Dashboard key={business.id} business={business} userEmail={userEmail} />;
+  if (view === 'invoices') return <Invoices key={business.id} business={business} />;
+  if (view === 'expenses') return <Expenses key={business.id} business={business} />;
   const label = NAV_ITEMS.find((i) => i.view === view)?.label || view;
   return <ComingSoon title={label} />;
 }

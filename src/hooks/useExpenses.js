@@ -20,11 +20,22 @@ export function useExpenses(businessId) {
 
   useEffect(() => { refetch(); }, [refetch]);
 
+  async function createExpense(fields) {
+    const { data, error } = await supabase
+      .from('expenses')
+      .insert({ business_id: businessId, ...fields })
+      .select()
+      .single();
+    if (error) throw error;
+    setExpenses((prev) => [data, ...prev].sort((a, b) => (a.expense_date < b.expense_date ? 1 : -1)));
+    return data;
+  }
+
   async function deleteExpense(id) {
     const { error } = await supabase.from('expenses').delete().eq('id', id);
     if (error) throw error;
     setExpenses((prev) => prev.filter((e) => e.id !== id));
   }
 
-  return { expenses, loading, refetch, deleteExpense };
+  return { expenses, loading, refetch, createExpense, deleteExpense };
 }
