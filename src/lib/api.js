@@ -1,6 +1,6 @@
 import { supabase } from './supabaseClient';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = String(import.meta.env.VITE_API_URL || '').trim().replace(/\/+$/, '');
 
 // Every call to the Railway server (Dropbox connect, triggering
 // jobs, anything that isn't a direct Supabase query) needs the
