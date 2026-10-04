@@ -2,16 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Chart, registerables } from 'chart.js';
 import { supabase } from '../lib/supabaseClient';
 import { fmtMoney } from '../lib/format';
+import PeriodPicker from '../components/PeriodPicker';
+import { defaultPeriod, resolvePeriod, isPeriodValid } from '../lib/period';
 
 Chart.register(...registerables);
 
-const RANGES = [
-  { key: '1', label: '1 month' },
-  { key: '3', label: '3 months' },
-  { key: '6', label: '6 months' },
-  { key: '12', label: '12 months' },
-  { key: 'custom', label: 'Custom' },
-];
 const CATEGORY_COLORS = ['#3FBF9C', '#E3A768', '#7FA8D9', '#C77DBE', '#D97C63', '#8FBF6A', '#B79ADB', '#5FB8B8'];
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -24,51 +19,28 @@ function currentYM() {
   return { y: n.getFullYear(), m: n.getMonth() };
 }
 
-// Turns the picked range into a from/to date and the list of month buckets.
-function resolveRange(rangeKey, customFrom, customTo) {
-  const now = currentYM();
-  let start; let end;
-  if (rangeKey === 'custom') {
-    const [fy, fm] = customFrom.split('-').map(Number);
-    const [ty, tm] = customTo.split('-').map(Number);
-    start = { y: fy, m: fm - 1 };
-    end = { y: ty, m: tm - 1 };
-  } else {
-    const n = Number(rangeKey);
-    end = now;
-    const total = now.y * 12 + now.m - (n - 1);
-    start = { y: Math.floor(total / 12), m: total % 12 };
-  }
+// Turns the shared period into month buckets (the report works per month).
+function resolveRange(period) {
+  const r = resolvePeriod(period);
+  const [fy, fm] = r.from.split('-').map(Number);
+  const [ty, tm] = r.to.split('-').map(Number);
   const months = [];
-  let y = start.y; let m = start.m;
-  while (y < end.y || (y === end.y && m <= end.m)) {
+  let y = fy; let m = fm - 1;
+  while (y < ty || (y === ty && m <= tm - 1)) {
     months.push(monthKey(y, m));
     m += 1; if (m > 11) { m = 0; y += 1; }
   }
-  const lastDay = new Date(end.y, end.m + 1, 0).getDate();
-  return { months, from: iso(start.y, start.m, 1), to: iso(end.y, end.m, lastDay) };
+  return { months, from: `${fy}-${pad(fm)}-01`, to: r.to, label: r.label };
 }
 
 export default function Reports({ business }) {
-  const [rangeKey, setRangeKey] = useState('6');
-  const nowYM = currentYM();
-  const defaultTo = `${nowYM.y}-${pad(nowYM.m + 1)}`;
-  const [customFrom, setCustomFrom] = useState(`${nowYM.y}-01`);
-  const [customTo, setCustomTo] = useState(defaultTo);
+  const [period, setPeriod] = useState(() => ({ ...defaultPeriod(), key: '6' }));
   const [data, setData] = useState({ income: {}, expenses: {}, categories: {} });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const customValid = customFrom && customTo && customFrom <= customTo && (() => {
-    const [fy, fm] = customFrom.split('-').map(Number);
-    const [ty, tm] = customTo.split('-').map(Number);
-    return (ty * 12 + tm) - (fy * 12 + fm) < 36;
-  })();
-
-  const range = useMemo(
-    () => (rangeKey === 'custom' && !customValid ? null : resolveRange(rangeKey, customFrom, customTo)),
-    [rangeKey, customFrom, customTo, customValid]
-  );
+  const periodValid = isPeriodValid(period);
+  const range = useMemo(() => (periodValid ? resolveRange(period) : null), [period, periodValid]);
 
   useEffect(() => {
     if (!range) return undefined;
@@ -167,9 +139,7 @@ export default function Reports({ business }) {
     return () => { catChart.current?.destroy(); };
   }, [categoryRows]);
 
-  const rangeLabel = rangeKey === 'custom'
-    ? (range ? `${monthLabel(range.months[0])} – ${monthLabel(range.months[range.months.length - 1])}` : 'Custom range')
-    : rangeKey === '1' ? 'This month' : `Last ${rangeKey} months`;
+  const rangeLabel = range ? range.label : 'Custom range';
 
   return (
     <div>
@@ -180,34 +150,9 @@ export default function Reports({ business }) {
         </div>
       </div>
 
-      <div className="table-toolbar" style={{ padding: 0, marginBottom: 14 }}>
-        <div className="filter-pills">
-          {RANGES.map((r) => (
-            <button key={r.key} className={`pill ${rangeKey === r.key ? 'active' : ''}`} onClick={() => setRangeKey(r.key)}>
-              {r.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {rangeKey === 'custom' && (
-        <div className="panel" style={{ padding: 16, marginBottom: 14 }}>
-          <div className="field-row">
-            <div className="field" style={{ marginBottom: 0 }}>
-              <label>From</label>
-              <input type="month" value={customFrom} max={customTo} onChange={(e) => setCustomFrom(e.target.value)} />
-            </div>
-            <div className="field" style={{ marginBottom: 0 }}>
-              <label>To</label>
-              <input type="month" value={customTo} min={customFrom} max={defaultTo} onChange={(e) => setCustomTo(e.target.value)} />
-            </div>
-          </div>
-          {!customValid && (
-            <p style={{ color: 'var(--red)', fontSize: 12.5, margin: '10px 0 0' }}>
-              Pick a start month on or before the end month, up to 36 months apart.
-            </p>
-          )}
-        </div>
+      <PeriodPicker value={period} onChange={setPeriod} monthsOnly />
+      {!periodValid && (
+        <p style={{ color: 'var(--red)', fontSize: 12.5, marginTop: -6 }}>Pick a start month on or before the end month.</p>
       )}
 
       {error && <p style={{ color: 'var(--red)', fontSize: 13 }}>{error}</p>}
