@@ -59,9 +59,10 @@ function guessType(file) {
 
 // Loads the photo with a normal <img> (the most dependable path, and it applies
 // the camera's rotation). Falls back to createImageBitmap only if that fails.
-async function openPhoto(file, useBitmap) {
-  if (useBitmap) return createImageBitmap(file);
-  const objectUrl = URL.createObjectURL(file);
+async function openPhoto(blob, mode) {
+  if (mode === 'bitmap') return createImageBitmap(blob);
+  if (mode === 'dataurl') return loadImage(await readAsDataURL(blob)); // the original method, known to work on Android
+  const objectUrl = URL.createObjectURL(blob);
   try {
     return await loadImage(objectUrl);
   } finally {
@@ -116,13 +117,24 @@ export async function prepareUpload(file) {
   }
   if (!type.startsWith('image/')) throw new Error(`Please choose a photo or a PDF${file.type ? ` (got ${file.type})` : ''}.`);
 
+  // Copy the file's bytes into memory first. Android hands over files lazily, and
+  // decoding straight from that handle can fail even for an ordinary JPEG.
+  let blob = file;
+  let bytes = null;
+  try {
+    bytes = await file.arrayBuffer();
+    blob = new Blob([bytes], { type: type || 'image/jpeg' });
+  } catch (err) {
+    throw new Error('This device would not let the app read that file. Please pick it again, or take a new photo.');
+  }
+
   let data = '';
   let why = '';
-  const attempts = [[false, MAX_SIDE], [false, 1600], [true, MAX_SIDE], [true, 1600]];
-  for (const [useBitmap, side] of attempts) {
-    if (useBitmap && typeof createImageBitmap !== 'function') continue;
+  const attempts = [['dataurl', MAX_SIDE], ['dataurl', 1600], ['objecturl', MAX_SIDE], ['bitmap', MAX_SIDE], ['bitmap', 1600]];
+  for (const [mode, side] of attempts) {
+    if (mode === 'bitmap' && typeof createImageBitmap !== 'function') continue;
     try {
-      const img = await openPhoto(file, useBitmap);
+      const img = await openPhoto(blob, mode);
       data = toJpeg(img, side);
       img.close?.();
       if (data) break;
@@ -131,7 +143,23 @@ export async function prepareUpload(file) {
       why = err?.message || String(err);
     }
   }
-  if (!data) throw new Error(`This photo could not be prepared on this device${why ? ` (${why})` : ''}. Try a screenshot of it instead.`);
+
+  if (!data) {
+    // Last resort: send the original file untouched and let the server read it.
+    const sendable = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(type);
+    const head = bytes ? new Uint8Array(bytes.slice(0, 4)) : [];
+    const looksValid = (head[0] === 0xff && head[1] === 0xd8) || (head[0] === 0x89 && head[1] === 0x50) || (head[0] === 0x52 && head[1] === 0x49) || (head[0] === 0x47 && head[1] === 0x49);
+    if (bytes && !looksValid) {
+      throw new Error(`The file the phone handed over is not a readable image (${bytes.byteLength} bytes). Please pick it again, or take a new photo.`);
+    }
+    if (sendable && bytes && bytes.byteLength <= 7 * 1024 * 1024) {
+      let bin = '';
+      const view = new Uint8Array(bytes);
+      for (let i = 0; i < view.length; i += 0x8000) bin += String.fromCharCode.apply(null, view.subarray(i, i + 0x8000));
+      return { mediaType: type, data: btoa(bin), fileName: file.name || 'receipt' };
+    }
+    throw new Error(`This photo could not be prepared on this device${why ? ` (${why})` : ''}. Try a screenshot of it instead.`);
+  }
   const base = String(file.name || 'receipt').replace(/\.[^.]+$/, '') || 'receipt';
   return { mediaType: 'image/jpeg', data, fileName: base + '.jpg' };
 }
