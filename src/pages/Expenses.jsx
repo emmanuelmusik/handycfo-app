@@ -26,7 +26,8 @@ export default function Expenses({ business }) {
   const { expenses, loading, refetch, createExpense, deleteExpense } = useExpenses(business.id);
   const fileInput = useRef(null);
   const [scanning, setScanning] = useState(false);
-  const [reviewing, setReviewing] = useState(null);
+  const [queue, setQueue] = useState([]); // scanned receipts waiting for a check, one at a time
+  const [queueTotal, setQueueTotal] = useState(0);
   const [filter, setFilter] = useState('all');
   const [showCreate, setShowCreate] = useState(false);
   const [toDelete, setToDelete] = useState(null);
@@ -41,19 +42,25 @@ export default function Expenses({ business }) {
     [expenses, filter]
   );
 
-  async function handleScanFile(file) {
-    if (!file) return;
+  async function handleScanFiles(fileList) {
+    const files = Array.from(fileList || []).slice(0, 10);
+    if (!files.length) return;
     setError('');
     setScanning(true);
-    try {
-      const prepared = await prepareUpload(file);
-      const { document } = await api.scanReceipt({ businessId: business.id, ...prepared });
-      setReviewing(document); // straight to the check screen
-    } catch (err) {
-      setError(err.message || 'Could not read that receipt');
-    } finally {
-      setScanning(false);
+    const found = [];
+    const failed = [];
+    for (const file of files) {
+      try {
+        const prepared = await prepareUpload(file);
+        const { documents } = await api.scanReceipt({ businessId: business.id, ...prepared });
+        found.push(...documents);
+      } catch (err) {
+        failed.push(`${file.name}: ${err.message || 'could not be read'}`);
+      }
     }
+    setScanning(false);
+    if (failed.length) setError(failed.join(' '));
+    if (found.length) { setQueue(found); setQueueTotal(found.length); } // straight to the check screen
   }
 
   async function openReceipt(e) {
@@ -100,8 +107,9 @@ export default function Expenses({ business }) {
             ref={fileInput}
             type="file"
             accept="image/*,application/pdf"
+            multiple
             hidden
-            onChange={(e) => { handleScanFile(e.target.files?.[0]); e.target.value = ''; }}
+            onChange={(e) => { handleScanFiles(e.target.files); e.target.value = ''; }}
           />
         </div>
       </div>
@@ -189,12 +197,14 @@ export default function Expenses({ business }) {
         </div>
       </div>
 
-      {reviewing && (
+      {queue.length > 0 && (
         <ReviewModal
-          doc={reviewing}
+          key={queue[0].id}
+          doc={queue[0]}
           business={business}
-          onClose={() => setReviewing(null)}
-          onDone={async () => { setReviewing(null); await refetch(); }}
+          title={queueTotal > 1 ? `Review receipt ${queueTotal - queue.length + 1} of ${queueTotal}` : 'Review receipt'}
+          onClose={() => setQueue([])}
+          onDone={async () => { setQueue((q) => q.slice(1)); await refetch(); }}
         />
       )}
 

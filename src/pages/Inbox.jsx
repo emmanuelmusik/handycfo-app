@@ -13,14 +13,16 @@ export default function Inbox({ business, onChanged }) {
   const [pending, setPending] = useState([]); // files being scanned right now
   const [reviewing, setReviewing] = useState(null);
   const [error, setError] = useState('');
+  const [found, setFound] = useState('');
   const [drag, setDrag] = useState(false);
   const fileInput = useRef(null);
 
   async function scanOne(file, tempId) {
     try {
       const prepared = await prepareUpload(file);
-      await api.scanReceipt({ businessId: business.id, ...prepared });
+      const { documents } = await api.scanReceipt({ businessId: business.id, ...prepared });
       setPending((p) => p.filter((x) => x.id !== tempId));
+      if (documents.length > 1) setFound((f) => `${f ? `${f} ` : ''}Found ${documents.length} receipts in ${file.name}.`);
       await refetch();
       onChanged?.();
     } catch (err) {
@@ -30,6 +32,7 @@ export default function Inbox({ business, onChanged }) {
 
   function handleFiles(fileList) {
     setError('');
+    setFound('');
     const files = Array.from(fileList || []).slice(0, 10);
     if (!files.length) return;
     const entries = files.map((f, i) => ({ id: `${Date.now()}-${i}`, name: f.name, file: f }));
@@ -62,7 +65,7 @@ export default function Inbox({ business, onChanged }) {
       >
         <div className="dropzone-icon"><Icon name="camera" size={22} /></div>
         <h3>Snap it or drop it</h3>
-        <p>Take a photo of a receipt, or choose images and PDFs.</p>
+        <p>Take a photo of a receipt, or pick several from your gallery. One photo or PDF can hold several receipts.</p>
         <button className="btn btn-primary" onClick={(e) => { e.stopPropagation(); fileInput.current?.click(); }}>
           <Icon name="plus" size={15} strokeWidth={2} />
           Add a receipt
@@ -78,6 +81,7 @@ export default function Inbox({ business, onChanged }) {
       </div>
 
       {error && <p style={{ color: 'var(--red)', fontSize: 13 }}>{error}</p>}
+      {found && <p style={{ color: 'var(--accent-strong)', fontSize: 13 }}>{found} Each one is listed below to review.</p>}
 
       <div className="panel">
         {pending.map((p) => (
@@ -139,7 +143,7 @@ export default function Inbox({ business, onChanged }) {
   );
 }
 
-export function ReviewModal({ doc, business, onClose, onDone }) {
+export function ReviewModal({ doc, business, onClose, onDone, title = 'Review document' }) {
   const [merchant, setMerchant] = useState(doc.extracted_merchant || '');
   const [date, setDate] = useState(doc.extracted_date || todayISO());
   const [category, setCategory] = useState(doc.extracted_category || 'Other');
@@ -201,7 +205,7 @@ export function ReviewModal({ doc, business, onClose, onDone }) {
 
   return (
     <Modal
-      title="Review document"
+      title={title}
       onClose={onClose}
       maxWidth={860}
       footer={
