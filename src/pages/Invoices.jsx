@@ -268,7 +268,7 @@ export default function Invoices({ business }) {
 
       {showCreate && (
         <CreateInvoiceModal
-          contacts={contacts.filter((c) => c.relationship === 'Client')}
+          contacts={contacts}
           onClose={() => setShowCreate(false)}
           onCreate={async ({ channels, ...fields }) => {
             const created = await createInvoice(fields);
