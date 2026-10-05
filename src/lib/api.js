@@ -21,7 +21,10 @@ async function authedFetch(path, options = {}) {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.error || `Request to ${path} failed (${res.status})`);
+    const err = new Error(body.error || `Request to ${path} failed (${res.status})`);
+    if (body.code) err.code = body.code;
+    if (body.duplicate) err.duplicate = body.duplicate;
+    throw err;
   }
   return res.json();
 }
@@ -57,7 +60,7 @@ export const api = {
   // Financial Inbox
   scanReceipt: (payload) => post('/receipts/scan', payload),
   inboxFileLink: (docId) => authedFetch(`/inbox/${docId}/file`),
-  confirmInboxDoc: (docId, fields) => post(`/inbox/${docId}/confirm`, fields),
+  confirmInboxDoc: (docId, fields, allowDuplicate = false) => post(`/inbox/${docId}/confirm`, allowDuplicate ? { ...fields, allowDuplicate: true } : fields),
   discardInboxDoc: (docId) => del(`/inbox/${docId}`),
 
   // Expenses

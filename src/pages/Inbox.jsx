@@ -125,6 +125,7 @@ export default function Inbox({ business, onChanged }) {
               <div className="queue-name">
                 {d.extracted_merchant || d.file_name}
                 {d.source === 'supplier' && <span className="badge gray" style={{ marginLeft: 8 }}>From supplier</span>}
+                {d.extracted_notes?.includes('Possible duplicate') && <span className="badge amber" style={{ marginLeft: 8 }}>Possible duplicate</span>}
               </div>
               <div className="queue-status ready">
                 Ready to review
@@ -169,6 +170,7 @@ export function ReviewModal({ doc, business, onClose, onDone, title = 'Review do
   const [currency, setCurrency] = useState(doc.extracted_currency || business.currency || 'EUR');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [dup, setDup] = useState(null); // an expense that looks the same, found when confirming
   const [fileUrl, setFileUrl] = useState(null);
   const [fileState, setFileState] = useState(doc.receipt_provider === 'none' ? 'none' : 'loading');
   const isPdf = /\.pdf$/i.test(doc.file_name || '');
@@ -184,7 +186,7 @@ export function ReviewModal({ doc, business, onClose, onDone, title = 'Review do
     return () => { cancelled = true; };
   }, [doc.id, doc.receipt_provider]);
 
-  async function confirm() {
+  async function confirm(allowDuplicate = false) {
     setError('');
     const amt = parseFloat(String(amount).replace(',', '.'));
     const v = vat.trim() === '' ? 0 : parseFloat(String(vat).replace(',', '.'));
@@ -194,10 +196,11 @@ export function ReviewModal({ doc, business, onClose, onDone, title = 'Review do
     if (v > amt) return setError('VAT can not be more than the total amount.');
     setBusy(true);
     try {
-      await api.confirmInboxDoc(doc.id, { merchant: merchant.trim(), date, category, amount: amt, vat: v, currency });
+      await api.confirmInboxDoc(doc.id, { merchant: merchant.trim(), date, category, amount: amt, vat: v, currency }, allowDuplicate);
       await onDone();
     } catch (err) {
-      setError(err.message || 'Could not record the expense');
+      if (err.code === 'duplicate') setDup(err.duplicate || {});
+      else setError(err.message || 'Could not record the expense');
       setBusy(false);
     }
   }
@@ -229,8 +232,8 @@ export function ReviewModal({ doc, business, onClose, onDone, title = 'Review do
         <>
           <button className="btn" onClick={discard} disabled={busy} style={{ marginRight: 'auto' }}>Discard</button>
           <button className="btn" onClick={onClose} disabled={busy}>Later</button>
-          <button className="btn btn-primary" onClick={confirm} disabled={busy}>
-            {busy ? 'Saving…' : 'Confirm & record'}
+          <button className="btn btn-primary" onClick={() => confirm(!!dup)} disabled={busy}>
+            {busy ? 'Saving…' : dup ? 'Record anyway' : 'Confirm & record'}
           </button>
         </>
       }
@@ -247,7 +250,15 @@ export function ReviewModal({ doc, business, onClose, onDone, title = 'Review do
         </div>
         <div className="review-form">
           <div className="ai-note"><Icon name="sparkle" size={13} />{confidenceNote}</div>
-          {doc.extracted_notes && <p className="cell-soft" style={{ fontSize: 12, marginTop: -6 }}>{doc.extracted_notes}</p>}
+          {dup && (
+            <div className="ai-note" style={{ background: 'var(--amber-tint)', color: 'var(--amber)' }}>
+              <Icon name="sparkle" size={13} />
+              This looks like a duplicate: {dup.merchant || 'an expense'} for {fmtMoney(dup.amount, dup.currency || currency)} on {dup.date ? fmtDate(dup.date) : 'the same day'} is already recorded. If it is the same receipt, press Discard. If it really is a separate purchase, press Record anyway.
+            </div>
+          )}
+          {doc.extracted_notes && (
+            <p className="cell-soft" style={{ fontSize: 12, marginTop: -6, ...(doc.extracted_notes.includes('Possible duplicate') ? { color: 'var(--amber)', fontWeight: 600 } : {}) }}>{doc.extracted_notes}</p>
+          )}
           <div className="field">
             <label>Merchant</label>
             <input type="text" value={merchant} onChange={(e) => setMerchant(e.target.value)} />

@@ -5,6 +5,7 @@ import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
 import { api } from '../lib/api';
 import { prepareUpload } from '../lib/image';
+import { findDuplicateExpense } from '../lib/duplicates';
 import { ReviewModal } from './Inbox';
 
 const DEFAULT_CATEGORIES = ['Software', 'Travel', 'Office', 'Meals', 'Marketing', 'Materials', 'Shipping', 'Other'];
@@ -214,6 +215,10 @@ export default function Expenses({ business }) {
           categories={[...new Set([...DEFAULT_CATEGORIES, ...categories])]}
           onClose={() => setShowCreate(false)}
           onCreate={async (fields) => {
+            const same = findDuplicateExpense(expenses, fields);
+            if (same && !window.confirm(`You already have an expense from ${same.merchant} for ${fmtMoney(same.amount, same.currency)} on ${fmtDate(same.expense_date)}. Add this one anyway?`)) {
+              return;
+            }
             await createExpense(fields);
             setShowCreate(false);
           }}
