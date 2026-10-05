@@ -12,7 +12,9 @@ export function AuthProvider({ children }) {
 
     // Keeps state in sync across tabs/token refreshes without polling.
     const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession);
+      // A token refresh when the page regains focus yields a new session object for the
+      // same user. Keep the old one when nothing meaningful changed, so the app doesn't re-render.
+      setSession((prev) => (prev && newSession && prev.user?.id === newSession.user?.id && prev.access_token === newSession.access_token ? prev : newSession));
     });
     return () => sub.subscription.unsubscribe();
   }, []);

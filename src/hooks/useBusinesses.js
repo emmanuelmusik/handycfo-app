@@ -17,9 +17,11 @@ export function useBusinesses() {
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const userId = user?.id;
   const refetch = useCallback(async () => {
-    if (!user) return;
-    setLoading(true);
+    if (!userId) return;
+    // Only the very first load blanks the screen. Later refreshes (e.g. coming
+    // back from the Android photo picker) must not unmount the page.
     const { data, error } = await supabase
       .from('businesses')
       .select('*')
@@ -27,7 +29,7 @@ export function useBusinesses() {
     if (error) console.error('Failed to load businesses:', error);
     setBusinesses(data || []);
     setLoading(false);
-  }, [user]);
+  }, [userId]);
 
   useEffect(() => { refetch(); }, [refetch]);
 

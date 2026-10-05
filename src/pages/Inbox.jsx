@@ -17,16 +17,29 @@ export default function Inbox({ business, onChanged }) {
   const [drag, setDrag] = useState(false);
   const fileInput = useRef(null);
 
+  function setStep(tempId, step) {
+    setPending((p) => p.map((x) => (x.id === tempId ? { ...x, step } : x)));
+  }
+
   async function scanOne(file, tempId) {
+    let stage = 'preparing the file';
     try {
+      setStep(tempId, 'Preparing…');
       const prepared = await prepareUpload(file);
+      stage = 'sending it to the server';
+      setStep(tempId, 'Sending…');
       const { documents } = await api.scanReceipt({ businessId: business.id, ...prepared });
       setPending((p) => p.filter((x) => x.id !== tempId));
       if (documents.length > 1) setFound((f) => `${f ? `${f} ` : ''}Found ${documents.length} receipts in ${file.name}.`);
       await refetch();
       onChanged?.();
     } catch (err) {
-      setPending((p) => p.map((x) => (x.id === tempId ? { ...x, failed: err.message || 'Scan failed' } : x)));
+      const raw = err?.message || String(err);
+      const network = /failed to fetch|networkerror|load failed/i.test(raw);
+      const msg = network
+        ? 'Could not reach the server (network error while ' + stage + ').'
+        : `${raw} (while ${stage})`;
+      setPending((p) => p.map((x) => (x.id === tempId ? { ...x, failed: msg } : x)));
     }
   }
 
@@ -34,9 +47,12 @@ export default function Inbox({ business, onChanged }) {
     setError('');
     setFound('');
     const files = Array.from(fileList || []).slice(0, 10);
-    if (!files.length) return;
-    const entries = files.map((f, i) => ({ id: `${Date.now()}-${i}`, name: f.name, file: f }));
-    setPending((p) => [...entries.map(({ id, name }) => ({ id, name })), ...p]);
+    if (!files.length) {
+      setError('No file was received from the picker. Please try again.');
+      return;
+    }
+    const entries = files.map((f, i) => ({ id: `${Date.now()}-${i}`, name: f.name || 'photo', file: f }));
+    setPending((p) => [...entries.map(({ id, name, file }) => ({ id, name, step: 'Waiting…', info: `${file.type || 'unknown type'}, ${Math.round(file.size / 1024)} KB` })), ...p]);
     // One at a time keeps things gentle on the server and on phones.
     (async () => { for (const e of entries) await scanOne(e.file, e.id); })();
   }
@@ -89,11 +105,11 @@ export default function Inbox({ business, onChanged }) {
           <div className="queue-item" key={p.id}>
             <div className="queue-thumb"><Icon name="invoice" size={18} /></div>
             <div className="queue-main">
-              <div className="queue-name">{p.name}</div>
+              <div className="queue-name">{p.name}{p.info ? <span className="cell-soft" style={{ fontWeight: 400, marginLeft: 8, fontSize: 12 }}>{p.info}</span> : null}</div>
               {p.failed ? (
                 <div className="queue-status" style={{ color: 'var(--red)' }}>{p.failed}</div>
               ) : (
-                <div className="queue-status processing"><span className="spinner" />Reading your receipt…</div>
+                <div className="queue-status processing"><span className="spinner" />{p.step || 'Reading your receipt…'}{p.step === 'Sending…' ? ' reading your receipt…' : ''}</div>
               )}
             </div>
             {p.failed && (
