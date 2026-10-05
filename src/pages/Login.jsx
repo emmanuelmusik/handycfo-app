@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Login() {
@@ -9,6 +9,17 @@ export default function Login() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [checkInbox, setCheckInbox] = useState(false);
+
+  // If the confirmation link was expired or already used, Supabase sends the person
+  // back here with the reason in the address. Show it instead of a silent login page.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    const reason = params.get('error_description');
+    if (reason) {
+      setError(`${reason.replace(/\+/g, ' ')}. Sign in below, or sign up again to get a new link.`);
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -36,7 +47,7 @@ export default function Login() {
         <div className="panel" style={{ padding: 32, maxWidth: 380, textAlign: 'center' }}>
           <h2 style={{ fontFamily: 'var(--font-display)', marginTop: 0 }}>Check your email</h2>
           <p style={{ color: 'var(--text-soft)' }}>
-            We sent a confirmation link to <strong>{email}</strong>. Click it, then come back here and sign in.
+            We sent a confirmation link to <strong>{email}</strong>. Open it and you will come straight back here, signed in.
           </p>
           <button className="btn btn-block" onClick={() => { setCheckInbox(false); setMode('signin'); }}>
             Back to sign in

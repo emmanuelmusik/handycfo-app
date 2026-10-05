@@ -126,6 +126,7 @@ function AuthenticatedApp({ userEmail, onSignOut }) {
           updateBusiness,
           deleteBusiness: handleDeleteBusiness,
           onAccountDeleted: handleAccountDeleted,
+          onSignOut,
         })}
       </main>
 
@@ -178,6 +179,7 @@ function renderView(ctx) {
           onUpdateBusiness={ctx.updateBusiness}
           onDeleteBusiness={ctx.deleteBusiness}
           onAccountDeleted={ctx.onAccountDeleted}
+          onSignOut={ctx.onSignOut}
         />
       );
     default: return <Dashboard key={business.id} business={business} userEmail={ctx.userEmail} />;

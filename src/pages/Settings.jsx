@@ -5,7 +5,7 @@ import Modal from '../components/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
 
-export default function Settings({ business, userEmail, dropboxResult, onUpdateBusiness, onDeleteBusiness, onAccountDeleted }) {
+export default function Settings({ business, userEmail, dropboxResult, onUpdateBusiness, onDeleteBusiness, onAccountDeleted, onSignOut }) {
   const [name, setName] = useState(business.name);
   const [type, setType] = useState(business.business_type || '');
   const [vat, setVat] = useState(business.vat_number || '');
@@ -151,6 +151,17 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
               HandyCFO keeps only the text we read from them. Without it, files are kept in private storage that only you can open.
             </span>
           </div>
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="section-title">Account</div>
+        <div className="settings-row">
+          <div>
+            <div className="settings-row-label">Signed in as {userEmail}</div>
+            <div className="settings-row-sub">Sign out on this device. Your data stays safe and you can sign back in any time.</div>
+          </div>
+          <button className="btn btn-sm" onClick={onSignOut}>Sign out</button>
         </div>
       </div>
 
