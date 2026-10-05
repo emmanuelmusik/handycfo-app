@@ -57,23 +57,10 @@ function guessType(file) {
   return ({ jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif', heic: 'image/heic', heif: 'image/heif', pdf: 'application/pdf' })[ext] || '';
 }
 
-// Opens a photo already shrunk to `side` pixels. createImageBitmap decodes at
-// the smaller size, so a 50-megapixel Android photo never has to sit in memory
-// at full size (which is what makes plain <img> loading fail on many phones).
-async function openScaled(file, side) {
-  if (typeof createImageBitmap === 'function') {
-    try {
-      const probe = await createImageBitmap(file);
-      const scale = Math.min(1, side / Math.max(probe.width, probe.height));
-      if (scale >= 1) return probe;
-      const w = Math.max(1, Math.round(probe.width * scale));
-      const h = Math.max(1, Math.round(probe.height * scale));
-      probe.close?.();
-      return await createImageBitmap(file, { resizeWidth: w, resizeHeight: h, resizeQuality: 'high' });
-    } catch (err) {
-      console.warn('createImageBitmap failed, falling back:', err);
-    }
-  }
+// Loads the photo with a normal <img> (the most dependable path, and it applies
+// the camera's rotation). Falls back to createImageBitmap only if that fails.
+async function openPhoto(file, useBitmap) {
+  if (useBitmap) return createImageBitmap(file);
   const objectUrl = URL.createObjectURL(file);
   try {
     return await loadImage(objectUrl);
@@ -82,15 +69,35 @@ async function openScaled(file, side) {
   }
 }
 
-function toJpeg(img) {
+// Draws the photo at `side` pixels (scaling happens in drawImage, not in the decoder).
+function toJpeg(img, side) {
+  const scale = Math.min(1, side / Math.max(img.width, img.height));
   const canvas = document.createElement('canvas');
-  canvas.width = Math.max(1, img.width);
-  canvas.height = Math.max(1, img.height);
+  canvas.width = Math.max(1, Math.round(img.width * scale));
+  canvas.height = Math.max(1, Math.round(img.height * scale));
   const ctx = canvas.getContext('2d');
   if (!ctx) return '';
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  // Guard against a blank result (some Android decoders return an empty picture):
+  // sample a small grid and make sure the pixels are not all the same.
+  try {
+    const probe = document.createElement('canvas');
+    probe.width = 24; probe.height = 24;
+    const pctx = probe.getContext('2d');
+    pctx.drawImage(canvas, 0, 0, 24, 24);
+    const px = pctx.getImageData(0, 0, 24, 24).data;
+    let min = 255; let max = 0;
+    for (let i = 0; i < px.length; i += 4) {
+      const v = (px[i] + px[i + 1] + px[i + 2]) / 3;
+      if (v < min) min = v;
+      if (v > max) max = v;
+    }
+    if (max - min < 6) return '';
+  } catch (e) { /* if sampling is not possible, trust the picture */ }
+
   const out = canvas.toDataURL('image/jpeg', 0.85);
   return out.length > 100 ? out.split(',')[1] : '';
 }
@@ -111,12 +118,15 @@ export async function prepareUpload(file) {
 
   let data = '';
   let why = '';
-  for (const side of [MAX_SIDE, 1600, 1100]) {
+  const attempts = [[false, MAX_SIDE], [false, 1600], [true, MAX_SIDE], [true, 1600]];
+  for (const [useBitmap, side] of attempts) {
+    if (useBitmap && typeof createImageBitmap !== 'function') continue;
     try {
-      const img = await openScaled(file, side);
-      data = toJpeg(img);
+      const img = await openPhoto(file, useBitmap);
+      data = toJpeg(img, side);
       img.close?.();
       if (data) break;
+      why = 'the picture came out blank';
     } catch (err) {
       why = err?.message || String(err);
     }
