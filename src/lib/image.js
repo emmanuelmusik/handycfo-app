@@ -49,34 +49,63 @@ async function pdfPagesAsJpegs(file) {
   return out;
 }
 
+// Android pickers (and some cloud apps) hand over files with an empty type,
+// so fall back to the file extension.
+function guessType(file) {
+  if (file.type) return file.type;
+  const ext = String(file.name || '').toLowerCase().split('.').pop();
+  return ({ jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif', heic: 'image/heic', heif: 'image/heif', pdf: 'application/pdf' })[ext] || '';
+}
+
+// Draws the photo at a given size and returns base64 JPEG, or '' if the
+// device could not produce one (some Android browsers fail silently on big canvases).
+function renderJpeg(img, side) {
+  const scale = Math.min(1, side / Math.max(img.width, img.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(img.width * scale));
+  canvas.height = Math.max(1, Math.round(img.height * scale));
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return '';
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  const out = canvas.toDataURL('image/jpeg', 0.85);
+  return out.length > 100 ? out.split(',')[1] : '';
+}
+
 // Returns { mediaType, data (base64, no prefix), fileName }
 export async function prepareUpload(file) {
-  if (file.type === 'application/pdf') {
+  const type = guessType(file);
+  if (type === 'application/pdf') {
     if (file.size > 8 * 1024 * 1024) throw new Error('That PDF is larger than 8 MB.');
     const url = await readAsDataURL(file);
     let readImages = [];
     try { readImages = await pdfPagesAsJpegs(file); } catch (err) { console.warn('PDF page render failed:', err); }
     if (!readImages.length) throw new Error('That PDF could not be opened. Try a photo of the receipt instead.');
-    return { mediaType: 'application/pdf', data: url.split(',')[1], fileName: file.name, readImages };
+    return { mediaType: 'application/pdf', data: url.split(',')[1], fileName: file.name || 'receipt.pdf', readImages };
   }
-  if (!file.type.startsWith('image/')) throw new Error('Please choose a photo or a PDF.');
+  if (!type.startsWith('image/')) throw new Error('Please choose a photo or a PDF.');
 
-  const url = await readAsDataURL(file);
+  // An object URL avoids loading a 10 MB photo into a giant string first,
+  // which matters on phones with less memory.
+  const objectUrl = URL.createObjectURL(file);
   let img;
   try {
-    img = await loadImage(url);
+    img = await loadImage(objectUrl);
   } catch (err) {
-    // e.g. HEIC on a browser that cannot decode it
+    URL.revokeObjectURL(objectUrl);
     throw new Error('This photo format is not supported. Try taking the picture as JPG, or screenshot it.');
   }
-  const scale = Math.min(1, MAX_SIDE / Math.max(img.width, img.height));
-  const canvas = document.createElement('canvas');
-  canvas.width = Math.round(img.width * scale);
-  canvas.height = Math.round(img.height * scale);
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-  const out = canvas.toDataURL('image/jpeg', 0.85);
-  return { mediaType: 'image/jpeg', data: out.split(',')[1], fileName: file.name.replace(/\.[^.]+$/, '') + '.jpg' };
+  let data = '';
+  try {
+    for (const side of [MAX_SIDE, 1600, 1200]) {
+      data = renderJpeg(img, side);
+      if (data) break;
+    }
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
+  if (!data) throw new Error('This device could not prepare that photo. Try a smaller photo or a screenshot of it.');
+  const base = String(file.name || 'receipt').replace(/\.[^.]+$/, '') || 'receipt';
+  return { mediaType: 'image/jpeg', data, fileName: base + '.jpg' };
 }

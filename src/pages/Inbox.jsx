@@ -76,7 +76,8 @@ export default function Inbox({ business, onChanged }) {
           accept="image/*,application/pdf"
           multiple
           hidden
-          onChange={(e) => { handleFiles(e.target.files); e.target.value = ''; }}
+          onClick={(e) => { e.stopPropagation(); e.target.value = ''; }}
+          onChange={(e) => handleFiles(e.target.files)}
         />
       </div>
 

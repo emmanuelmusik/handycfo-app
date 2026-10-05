@@ -109,7 +109,8 @@ export default function Expenses({ business }) {
             accept="image/*,application/pdf"
             multiple
             hidden
-            onChange={(e) => { handleScanFiles(e.target.files); e.target.value = ''; }}
+            onClick={(e) => { e.target.value = ''; }}
+            onChange={(e) => handleScanFiles(e.target.files)}
           />
         </div>
       </div>
