@@ -6,17 +6,16 @@ export default function PeriodPicker({ value, onChange, monthsOnly = false }) {
   const set = (patch) => onChange({ ...value, ...patch });
   return (
     <div style={{ marginBottom: 14 }}>
-      <div className="filter-pills">
-        {PERIODS.map((p) => (
-          <button key={p.key} className={`pill ${value.key === p.key ? 'active' : ''}`} onClick={() => set({ key: p.key })}>
-            {p.label}
-          </button>
-        ))}
+      <div className="field" style={{ marginBottom: 0, maxWidth: 240 }}>
+        <label>Show figures for</label>
+        <select value={value.key} onChange={(e) => set({ key: e.target.value })}>
+          {PERIODS.map((p) => <option key={p.key} value={p.key}>{p.label}</option>)}
+        </select>
       </div>
 
       {value.key === 'year' && (
-        <div className="field" style={{ marginTop: 12, marginBottom: 0, maxWidth: 160 }}>
-          <label>Year</label>
+        <div className="field" style={{ marginTop: 12, marginBottom: 0, maxWidth: 240 }}>
+          <label>Which year</label>
           <select value={value.year} onChange={(e) => set({ year: Number(e.target.value) })}>
             {yearOptions().map((y) => <option key={y} value={y}>{y}</option>)}
           </select>

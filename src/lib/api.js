@@ -69,7 +69,7 @@ export const api = {
   deleteContact: (id) => del(`/contacts/${id}`),
   refreshNetwork: () => post('/network/refresh'),
   sendMessage: (contactId, body) => post('/messages', { contactId, body }),
-  sendInvoice: (invoiceId) => post(`/invoices/${invoiceId}/send`),
+  sendInvoice: (invoiceId, channels) => post(`/invoices/${invoiceId}/send`, channels ? { channels } : {}),
   downloadInvoicePdf: (invoiceId) => downloadFile(`/invoices/${invoiceId}/pdf`, 'Invoice.pdf'),
 
   // Account

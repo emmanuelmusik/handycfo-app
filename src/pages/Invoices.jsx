@@ -48,9 +48,49 @@ function describeSend(r, prefix) {
   const parts = [];
   if (r.emailed) parts.push(`Emailed to ${r.emailedTo}`);
   if (r.deliveredInApp) parts.push('delivered to their HandyCFO inbox');
-  if (!parts.length) return `${prefix}${r.emailError || 'Marked as sent.'}`;
+  const problems = [r.emailError, r.appError].filter(Boolean).join(' ');
+  if (!parts.length) return `${prefix}${problems || 'Marked as sent.'}`;
   const text = parts.join(' and ');
-  return `${prefix}${text.charAt(0).toUpperCase()}${text.slice(1)}.${r.emailError ? ` ${r.emailError}` : ''}`;
+  return `${prefix}${text.charAt(0).toUpperCase()}${text.slice(1)}.${problems ? ` ${problems}` : ''}`;
+}
+
+// Where should the invoice go? Email, the client's HandyCFO inbox, or both.
+function SendOptions({ email, onPlatform, alreadyEmailed, value, onChange }) {
+  const emailAvailable = !!email && !alreadyEmailed;
+  const emailChecked = emailAvailable && (value.email ?? true);
+  const appChecked = onPlatform && (value.app ?? true);
+  return (
+    <div className="field" style={{ marginBottom: 0 }}>
+      <label>How should we send it?</label>
+      <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontWeight: 500, opacity: emailAvailable ? 1 : 0.55, marginBottom: 10 }}>
+        <input type="checkbox" style={{ width: 'auto', marginTop: 3 }} disabled={!emailAvailable} checked={emailChecked}
+          onChange={(e) => onChange({ ...value, email: e.target.checked })} />
+        <span>
+          Email it as a PDF
+          <span className="cell-soft" style={{ display: 'block', fontSize: 12, fontWeight: 400 }}>
+            {alreadyEmailed ? 'Already emailed to this client.' : email ? `To ${email}` : 'Add the client\'s email address to use this.'}
+          </span>
+        </span>
+      </label>
+      <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontWeight: 500, opacity: onPlatform ? 1 : 0.55 }}>
+        <input type="checkbox" style={{ width: 'auto', marginTop: 3 }} disabled={!onPlatform} checked={appChecked}
+          onChange={(e) => onChange({ ...value, app: e.target.checked })} />
+        <span>
+          Send to their HandyCFO inbox
+          <span className="cell-soft" style={{ display: 'block', fontSize: 12, fontWeight: 400 }}>
+            {onPlatform ? 'They can review it and record it as an expense.' : 'Only for clients from your network who use HandyCFO.'}
+          </span>
+        </span>
+      </label>
+    </div>
+  );
+}
+
+function channelsFrom({ email, onPlatform, alreadyEmailed, value }) {
+  const out = [];
+  if (email && !alreadyEmailed && (value.email ?? true)) out.push('email');
+  if (onPlatform && (value.app ?? true)) out.push('app');
+  return out;
 }
 
 export default function Invoices({ business }) {
@@ -62,7 +102,7 @@ export default function Invoices({ business }) {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const { contacts } = useContacts();
-  const [sendingId, setSendingId] = useState(null);
+  const [toSend, setToSend] = useState(null);
 
   const rows = useMemo(
     () => invoices
@@ -80,19 +120,12 @@ export default function Invoices({ business }) {
     }
   }
 
-  async function handleSend(inv) {
+  async function handleSend(inv, channels) {
     setError('');
     setNotice('');
-    setSendingId(inv.id);
-    try {
-      const r = await api.sendInvoice(inv.id);
-      await refetch();
-      setNotice(describeSend(r, ''));
-    } catch (err) {
-      setError(err.message || 'Could not send the invoice');
-    } finally {
-      setSendingId(null);
-    }
+    const r = await api.sendInvoice(inv.id, channels);
+    await refetch();
+    setNotice(describeSend(r, ''));
   }
 
   async function handleDownload(inv) {
@@ -212,9 +245,9 @@ export default function Invoices({ business }) {
                   </td>
                   <td>
                     <div className="row-actions" style={{ gap: 6, alignItems: 'center' }}>
-                      {inv.status === 'Draft' && (
-                        <button className="btn btn-sm btn-primary" disabled={sendingId === inv.id} onClick={() => handleSend(inv)}>
-                          {sendingId === inv.id ? 'Sending…' : 'Send'}
+                      {inv.status !== 'Paid' && (
+                        <button className="btn btn-sm btn-primary" onClick={() => setToSend(inv)}>
+                          {inv.status === 'Draft' ? 'Send' : 'Send again'}
                         </button>
                       )}
                       {inv.status !== 'Paid' && (
@@ -237,21 +270,26 @@ export default function Invoices({ business }) {
         <CreateInvoiceModal
           contacts={contacts.filter((c) => c.relationship === 'Client')}
           onClose={() => setShowCreate(false)}
-          onCreate={async (fields) => {
+          onCreate={async ({ channels, ...fields }) => {
             const created = await createInvoice(fields);
             setShowCreate(false);
-            // Sending also emails the client (when we have an address) and, if they
-            // use HandyCFO, drops it into their inbox.
-            if (created.status === 'Sent' && (created.client_contact_id || created.client_email)) {
+            if (created.status === 'Sent') {
               try {
-                setNotice(describeSend(await api.sendInvoice(created.id), 'Invoice created. '));
+                setNotice(describeSend(await api.sendInvoice(created.id, channels || []), 'Invoice created. '));
               } catch (err) {
                 setError(err.message || 'The invoice was saved but could not be sent.');
               }
-            } else if (created.status === 'Sent') {
-              setNotice('Invoice created. Add the client\'s email next time and we will email it for you.');
             }
           }}
+        />
+      )}
+
+      {toSend && (
+        <SendModal
+          invoice={toSend}
+          contact={contacts.find((c) => c.id === toSend.client_contact_id) || null}
+          onClose={() => setToSend(null)}
+          onSend={async (channels) => { await handleSend(toSend, channels); setToSend(null); }}
         />
       )}
 
@@ -276,6 +314,7 @@ function CreateInvoiceModal({ contacts = [], onClose, onCreate }) {
   const [due, setDue] = useState(plusDaysISO(14));
   const [amount, setAmount] = useState('');
   const [status, setStatus] = useState('Sent');
+  const [sendChoice, setSendChoice] = useState({});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
@@ -296,6 +335,7 @@ function CreateInvoiceModal({ contacts = [], onClose, onCreate }) {
         due_date: due,
         amount: parsed,
         status,
+        channels: status === 'Sent' ? channelsFrom({ email: email.trim(), onPlatform: !!contacts.find((c) => c.id === contactId)?.on_platform, alreadyEmailed: false, value: sendChoice }) : [],
       });
     } catch (err) {
       setError(err.message || 'Could not create the invoice');
@@ -360,10 +400,66 @@ function CreateInvoiceModal({ contacts = [], onClose, onCreate }) {
       <div className="field" style={{ marginBottom: 0 }}>
         <label>Status</label>
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="Draft">Draft</option>
-          <option value="Sent">Sent</option>
+          <option value="Draft">Save as draft (don't send yet)</option>
+          <option value="Sent">Send now</option>
         </select>
       </div>
+      {status === 'Sent' && (
+        <div style={{ marginTop: 14 }}>
+          <SendOptions
+            email={email.trim()}
+            onPlatform={!!contacts.find((c) => c.id === contactId)?.on_platform}
+            alreadyEmailed={false}
+            value={sendChoice}
+            onChange={setSendChoice}
+          />
+        </div>
+      )}
+      {error && <p style={{ color: 'var(--red)', fontSize: 13, marginBottom: 0 }}>{error}</p>}
+    </Modal>
+  );
+}
+
+function SendModal({ invoice, contact, onClose, onSend }) {
+  const email = invoice.client_email || contact?.email || '';
+  const onPlatform = !!contact?.on_platform;
+  const alreadyEmailed = !!invoice.sent_at;
+  const [value, setValue] = useState({});
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const channels = channelsFrom({ email, onPlatform, alreadyEmailed, value });
+
+  async function submit() {
+    setBusy(true);
+    setError('');
+    try {
+      await onSend(channels);
+    } catch (err) {
+      setError(err.message || 'Could not send the invoice');
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Modal
+      title={`Send invoice to ${invoice.client_name}`}
+      onClose={onClose}
+      maxWidth={420}
+      footer={
+        <>
+          <button className="btn" onClick={onClose} disabled={busy}>Cancel</button>
+          <button className="btn btn-primary" onClick={submit} disabled={busy}>
+            {busy ? 'Sending…' : channels.length ? 'Send' : invoice.status === 'Draft' ? 'Mark as sent' : 'Close'}
+          </button>
+        </>
+      }
+    >
+      <SendOptions email={email} onPlatform={onPlatform} alreadyEmailed={alreadyEmailed} value={value} onChange={setValue} />
+      {channels.length === 0 && (
+        <p className="cell-soft" style={{ fontSize: 12.5, marginBottom: 0 }}>
+          Nothing selected. You can still download the PDF with the PDF button and send it yourself.
+        </p>
+      )}
       {error && <p style={{ color: 'var(--red)', fontSize: 13, marginBottom: 0 }}>{error}</p>}
     </Modal>
   );

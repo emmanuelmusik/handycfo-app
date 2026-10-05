@@ -139,7 +139,7 @@ export default function Inbox({ business, onChanged }) {
   );
 }
 
-function ReviewModal({ doc, business, onClose, onDone }) {
+export function ReviewModal({ doc, business, onClose, onDone }) {
   const [merchant, setMerchant] = useState(doc.extracted_merchant || '');
   const [date, setDate] = useState(doc.extracted_date || todayISO());
   const [category, setCategory] = useState(doc.extracted_category || 'Other');

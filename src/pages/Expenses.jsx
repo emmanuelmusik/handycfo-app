@@ -1,9 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useExpenses } from '../hooks/useExpenses';
 import Modal from '../components/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
 import { api } from '../lib/api';
+import { prepareUpload } from '../lib/image';
+import { ReviewModal } from './Inbox';
 
 const DEFAULT_CATEGORIES = ['Software', 'Travel', 'Office', 'Meals', 'Marketing', 'Materials', 'Shipping', 'Other'];
 
@@ -21,7 +23,10 @@ function todayISO() {
 }
 
 export default function Expenses({ business }) {
-  const { expenses, loading, createExpense, deleteExpense } = useExpenses(business.id);
+  const { expenses, loading, refetch, createExpense, deleteExpense } = useExpenses(business.id);
+  const fileInput = useRef(null);
+  const [scanning, setScanning] = useState(false);
+  const [reviewing, setReviewing] = useState(null);
   const [filter, setFilter] = useState('all');
   const [showCreate, setShowCreate] = useState(false);
   const [toDelete, setToDelete] = useState(null);
@@ -35,6 +40,21 @@ export default function Expenses({ business }) {
     () => expenses.filter((e) => filter === 'all' || e.category === filter),
     [expenses, filter]
   );
+
+  async function handleScanFile(file) {
+    if (!file) return;
+    setError('');
+    setScanning(true);
+    try {
+      const prepared = await prepareUpload(file);
+      const { document } = await api.scanReceipt({ businessId: business.id, ...prepared });
+      setReviewing(document); // straight to the check screen
+    } catch (err) {
+      setError(err.message || 'Could not read that receipt');
+    } finally {
+      setScanning(false);
+    }
+  }
 
   async function openReceipt(e) {
     setError('');
@@ -67,10 +87,23 @@ export default function Expenses({ business }) {
           <h1 className="page-title">Expenses</h1>
           <p className="page-sub">Money going out. Everything you have spent on the business. Add one by hand, or scan a receipt in the Financial Inbox.</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setShowCreate(true)}>
-          <Icon name="plus" size={15} strokeWidth={2} />
-          Add expense
-        </button>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button className="btn" onClick={() => fileInput.current?.click()} disabled={scanning}>
+            <Icon name="camera" size={15} strokeWidth={2} />
+            {scanning ? 'Reading receipt…' : 'Scan receipt'}
+          </button>
+          <button className="btn btn-primary" onClick={() => setShowCreate(true)}>
+            <Icon name="plus" size={15} strokeWidth={2} />
+            Add expense
+          </button>
+          <input
+            ref={fileInput}
+            type="file"
+            accept="image/*,application/pdf"
+            hidden
+            onChange={(e) => { handleScanFile(e.target.files?.[0]); e.target.value = ''; }}
+          />
+        </div>
       </div>
 
       {error && <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 0 }}>{error}</p>}
@@ -155,6 +188,15 @@ export default function Expenses({ business }) {
           </table>
         </div>
       </div>
+
+      {reviewing && (
+        <ReviewModal
+          doc={reviewing}
+          business={business}
+          onClose={() => setReviewing(null)}
+          onDone={async () => { setReviewing(null); await refetch(); }}
+        />
+      )}
 
       {showCreate && (
         <CreateExpenseModal

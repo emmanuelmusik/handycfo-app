@@ -5,12 +5,12 @@ const pad = (n) => String(n).padStart(2, '0');
 const iso = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
 
 export const PERIODS = [
-  { key: '1', label: '1 month' },
-  { key: '3', label: '3 months' },
-  { key: '6', label: '6 months' },
+  { key: '1', label: 'This month' },
+  { key: '3', label: 'Last 3 months' },
+  { key: '6', label: 'Last 6 months' },
   { key: 'lastyear', label: 'Last year' },
-  { key: 'year', label: 'Year' },
-  { key: 'custom', label: 'Custom' },
+  { key: 'year', label: 'A specific year…' },
+  { key: 'custom', label: 'Custom period…' },
 ];
 
 export function yearOptions() {
