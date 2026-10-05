@@ -55,7 +55,7 @@ function describeSend(r, prefix) {
 }
 
 // Where should the invoice go? Email, the client's HandyCFO inbox, or both.
-function SendOptions({ email, onPlatform, alreadyEmailed, value, onChange }) {
+function SendOptions({ email, onPlatform, alreadyEmailed, value, onChange, appHint }) {
   const emailAvailable = !!email && !alreadyEmailed;
   const emailChecked = emailAvailable && (value.email ?? true);
   const appChecked = onPlatform && (value.app ?? true);
@@ -78,7 +78,7 @@ function SendOptions({ email, onPlatform, alreadyEmailed, value, onChange }) {
         <span>
           Send to their HandyCFO inbox
           <span className="cell-soft" style={{ display: 'block', fontSize: 12, fontWeight: 400 }}>
-            {onPlatform ? 'They can review it and record it as an expense.' : 'Only for clients from your network who use HandyCFO.'}
+            {onPlatform ? 'They can review it and record it as an expense.' : (appHint || 'Only for clients from your network who use HandyCFO.')}
           </span>
         </span>
       </label>
@@ -410,6 +410,7 @@ function CreateInvoiceModal({ contacts = [], onClose, onCreate }) {
             email={email.trim()}
             onPlatform={!!contacts.find((c) => c.id === contactId)?.on_platform}
             alreadyEmailed={false}
+            appHint={!contactId ? 'Pick the client under \'From your network\' above to use this.' : 'This contact is not matched to a HandyCFO account yet. Check their email on the Network page.'}
             value={sendChoice}
             onChange={setSendChoice}
           />
@@ -454,7 +455,12 @@ function SendModal({ invoice, contact, onClose, onSend }) {
         </>
       }
     >
-      <SendOptions email={email} onPlatform={onPlatform} alreadyEmailed={alreadyEmailed} value={value} onChange={setValue} />
+      <SendOptions
+        email={email} onPlatform={onPlatform} alreadyEmailed={alreadyEmailed} value={value} onChange={setValue}
+        appHint={!invoice.client_contact_id
+          ? 'This invoice was not created from a Network contact, so it can only be emailed.'
+          : 'This contact is not matched to a HandyCFO account yet. Check their email on the Network page.'}
+      />
       {channels.length === 0 && (
         <p className="cell-soft" style={{ fontSize: 12.5, marginBottom: 0 }}>
           Nothing selected. You can still download the PDF with the PDF button and send it yourself.

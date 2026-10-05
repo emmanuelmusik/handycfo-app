@@ -3,6 +3,8 @@ import { Chart, registerables } from 'chart.js';
 import { supabase } from '../lib/supabaseClient';
 import { fmtMoney } from '../lib/format';
 import PeriodPicker from '../components/PeriodPicker';
+import Icon from '../components/layout/Icon';
+import { exportReportPdf } from '../lib/reportPdf';
 import { defaultPeriod, resolvePeriod, isPeriodValid } from '../lib/period';
 
 Chart.register(...registerables);
@@ -141,6 +143,20 @@ export default function Reports({ business }) {
 
   const rangeLabel = range ? range.label : 'Custom range';
 
+  const [exporting, setExporting] = useState(false);
+  async function handleExport() {
+    setExporting(true);
+    setError('');
+    try {
+      await exportReportPdf({ business, rangeLabel, totals, series, categoryRows });
+    } catch (err) {
+      console.error('PDF export failed:', err);
+      setError('Could not create the PDF. Please try again.');
+    } finally {
+      setExporting(false);
+    }
+  }
+
   return (
     <div>
       <div className="page-head">
@@ -148,6 +164,10 @@ export default function Reports({ business }) {
           <h1 className="page-title">Reports</h1>
           <p className="page-sub">Income, spending and profit for {business.name}, calculated from your real invoices and expenses.</p>
         </div>
+        <button className="btn btn-primary" onClick={handleExport} disabled={!range || loading || exporting}>
+          <Icon name="download" size={15} strokeWidth={2} />
+          {exporting ? 'Preparing PDF…' : 'Export PDF'}
+        </button>
       </div>
 
       <PeriodPicker value={period} onChange={setPeriod} monthsOnly />
