@@ -45,15 +45,11 @@ export function useBusinesses() {
     return data;
   }
 
-  async function updateBusiness(id, { name, businessType, vatNumber, currency }) {
-    const patch = {
-      name,
-      business_type: businessType || null,
-      vat_number: vatNumber || null,
-      currency,
-      short_code: initials(name),
-    };
-    const { data, error } = await supabase.from('businesses').update(patch).eq('id', id).select().single();
+  // `patch` uses the database column names; the short code follows the name.
+  async function updateBusiness(id, patch) {
+    const full = { ...patch };
+    if (patch.name) full.short_code = initials(patch.name);
+    const { data, error } = await supabase.from('businesses').update(full).eq('id', id).select().single();
     if (error) throw error;
     setBusinesses((prev) => prev.map((b) => (b.id === id ? data : b)));
     return data;

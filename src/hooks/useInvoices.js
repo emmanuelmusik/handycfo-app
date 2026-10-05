@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { api } from '../lib/api';
 
 export function useInvoices(businessId) {
   const [invoices, setInvoices] = useState([]);
@@ -20,15 +21,24 @@ export function useInvoices(businessId) {
 
   useEffect(() => { refetch(); }, [refetch]);
 
+  // Totals, numbering rules and checks all happen on the server.
   async function createInvoice(fields) {
+    const res = await api.createInvoice({ businessId, ...fields });
+    setInvoices((prev) => [...prev, res.invoice]);
+    return res;
+  }
+
+  async function saveDraft(id, fields) {
+    const res = await api.saveInvoice(id, fields);
+    setInvoices((prev) => prev.map((inv) => (inv.id === id ? res.invoice : inv)));
+    return res;
+  }
+
+  async function loadItems(id) {
     const { data, error } = await supabase
-      .from('invoices')
-      .insert({ business_id: businessId, ...fields })
-      .select()
-      .single();
+      .from('invoice_items').select('*').eq('invoice_id', id).order('position', { ascending: true });
     if (error) throw error;
-    setInvoices((prev) => [...prev, data]);
-    return data;
+    return data || [];
   }
 
   async function updateInvoice(id, patch) {
@@ -49,5 +59,5 @@ export function useInvoices(businessId) {
     setInvoices((prev) => prev.filter((inv) => inv.id !== id));
   }
 
-  return { invoices, loading, refetch, createInvoice, updateInvoice, deleteInvoice };
+  return { invoices, loading, refetch, createInvoice, saveDraft, loadItems, updateInvoice, deleteInvoice };
 }

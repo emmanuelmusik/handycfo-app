@@ -5,11 +5,14 @@ import { initialsOf } from '../lib/format';
 import Modal from '../components/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
+import { useT } from '../lib/i18n';
+import { COUNTRIES, INVOICE_LANGUAGES, setupFor } from '../lib/countries';
 
 export default function Network({ onOpenChat }) {
   const { contacts, loading, refetch } = useContacts();
   const [showAdd, setShowAdd] = useState(false);
   const [toRemove, setToRemove] = useState(null);
+  const [editing, setEditing] = useState(null);
   const [removing, setRemoving] = useState(false);
   const [error, setError] = useState('');
   const [filter, setFilter] = useState('all');
@@ -83,6 +86,9 @@ export default function Network({ onOpenChat }) {
                 <button className="btn btn-sm" disabled={!c.on_platform} onClick={() => onOpenChat(c.id)} title={c.on_platform ? '' : 'They need a HandyCFO account first'}>
                   <Icon name="message" size={14} />Message
                 </button>
+                <button className="btn btn-sm" onClick={() => setEditing(c)}>
+                  <Icon name="edit" size={14} />Edit
+                </button>
                 <button className="btn btn-sm" onClick={() => setToRemove(c)}>
                   <Icon name="trash" size={14} />Remove
                 </button>
@@ -93,9 +99,17 @@ export default function Network({ onOpenChat }) {
       )}
 
       {showAdd && (
-        <AddContactModal
+        <ContactModal
           onClose={() => setShowAdd(false)}
-          onAdded={async () => { setShowAdd(false); await refetch(); }}
+          onSaved={async () => { setShowAdd(false); await refetch(); }}
+        />
+      )}
+
+      {editing && (
+        <ContactModal
+          contact={editing}
+          onClose={() => setEditing(null)}
+          onSaved={async () => { setEditing(null); await refetch(); }}
         />
       )}
 
@@ -113,50 +127,84 @@ export default function Network({ onOpenChat }) {
   );
 }
 
-function AddContactModal({ onClose, onAdded }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [relationship, setRelationship] = useState('Supplier');
+function ContactModal({ contact, onClose, onSaved }) {
+  const { t } = useT();
+  const edit = !!contact;
+  const [f, setF] = useState({
+    name: contact?.name || '', email: contact?.email || '', relationship: contact?.relationship || 'Supplier',
+    street: contact?.street || '', postalCode: contact?.postal_code || '', city: contact?.city || '', region: contact?.region || '',
+    country: contact?.country || '', taxId: contact?.tax_id || '', language: contact?.language || '',
+  });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const set = (k) => (e) => setF((x) => ({ ...x, [k]: e.target.value }));
+  const setup = setupFor(f.country);
 
   async function submit() {
     setError('');
-    if (!name.trim()) return setError('Add a name.');
+    if (!f.name.trim()) return setError(t('Add a name.'));
     setBusy(true);
     try {
-      await api.addContact({ name: name.trim(), email: email.trim(), relationship });
-      await onAdded();
+      const body = { ...f, name: f.name.trim(), email: f.email.trim() };
+      if (edit) await api.updateContact(contact.id, body);
+      else await api.addContact(body);
+      await onSaved();
     } catch (err) {
-      setError(err.message || 'Could not add this contact');
+      setError(err.message || t('Could not save this contact'));
       setBusy(false);
     }
   }
 
   return (
     <Modal
-      title="Add contact"
+      title={edit ? t('Edit contact') : t('Add contact')}
       onClose={onClose}
+      maxWidth={520}
       footer={
         <>
-          <button className="btn" onClick={onClose} disabled={busy}>Cancel</button>
-          <button className="btn btn-primary" onClick={submit} disabled={busy}>{busy ? 'Adding…' : 'Add contact'}</button>
+          <button className="btn" onClick={onClose} disabled={busy}>{t('Cancel')}</button>
+          <button className="btn btn-primary" onClick={submit} disabled={busy}>{busy ? t('Saving…') : edit ? t('Save') : t('Add contact')}</button>
         </>
       }
     >
       <div className="field">
-        <label>Name</label>
-        <input type="text" autoFocus placeholder="e.g. Brantwood Ltd." value={name} onChange={(e) => setName(e.target.value)} />
+        <label>{t('Name')}</label>
+        <input type="text" autoFocus placeholder={t('e.g. Brantwood Ltd.')} value={f.name} onChange={set('name')} />
       </div>
       <div className="field">
-        <label>Email (we check if they already use HandyCFO)</label>
-        <input type="email" placeholder="billing@company.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <label>{t('Email (we check if they already use HandyCFO)')}</label>
+        <input type="email" placeholder="billing@company.com" value={f.email} onChange={set('email')} />
+      </div>
+      {!edit && (
+        <div className="field">
+          <label>{t('They are your')}</label>
+          <select value={f.relationship} onChange={set('relationship')}>
+            <option value="Supplier">{t('Supplier (you pay them)')}</option>
+            <option value="Client">{t('Client (they pay you)')}</option>
+          </select>
+        </div>
+      )}
+      <div className="sub-head">{t('Address and tax details (used on invoices)')}</div>
+      <div className="field"><label>{t('Street and number')}</label><input type="text" value={f.street} onChange={set('street')} /></div>
+      <div className="field-row three">
+        <div className="field"><label>{t('Postal code')}</label><input type="text" value={f.postalCode} onChange={set('postalCode')} /></div>
+        <div className="field"><label>{t('City')}</label><input type="text" value={f.city} onChange={set('city')} /></div>
+        {setup.needsRegion && <div className="field"><label>{t('State / province')}</label><input type="text" value={f.region} onChange={set('region')} /></div>}
+      </div>
+      <div className="field-row">
+        <div className="field"><label>{t('Country')}</label>
+          <select value={f.country} onChange={set('country')}>
+            <option value="">{t('Not set')}</option>
+            {COUNTRIES.map(([c, n]) => <option key={c} value={c}>{n}</option>)}
+          </select>
+        </div>
+        <div className="field"><label>{t('VAT / tax ID')}</label><input type="text" value={f.taxId} onChange={set('taxId')} /></div>
       </div>
       <div className="field" style={{ marginBottom: 0 }}>
-        <label>They are your</label>
-        <select value={relationship} onChange={(e) => setRelationship(e.target.value)}>
-          <option value="Supplier">Supplier (you pay them)</option>
-          <option value="Client">Client (they pay you)</option>
+        <label>{t('Language for their invoices')}</label>
+        <select value={f.language} onChange={set('language')}>
+          <option value="">{t('Same as my business')}</option>
+          {INVOICE_LANGUAGES.map(([c, n]) => <option key={c} value={c}>{n}</option>)}
         </select>
       </div>
       {error && <p style={{ color: 'var(--red)', fontSize: 13, marginBottom: 0 }}>{error}</p>}

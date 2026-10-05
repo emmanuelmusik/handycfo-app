@@ -24,6 +24,8 @@ async function authedFetch(path, options = {}) {
     const err = new Error(body.error || `Request to ${path} failed (${res.status})`);
     if (body.code) err.code = body.code;
     if (body.duplicate) err.duplicate = body.duplicate;
+    if (body.missing) err.missing = body.missing;
+    if (body.warnings) err.warnings = body.warnings;
     throw err;
   }
   return res.json();
@@ -51,6 +53,7 @@ async function downloadFile(path, fallbackName) {
 }
 
 const post = (path, body) => authedFetch(path, { method: 'POST', body: JSON.stringify(body || {}) });
+const put = (path, body) => authedFetch(path, { method: 'PUT', body: JSON.stringify(body || {}) });
 const del = (path) => authedFetch(path, { method: 'DELETE' });
 
 export const api = {
@@ -69,9 +72,13 @@ export const api = {
 
   // Network, messages, invoices between users
   addContact: (fields) => post('/contacts', fields),
+  updateContact: (id, fields) => put(`/contacts/${id}`, fields),
   deleteContact: (id) => del(`/contacts/${id}`),
   refreshNetwork: () => post('/network/refresh'),
   sendMessage: (contactId, body) => post('/messages', { contactId, body }),
+  createInvoice: (fields) => post('/invoices', fields),
+  saveInvoice: (id, fields) => put(`/invoices/${id}`, fields),
+  checkInvoice: (id) => authedFetch(`/invoices/${id}/check`),
   sendInvoice: (invoiceId, channels) => post(`/invoices/${invoiceId}/send`, channels ? { channels } : {}),
   downloadInvoicePdf: (invoiceId) => downloadFile(`/invoices/${invoiceId}/pdf`, 'Invoice.pdf'),
 

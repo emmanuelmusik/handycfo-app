@@ -155,7 +155,7 @@ function renderView(ctx) {
   // screen refetches instead of briefly showing the previous business.
   switch (view) {
     case 'inbox': return <Inbox key={business.id} business={business} onChanged={ctx.refreshBadges} />;
-    case 'invoices': return <Invoices key={business.id} business={business} />;
+    case 'invoices': return <Invoices key={business.id} business={business} onOpenSettings={() => ctx.navigate('settings')} />;
     case 'expenses': return <Expenses key={business.id} business={business} />;
     case 'reports': return <Reports key={business.id} business={business} />;
     case 'messages':
