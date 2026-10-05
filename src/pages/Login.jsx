@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { useT } from '../lib/i18n';
 
 export default function Login() {
+  const { t } = useT();
   const { signIn, signUp } = useAuth();
   const [mode, setMode] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
@@ -16,7 +18,7 @@ export default function Login() {
     const params = new URLSearchParams(window.location.hash.replace(/^#/, ''));
     const reason = params.get('error_description');
     if (reason) {
-      setError(`${reason.replace(/\+/g, ' ')}. Sign in below, or sign up again to get a new link.`);
+      setError(t('{reason}. Sign in below, or sign up again to get a new link.', { reason: reason.replace(/\+/g, ' ') }));
       window.history.replaceState(null, '', window.location.pathname);
     }
   }, []);
@@ -35,7 +37,7 @@ export default function Login() {
         setCheckInbox(true);
       }
     } catch (err) {
-      setError(err.message || 'Something went wrong');
+      setError(err.message || t('Something went wrong'));
     } finally {
       setBusy(false);
     }
@@ -45,12 +47,14 @@ export default function Login() {
     return (
       <div style={centerWrap}>
         <div className="panel" style={{ padding: 32, maxWidth: 380, textAlign: 'center' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', marginTop: 0 }}>Check your email</h2>
+          <h2 style={{ fontFamily: 'var(--font-display)', marginTop: 0 }}>{t('Check your email')}</h2>
           <p style={{ color: 'var(--text-soft)' }}>
-            We sent a confirmation link to <strong>{email}</strong>. Open it and you will come straight back here, signed in.
+            {t('We sent a confirmation link to {email}. Open it and you will come straight back here, signed in.', { email: '\u0000' }).split('\u0000').map((part, i, arr) => (
+              <span key={i}>{part}{i < arr.length - 1 && <strong>{email}</strong>}</span>
+            ))}
           </p>
           <button className="btn btn-block" onClick={() => { setCheckInbox(false); setMode('signin'); }}>
-            Back to sign in
+            {t('Back to sign in')}
           </button>
         </div>
       </div>
@@ -61,19 +65,19 @@ export default function Login() {
     <div style={centerWrap}>
       <div className="panel" style={{ padding: 32, width: '100%', maxWidth: 380 }}>
         <h2 style={{ fontFamily: 'var(--font-display)', marginTop: 0, marginBottom: 4 }}>
-          {mode === 'signin' ? 'Welcome back' : 'Create your account'}
+          {mode === 'signin' ? t('Welcome back') : t('Create your account')}
         </h2>
         <p style={{ color: 'var(--text-soft)', marginTop: 0, marginBottom: 20, fontSize: 13.5 }}>
-          HandyCFO — my smart accountant
+          {t('HandyCFO — my smart accountant')}
         </p>
 
         <form onSubmit={handleSubmit}>
           <div className="field">
-            <label>Email</label>
+            <label>{t('Email')}</label>
             <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="field" style={{ marginBottom: 8 }}>
-            <label>Password</label>
+            <label>{t('Password')}</label>
             <input
               type="password"
               required
@@ -88,7 +92,7 @@ export default function Login() {
           )}
 
           <button type="submit" className="btn btn-primary btn-block" style={{ marginTop: 12 }} disabled={busy}>
-            {busy ? 'Please wait…' : mode === 'signin' ? 'Sign in' : 'Sign up'}
+            {busy ? t('Please wait…') : mode === 'signin' ? t('Sign in') : t('Sign up')}
           </button>
         </form>
 
@@ -97,7 +101,7 @@ export default function Login() {
           style={{ marginTop: 10 }}
           onClick={() => { setMode(mode === 'signin' ? 'signup' : 'signin'); setError(''); }}
         >
-          {mode === 'signin' ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+          {mode === 'signin' ? t("Don't have an account? Sign up") : t('Already have an account? Sign in')}
         </button>
       </div>
     </div>

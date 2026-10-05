@@ -42,7 +42,9 @@ async function chartImage(config, width, height) {
   return img;
 }
 
-export async function exportReportPdf({ business, rangeLabel, totals, series, categoryRows }) {
+const identity = (s, v) => (v ? s.replace(/\{(\w+)\}/g, (m, k) => (v[k] === undefined ? m : String(v[k]))) : s);
+
+export async function exportReportPdf({ business, rangeLabel, totals, series, categoryRows, t = identity }) {
   const { jsPDF } = await import('jspdf');
   const currency = business.currency || 'EUR';
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
@@ -61,13 +63,13 @@ export async function exportReportPdf({ business, rangeLabel, totals, series, ca
   y += 7;
   doc.setTextColor(...INK).setFont('helvetica', 'bold').setFontSize(20).text(business.name, M, y);
   doc.setFontSize(10).setTextColor(...SOFT).setFont('helvetica', 'normal');
-  doc.text('FINANCIAL REPORT', W - M, y - 5, { align: 'right' });
+  doc.text(t('Financial report').toUpperCase(), W - M, y - 5, { align: 'right' });
   doc.setTextColor(...INK).setFont('helvetica', 'bold').setFontSize(11).text(rangeLabel, W - M, y, { align: 'right' });
   y += 6;
   doc.setFont('helvetica', 'normal').setFontSize(9).setTextColor(...SOFT);
   const generated = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
-  doc.text(`Prepared with HandyCFO on ${generated}`, M, y);
-  if (business.vat_number) doc.text(`VAT ID: ${business.vat_number}`, W - M, y, { align: 'right' });
+  doc.text(t('Prepared with HandyCFO on {date}', { date: generated }), M, y);
+  if (business.vat_number) doc.text(t('VAT ID: {id}', { id: business.vat_number }), W - M, y, { align: 'right' });
   y += 6;
   doc.setDrawColor(...LINE).line(M, y, W - M, y);
   y += 8;
@@ -75,9 +77,9 @@ export async function exportReportPdf({ business, rangeLabel, totals, series, ca
   // ---- three figures
   const boxW = (CW - 8) / 3;
   const boxes = [
-    ['INCOME', money(totals.income, currency), 'Paid invoices', INK],
-    ['EXPENSES', money(totals.expenses, currency), 'Money spent', INK],
-    ['PROFIT', money(totals.profit, currency), totals.margin == null ? 'No income in this period' : `${totals.margin.toFixed(0)}% margin`, totals.profit < 0 ? [190, 70, 60] : INK],
+    [t('Income').toUpperCase(), money(totals.income, currency), t('Paid invoices'), INK],
+    [t('Expenses').toUpperCase(), money(totals.expenses, currency), t('Money spent'), INK],
+    [t('Profit').toUpperCase(), money(totals.profit, currency), totals.margin == null ? t('No income in this period') : t('{margin}% margin', { margin: totals.margin.toFixed(0) }), totals.profit < 0 ? [190, 70, 60] : INK],
   ];
   boxes.forEach(([label, value, note, color], i) => {
     const x = M + i * (boxW + 4);
@@ -89,15 +91,15 @@ export async function exportReportPdf({ business, rangeLabel, totals, series, ca
   y += 33;
 
   // ---- income vs expenses chart
-  doc.setFont('helvetica', 'bold').setFontSize(12).setTextColor(...INK).text('Income vs. expenses', M, y);
+  doc.setFont('helvetica', 'bold').setFontSize(12).setTextColor(...INK).text(t('Income vs. expenses'), M, y);
   y += 4;
   const trend = await chartImage({
     type: 'bar',
     data: {
       labels: series.map((s) => s.label),
       datasets: [
-        { label: 'Income', data: series.map((s) => s.income), backgroundColor: CHART_INCOME, borderRadius: 4 },
-        { label: 'Expenses', data: series.map((s) => s.expenses), backgroundColor: CHART_EXPENSE, borderRadius: 4 },
+        { label: t('Income'), data: series.map((s) => s.income), backgroundColor: CHART_INCOME, borderRadius: 4 },
+        { label: t('Expenses'), data: series.map((s) => s.expenses), backgroundColor: CHART_EXPENSE, borderRadius: 4 },
       ],
     },
     options: {
@@ -114,16 +116,16 @@ export async function exportReportPdf({ business, rangeLabel, totals, series, ca
 
   // ---- spending by category
   ensure(70);
-  doc.setFont('helvetica', 'bold').setFontSize(12).setTextColor(...INK).text('Where the money went', M, y);
+  doc.setFont('helvetica', 'bold').setFontSize(12).setTextColor(...INK).text(t('Where the money went'), M, y);
   y += 5;
   if (categoryRows.length === 0) {
-    doc.setFont('helvetica', 'normal').setFontSize(10).setTextColor(...SOFT).text('No expenses were recorded in this period.', M, y + 4);
+    doc.setFont('helvetica', 'normal').setFontSize(10).setTextColor(...SOFT).text(t('No expenses were recorded in this period.'), M, y + 4);
     y += 12;
   } else {
     const donut = await chartImage({
       type: 'doughnut',
       data: {
-        labels: categoryRows.map(([c]) => c),
+        labels: categoryRows.map(([c]) => t(c)),
         datasets: [{ data: categoryRows.map(([, v]) => v), backgroundColor: categoryRows.map((_, i) => CATEGORY_COLORS[i % CATEGORY_COLORS.length]), borderWidth: 0 }],
       },
       options: { cutout: '62%', plugins: { legend: { display: false } } },
@@ -136,7 +138,7 @@ export async function exportReportPdf({ business, rangeLabel, totals, series, ca
     const lx = M + size + 10;
     categoryRows.slice(0, 10).forEach(([name, value], i) => {
       doc.setFillColor(...hex(CATEGORY_COLORS[i % CATEGORY_COLORS.length])).roundedRect(lx, ly - 3, 3.4, 3.4, 0.6, 0.6, 'F');
-      doc.setFont('helvetica', 'normal').setFontSize(10).setTextColor(...INK).text(name, lx + 6, ly);
+      doc.setFont('helvetica', 'normal').setFontSize(10).setTextColor(...INK).text(t(name), lx + 6, ly);
       doc.setTextColor(...SOFT).text(`${((value / totalSpend) * 100).toFixed(0)}%`, W - M - 38, ly, { align: 'right' });
       doc.setTextColor(...INK).setFont('helvetica', 'bold').text(money(value, currency), W - M, ly, { align: 'right' });
       ly += 5.2;
@@ -146,15 +148,15 @@ export async function exportReportPdf({ business, rangeLabel, totals, series, ca
 
   // ---- month by month table
   ensure(30);
-  doc.setFont('helvetica', 'bold').setFontSize(12).setTextColor(...INK).text('Month by month', M, y);
+  doc.setFont('helvetica', 'bold').setFontSize(12).setTextColor(...INK).text(t('Month by month'), M, y);
   y += 6;
   const cols = [M, M + 62, M + 110, W - M];
   const header = () => {
     doc.setFont('helvetica', 'bold').setFontSize(8.5).setTextColor(...SOFT);
-    doc.text('MONTH', cols[0], y);
-    doc.text('INCOME', cols[1] + 30, y, { align: 'right' });
-    doc.text('EXPENSES', cols[2] + 30, y, { align: 'right' });
-    doc.text('PROFIT', cols[3], y, { align: 'right' });
+    doc.text(t('Month').toUpperCase(), cols[0], y);
+    doc.text(t('Income').toUpperCase(), cols[1] + 30, y, { align: 'right' });
+    doc.text(t('Expenses').toUpperCase(), cols[2] + 30, y, { align: 'right' });
+    doc.text(t('Profit').toUpperCase(), cols[3], y, { align: 'right' });
     y += 2.5;
     doc.setDrawColor(...INK).line(M, y, W - M, y);
     y += 5;
@@ -171,7 +173,7 @@ export async function exportReportPdf({ business, rangeLabel, totals, series, ca
     doc.setDrawColor(...LINE).line(M, y, W - M, y);
     y += 4.6;
   });
-  doc.setFont('helvetica', 'bold').setFontSize(10).setTextColor(...INK).text('Total', cols[0], y);
+  doc.setFont('helvetica', 'bold').setFontSize(10).setTextColor(...INK).text(t('Total'), cols[0], y);
   doc.text(money(totals.income, currency), cols[1] + 30, y, { align: 'right' });
   doc.text(money(totals.expenses, currency), cols[2] + 30, y, { align: 'right' });
   doc.text(money(totals.profit, currency), cols[3], y, { align: 'right' });
@@ -182,7 +184,7 @@ export async function exportReportPdf({ business, rangeLabel, totals, series, ca
     doc.setPage(p);
     doc.setFont('helvetica', 'normal').setFontSize(8).setTextColor(...SOFT);
     doc.text(`${business.name} · ${rangeLabel}`, M, 290);
-    doc.text(`Page ${p} of ${pages}`, W - M, 290, { align: 'right' });
+    doc.text(t('Page {page} of {pages}', { page: p, pages }), W - M, 290, { align: 'right' });
   }
 
   const safe = `${business.name}-${rangeLabel}`.replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '');

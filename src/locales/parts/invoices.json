@@ -1,0 +1,814 @@
+{
+  "Emailed to {email} and delivered to their HandyCFO inbox.": {
+    "de": "Per E-Mail an {email} gesendet und im HandyCFO-Posteingang des Empfängers zugestellt.",
+    "es": "Enviada por correo electrónico a {email} y entregada en su bandeja de HandyCFO.",
+    "fr": "Envoyée par e-mail à {email} et remise dans sa boîte de réception HandyCFO.",
+    "pt": "Enviada por e-mail para {email} e entregue na caixa de entrada HandyCFO do destinatário.",
+    "it": "Inviata via e-mail a {email} e consegnata nella sua casella HandyCFO."
+  },
+  "Emailed to {email}.": {
+    "de": "Per E-Mail an {email} gesendet.",
+    "es": "Enviada por correo electrónico a {email}.",
+    "fr": "Envoyée par e-mail à {email}.",
+    "pt": "Enviada por e-mail para {email}.",
+    "it": "Inviata via e-mail a {email}."
+  },
+  "Delivered to their HandyCFO inbox.": {
+    "de": "Im HandyCFO-Posteingang des Empfängers zugestellt.",
+    "es": "Entregada en su bandeja de HandyCFO.",
+    "fr": "Remise dans sa boîte de réception HandyCFO.",
+    "pt": "Entregue na caixa de entrada HandyCFO do destinatário.",
+    "it": "Consegnata nella sua casella HandyCFO."
+  },
+  "Marked as sent.": {
+    "de": "Als gesendet markiert.",
+    "es": "Marcada como enviada.",
+    "fr": "Marquée comme envoyée.",
+    "pt": "Marcada como enviada.",
+    "it": "Contrassegnata come inviata."
+  },
+  "How should we send it?": {
+    "de": "Wie möchten Sie sie versenden?",
+    "es": "¿Cómo desea enviarla?",
+    "fr": "Comment souhaitez-vous l'envoyer ?",
+    "pt": "Como pretende enviá-la?",
+    "it": "Come desidera inviarla?"
+  },
+  "Email it as a PDF": {
+    "de": "Als PDF per E-Mail senden",
+    "es": "Enviar por correo electrónico como PDF",
+    "fr": "Envoyer par e-mail en PDF",
+    "pt": "Enviar por e-mail como PDF",
+    "it": "Invia via e-mail come PDF"
+  },
+  "Already emailed to this client.": {
+    "de": "Bereits per E-Mail an diesen Kunden gesendet.",
+    "es": "Ya se envió por correo electrónico a este cliente.",
+    "fr": "Déjà envoyée par e-mail à ce client.",
+    "pt": "Já foi enviada por e-mail a este cliente.",
+    "it": "Già inviata via e-mail a questo cliente."
+  },
+  "To {email}": {
+    "de": "An {email}",
+    "es": "A {email}",
+    "fr": "À {email}",
+    "pt": "Para {email}",
+    "it": "A {email}"
+  },
+  "Add the client's email address to use this.": {
+    "de": "Fügen Sie die E-Mail-Adresse des Kunden hinzu, um dies zu nutzen.",
+    "es": "Añada el correo electrónico del cliente para usar esta opción.",
+    "fr": "Ajoutez l'adresse e-mail du client pour utiliser cette option.",
+    "pt": "Adicione o endereço de e-mail do cliente para utilizar esta opção.",
+    "it": "Aggiunga l'indirizzo e-mail del cliente per utilizzare questa opzione."
+  },
+  "Send to their HandyCFO inbox": {
+    "de": "An den HandyCFO-Posteingang des Kunden senden",
+    "es": "Enviar a su bandeja de HandyCFO",
+    "fr": "Envoyer dans sa boîte de réception HandyCFO",
+    "pt": "Enviar para a caixa de entrada HandyCFO do cliente",
+    "it": "Invia alla sua casella HandyCFO"
+  },
+  "They can review it and record it as an expense.": {
+    "de": "Der Kunde kann sie prüfen und als Ausgabe erfassen.",
+    "es": "Podrá revisarla y registrarla como gasto.",
+    "fr": "Il pourra la consulter et l'enregistrer comme dépense.",
+    "pt": "O cliente pode revê-la e registá-la como despesa.",
+    "it": "Potrà esaminarla e registrarla come spesa."
+  },
+  "Only for clients from your network who use HandyCFO.": {
+    "de": "Nur für Kunden aus Ihrem Netzwerk, die HandyCFO nutzen.",
+    "es": "Solo para clientes de su red que usan HandyCFO.",
+    "fr": "Uniquement pour les clients de votre réseau qui utilisent HandyCFO.",
+    "pt": "Apenas para clientes da sua rede que utilizam o HandyCFO.",
+    "it": "Solo per i clienti della sua rete che usano HandyCFO."
+  },
+  "Could not open the invoice": {
+    "de": "Die Rechnung konnte nicht geöffnet werden",
+    "es": "No se pudo abrir la factura",
+    "fr": "Impossible d'ouvrir la facture",
+    "pt": "Não foi possível abrir a fatura",
+    "it": "Impossibile aprire la fattura"
+  },
+  "Before you can send it, it still needs:": {
+    "de": "Bevor Sie sie versenden können, fehlt noch Folgendes:",
+    "es": "Antes de poder enviarla, aún falta:",
+    "fr": "Avant de pouvoir l'envoyer, il manque encore :",
+    "pt": "Antes de a poder enviar, ainda falta:",
+    "it": "Prima di poterla inviare, mancano ancora:"
+  },
+  "Could not update reminders": {
+    "de": "Die Erinnerungen konnten nicht aktualisiert werden",
+    "es": "No se pudieron actualizar los recordatorios",
+    "fr": "Impossible de mettre à jour les rappels",
+    "pt": "Não foi possível atualizar os lembretes",
+    "it": "Impossibile aggiornare i solleciti"
+  },
+  "Could not download the PDF": {
+    "de": "Das PDF konnte nicht heruntergeladen werden",
+    "es": "No se pudo descargar el PDF",
+    "fr": "Impossible de télécharger le PDF",
+    "pt": "Não foi possível transferir o PDF",
+    "it": "Impossibile scaricare il PDF"
+  },
+  "Could not mark the invoice as paid": {
+    "de": "Die Rechnung konnte nicht als bezahlt markiert werden",
+    "es": "No se pudo marcar la factura como pagada",
+    "fr": "Impossible de marquer la facture comme payée",
+    "pt": "Não foi possível marcar a fatura como paga",
+    "it": "Impossibile contrassegnare la fattura come pagata"
+  },
+  "Could not delete the invoice": {
+    "de": "Die Rechnung konnte nicht gelöscht werden",
+    "es": "No se pudo eliminar la factura",
+    "fr": "Impossible de supprimer la facture",
+    "pt": "Não foi possível eliminar a fatura",
+    "it": "Impossibile eliminare la fattura"
+  },
+  "Invoices": {
+    "de": "Rechnungen",
+    "es": "Facturas",
+    "fr": "Factures",
+    "pt": "Faturas",
+    "it": "Fatture"
+  },
+  "Money coming in. Send a bill to a client, then mark it paid when the money arrives. Reminders go out automatically if it is late.": {
+    "de": "Eingehende Zahlungen. Senden Sie einem Kunden eine Rechnung und markieren Sie sie als bezahlt, sobald das Geld eingeht. Bei Verzug werden automatisch Erinnerungen versendet.",
+    "es": "Ingresos. Envíe una factura a un cliente y márquela como pagada cuando llegue el dinero. Si se retrasa, los recordatorios se envían automáticamente.",
+    "fr": "Les entrées d'argent. Envoyez une facture à un client, puis marquez-la comme payée à réception du paiement. Des rappels sont envoyés automatiquement en cas de retard.",
+    "pt": "Dinheiro a receber. Envie uma fatura a um cliente e marque-a como paga quando o dinheiro chegar. Os lembretes são enviados automaticamente em caso de atraso.",
+    "it": "Entrate in arrivo. Invii una fattura a un cliente e la contrassegni come pagata quando arriva il denaro. In caso di ritardo, i solleciti partono automaticamente."
+  },
+  "Create new invoice": {
+    "de": "Neue Rechnung erstellen",
+    "es": "Crear nueva factura",
+    "fr": "Créer une nouvelle facture",
+    "pt": "Criar nova fatura",
+    "it": "Crea nuova fattura"
+  },
+  "Finish your business profile": {
+    "de": "Vervollständigen Sie Ihr Unternehmensprofil",
+    "es": "Complete el perfil de su empresa",
+    "fr": "Complétez le profil de votre entreprise",
+    "pt": "Complete o perfil da sua empresa",
+    "it": "Completi il profilo della sua attività"
+  },
+  "Invoices print your {gaps}. Add them once in Settings and every invoice uses them.": {
+    "de": "Ihre {gaps} werden auf den Rechnungen ausgewiesen. Hinterlegen Sie sie einmal in den Einstellungen, dann verwendet jede Rechnung sie.",
+    "es": "Las facturas incluyen su {gaps}. Añádalos una vez en Ajustes y todas las facturas los usarán.",
+    "fr": "Vos {gaps} figurent sur les factures. Renseignez-les une fois dans les Paramètres et chaque facture les utilisera.",
+    "pt": "As faturas apresentam {gaps}. Adicione-os uma vez nas Definições e todas as faturas passam a usá-los.",
+    "it": "Le fatture riportano {gaps}. Li inserisca una sola volta nelle Impostazioni e ogni fattura li utilizzerà."
+  },
+  "Open Settings": {
+    "de": "Einstellungen öffnen",
+    "es": "Abrir Ajustes",
+    "fr": "Ouvrir les Paramètres",
+    "pt": "Abrir Definições",
+    "it": "Apri Impostazioni"
+  },
+  "Client": {
+    "de": "Kunde",
+    "es": "Cliente",
+    "fr": "Client",
+    "pt": "Cliente",
+    "it": "Cliente"
+  },
+  "Amount": {
+    "de": "Betrag",
+    "es": "Importe",
+    "fr": "Montant",
+    "pt": "Valor",
+    "it": "Importo"
+  },
+  "Due date": {
+    "de": "Fälligkeitsdatum",
+    "es": "Fecha de vencimiento",
+    "fr": "Date d'échéance",
+    "pt": "Data de vencimento",
+    "it": "Data di scadenza"
+  },
+  "Status": {
+    "de": "Status",
+    "es": "Estado",
+    "fr": "Statut",
+    "pt": "Estado",
+    "it": "Stato"
+  },
+  "Reminders sent": {
+    "de": "Gesendete Erinnerungen",
+    "es": "Recordatorios enviados",
+    "fr": "Rappels envoyés",
+    "pt": "Lembretes enviados",
+    "it": "Solleciti inviati"
+  },
+  "Automated reminders": {
+    "de": "Automatische Erinnerungen",
+    "es": "Recordatorios automáticos",
+    "fr": "Rappels automatiques",
+    "pt": "Lembretes automáticos",
+    "it": "Solleciti automatici"
+  },
+  "Loading…": {
+    "de": "Wird geladen …",
+    "es": "Cargando…",
+    "fr": "Chargement…",
+    "pt": "A carregar…",
+    "it": "Caricamento…"
+  },
+  "No invoices yet. Create your first one to start tracking what you are owed.": {
+    "de": "Noch keine Rechnungen. Erstellen Sie Ihre erste Rechnung, um ausstehende Forderungen zu verfolgen.",
+    "es": "Aún no hay facturas. Cree la primera para empezar a controlar lo que le deben.",
+    "fr": "Aucune facture pour l'instant. Créez la première pour suivre ce qui vous est dû.",
+    "pt": "Ainda não há faturas. Crie a primeira para começar a acompanhar o que lhe devem.",
+    "it": "Ancora nessuna fattura. Crei la prima per iniziare a tenere traccia di ciò che le è dovuto."
+  },
+  "No invoices in this view.": {
+    "de": "Keine Rechnungen in dieser Ansicht.",
+    "es": "No hay facturas en esta vista.",
+    "fr": "Aucune facture dans cette vue.",
+    "pt": "Não há faturas nesta vista.",
+    "it": "Nessuna fattura in questa vista."
+  },
+  "No number yet (assigned when sent)": {
+    "de": "Noch keine Nummer (wird beim Versand vergeben)",
+    "es": "Aún sin número (se asigna al enviarla)",
+    "fr": "Pas encore de numéro (attribué à l'envoi)",
+    "pt": "Ainda sem número (atribuído ao enviar)",
+    "it": "Ancora nessun numero (assegnato all'invio)"
+  },
+  "Edit": {
+    "de": "Bearbeiten",
+    "es": "Editar",
+    "fr": "Modifier",
+    "pt": "Editar",
+    "it": "Modifica"
+  },
+  "Send": {
+    "de": "Senden",
+    "es": "Enviar",
+    "fr": "Envoyer",
+    "pt": "Enviar",
+    "it": "Invia"
+  },
+  "Send again": {
+    "de": "Erneut senden",
+    "es": "Enviar de nuevo",
+    "fr": "Renvoyer",
+    "pt": "Enviar novamente",
+    "it": "Invia di nuovo"
+  },
+  "Mark paid": {
+    "de": "Als bezahlt markieren",
+    "es": "Marcar como pagada",
+    "fr": "Marquer comme payée",
+    "pt": "Marcar como paga",
+    "it": "Segna come pagata"
+  },
+  "Download as PDF": {
+    "de": "Als PDF herunterladen",
+    "es": "Descargar como PDF",
+    "fr": "Télécharger en PDF",
+    "pt": "Transferir como PDF",
+    "it": "Scarica come PDF"
+  },
+  "PDF": {
+    "de": "PDF",
+    "es": "PDF",
+    "fr": "PDF",
+    "pt": "PDF",
+    "it": "PDF"
+  },
+  "Delete invoice": {
+    "de": "Rechnung löschen",
+    "es": "Eliminar factura",
+    "fr": "Supprimer la facture",
+    "pt": "Eliminar fatura",
+    "it": "Elimina fattura"
+  },
+  "Saved as a draft.": {
+    "de": "Als Entwurf gespeichert.",
+    "es": "Guardada como borrador.",
+    "fr": "Enregistrée comme brouillon.",
+    "pt": "Guardada como rascunho.",
+    "it": "Salvata come bozza."
+  },
+  "Delete invoice?": {
+    "de": "Rechnung löschen?",
+    "es": "¿Eliminar la factura?",
+    "fr": "Supprimer la facture ?",
+    "pt": "Eliminar a fatura?",
+    "it": "Eliminare la fattura?"
+  },
+  "Delete the {amount} draft for {client}? This can't be undone.": {
+    "de": "Den Entwurf über {amount} für {client} löschen? Dies kann nicht rückgängig gemacht werden.",
+    "es": "¿Eliminar el borrador de {amount} para {client}? Esta acción no se puede deshacer.",
+    "fr": "Supprimer le brouillon de {amount} pour {client} ? Cette action est irréversible.",
+    "pt": "Eliminar o rascunho de {amount} para {client}? Esta ação não pode ser anulada.",
+    "it": "Eliminare la bozza di {amount} per {client}? L'operazione non può essere annullata."
+  },
+  "Delete the {amount} invoice {number} for {client}? Its number will not be used again, so your numbering will have a gap. In most countries sent invoices must be kept for years, so only delete one if it was created by mistake.": {
+    "de": "Die Rechnung {number} über {amount} für {client} löschen? Die Nummer wird nicht erneut vergeben, daher entsteht eine Lücke in Ihrer Nummerierung. In den meisten Ländern müssen versendete Rechnungen jahrelang aufbewahrt werden. Löschen Sie sie daher nur, wenn sie versehentlich erstellt wurde.",
+    "es": "¿Eliminar la factura {number} de {amount} para {client}? Su número no se volverá a usar, por lo que habrá un hueco en su numeración. En la mayoría de los países las facturas enviadas deben conservarse durante años, así que elimínela solo si se creó por error.",
+    "fr": "Supprimer la facture {number} de {amount} pour {client} ? Son numéro ne sera pas réutilisé, ce qui créera un trou dans votre numérotation. Dans la plupart des pays, les factures envoyées doivent être conservées pendant plusieurs années ; ne la supprimez donc que si elle a été créée par erreur.",
+    "pt": "Eliminar a fatura {number} de {amount} para {client}? O número não será reutilizado, pelo que a sua numeração ficará com uma lacuna. Na maioria dos países, as faturas enviadas têm de ser conservadas durante anos; elimine-a apenas se tiver sido criada por engano.",
+    "it": "Eliminare la fattura {number} di {amount} per {client}? Il suo numero non verrà riutilizzato, quindi la numerazione presenterà un vuoto. Nella maggior parte dei paesi le fatture inviate devono essere conservate per anni, quindi la elimini solo se è stata creata per errore."
+  },
+  "Add a client name.": {
+    "de": "Geben Sie einen Kundennamen ein.",
+    "es": "Añada el nombre del cliente.",
+    "fr": "Ajoutez le nom du client.",
+    "pt": "Adicione o nome do cliente.",
+    "it": "Aggiunga il nome del cliente."
+  },
+  "The due date can not be before the issue date.": {
+    "de": "Das Fälligkeitsdatum darf nicht vor dem Rechnungsdatum liegen.",
+    "es": "La fecha de vencimiento no puede ser anterior a la fecha de emisión.",
+    "fr": "La date d'échéance ne peut pas être antérieure à la date d'émission.",
+    "pt": "A data de vencimento não pode ser anterior à data de emissão.",
+    "it": "La data di scadenza non può essere precedente alla data di emissione."
+  },
+  "Every line needs a description.": {
+    "de": "Jede Zeile benötigt eine Beschreibung.",
+    "es": "Cada línea necesita una descripción.",
+    "fr": "Chaque ligne doit avoir une description.",
+    "pt": "Cada linha precisa de uma descrição.",
+    "it": "Ogni riga richiede una descrizione."
+  },
+  "Every line needs a quantity above zero.": {
+    "de": "Jede Zeile benötigt eine Menge größer als null.",
+    "es": "Cada línea necesita una cantidad superior a cero.",
+    "fr": "Chaque ligne doit avoir une quantité supérieure à zéro.",
+    "pt": "Cada linha precisa de uma quantidade superior a zero.",
+    "it": "Ogni riga richiede una quantità superiore a zero."
+  },
+  "Could not save the invoice": {
+    "de": "Die Rechnung konnte nicht gespeichert werden",
+    "es": "No se pudo guardar la factura",
+    "fr": "Impossible d'enregistrer la facture",
+    "pt": "Não foi possível guardar a fatura",
+    "it": "Impossibile salvare la fattura"
+  },
+  "Edit draft invoice": {
+    "de": "Rechnungsentwurf bearbeiten",
+    "es": "Editar borrador de factura",
+    "fr": "Modifier le brouillon de facture",
+    "pt": "Editar rascunho de fatura",
+    "it": "Modifica bozza di fattura"
+  },
+  "Cancel": {
+    "de": "Abbrechen",
+    "es": "Cancelar",
+    "fr": "Annuler",
+    "pt": "Cancelar",
+    "it": "Annulla"
+  },
+  "Saving…": {
+    "de": "Wird gespeichert …",
+    "es": "Guardando…",
+    "fr": "Enregistrement…",
+    "pt": "A guardar…",
+    "it": "Salvataggio…"
+  },
+  "Save draft": {
+    "de": "Entwurf speichern",
+    "es": "Guardar borrador",
+    "fr": "Enregistrer le brouillon",
+    "pt": "Guardar rascunho",
+    "it": "Salva bozza"
+  },
+  "Save and send": {
+    "de": "Speichern und senden",
+    "es": "Guardar y enviar",
+    "fr": "Enregistrer et envoyer",
+    "pt": "Guardar e enviar",
+    "it": "Salva e invia"
+  },
+  "From your network (optional)": {
+    "de": "Aus Ihrem Netzwerk (optional)",
+    "es": "De su red (opcional)",
+    "fr": "Depuis votre réseau (facultatif)",
+    "pt": "Da sua rede (opcional)",
+    "it": "Dalla sua rete (facoltativo)"
+  },
+  "Someone new": {
+    "de": "Neuer Kunde",
+    "es": "Alguien nuevo",
+    "fr": "Une nouvelle personne",
+    "pt": "Alguém novo",
+    "it": "Una nuova persona"
+  },
+  "on HandyCFO": {
+    "de": "auf HandyCFO",
+    "es": "en HandyCFO",
+    "fr": "sur HandyCFO",
+    "pt": "no HandyCFO",
+    "it": "su HandyCFO"
+  },
+  "Customer": {
+    "de": "Kunde",
+    "es": "Cliente",
+    "fr": "Client",
+    "pt": "Cliente",
+    "it": "Cliente"
+  },
+  "Name": {
+    "de": "Name",
+    "es": "Nombre",
+    "fr": "Nom",
+    "pt": "Nome",
+    "it": "Nome"
+  },
+  "e.g. Brantwood Ltd.": {
+    "de": "z. B. Brantwood GmbH",
+    "es": "p. ej., Brantwood S.L.",
+    "fr": "p. ex. Brantwood SARL",
+    "pt": "p. ex., Brantwood, Lda.",
+    "it": "ad es. Brantwood S.r.l."
+  },
+  "Email (needed for sending and reminders)": {
+    "de": "E-Mail (für Versand und Erinnerungen erforderlich)",
+    "es": "Correo electrónico (necesario para el envío y los recordatorios)",
+    "fr": "E-mail (nécessaire pour l'envoi et les rappels)",
+    "pt": "E-mail (necessário para o envio e os lembretes)",
+    "it": "E-mail (necessaria per l'invio e i solleciti)"
+  },
+  "Street and number": {
+    "de": "Straße und Hausnummer",
+    "es": "Calle y número",
+    "fr": "Rue et numéro",
+    "pt": "Rua e número",
+    "it": "Via e numero civico"
+  },
+  "Postal code": {
+    "de": "Postleitzahl",
+    "es": "Código postal",
+    "fr": "Code postal",
+    "pt": "Código postal",
+    "it": "CAP"
+  },
+  "City": {
+    "de": "Ort",
+    "es": "Ciudad",
+    "fr": "Ville",
+    "pt": "Cidade",
+    "it": "Città"
+  },
+  "State / province": {
+    "de": "Bundesland / Provinz",
+    "es": "Estado / provincia",
+    "fr": "État / province",
+    "pt": "Estado / província",
+    "it": "Stato / provincia"
+  },
+  "Country": {
+    "de": "Land",
+    "es": "País",
+    "fr": "Pays",
+    "pt": "País",
+    "it": "Paese"
+  },
+  "Not set": {
+    "de": "Nicht festgelegt",
+    "es": "Sin definir",
+    "fr": "Non défini",
+    "pt": "Não definido",
+    "it": "Non impostato"
+  },
+  "VAT / tax ID": {
+    "de": "USt-IdNr. / Steuernummer",
+    "es": "NIF-IVA / identificación fiscal",
+    "fr": "N° de TVA / identifiant fiscal",
+    "pt": "N.º de IVA / NIF",
+    "it": "Partita IVA / codice fiscale"
+  },
+  "Dates": {
+    "de": "Datumsangaben",
+    "es": "Fechas",
+    "fr": "Dates",
+    "pt": "Datas",
+    "it": "Date"
+  },
+  "Invoice date": {
+    "de": "Rechnungsdatum",
+    "es": "Fecha de la factura",
+    "fr": "Date de facturation",
+    "pt": "Data da fatura",
+    "it": "Data della fattura"
+  },
+  "Service from": {
+    "de": "Leistung von",
+    "es": "Servicio desde",
+    "fr": "Prestation du",
+    "pt": "Serviço de",
+    "it": "Prestazione dal"
+  },
+  "Delivery / service date": {
+    "de": "Liefer- / Leistungsdatum",
+    "es": "Fecha de entrega / servicio",
+    "fr": "Date de livraison / prestation",
+    "pt": "Data de entrega / serviço",
+    "it": "Data di consegna / prestazione"
+  },
+  "The service covers a period": {
+    "de": "Die Leistung umfasst einen Zeitraum",
+    "es": "El servicio abarca un período",
+    "fr": "La prestation couvre une période",
+    "pt": "O serviço abrange um período",
+    "it": "La prestazione copre un periodo"
+  },
+  "Service until": {
+    "de": "Leistung bis",
+    "es": "Servicio hasta",
+    "fr": "Prestation jusqu'au",
+    "pt": "Serviço até",
+    "it": "Prestazione fino al"
+  },
+  "Lines": {
+    "de": "Positionen",
+    "es": "Líneas",
+    "fr": "Lignes",
+    "pt": "Linhas",
+    "it": "Righe"
+  },
+  "Description": {
+    "de": "Beschreibung",
+    "es": "Descripción",
+    "fr": "Description",
+    "pt": "Descrição",
+    "it": "Descrizione"
+  },
+  "Qty": {
+    "de": "Menge",
+    "es": "Cant.",
+    "fr": "Qté",
+    "pt": "Qtd.",
+    "it": "Qtà"
+  },
+  "Unit price": {
+    "de": "Einzelpreis",
+    "es": "Precio unitario",
+    "fr": "Prix unitaire",
+    "pt": "Preço unitário",
+    "it": "Prezzo unitario"
+  },
+  "Tax %": {
+    "de": "Steuer %",
+    "es": "Impuesto %",
+    "fr": "Taxe %",
+    "pt": "Imposto %",
+    "it": "Imposta %"
+  },
+  "What you sold": {
+    "de": "Was Sie verkauft haben",
+    "es": "Lo que vendió",
+    "fr": "Ce que vous avez vendu",
+    "pt": "O que vendeu",
+    "it": "Cosa ha venduto"
+  },
+  "Remove line": {
+    "de": "Position entfernen",
+    "es": "Quitar línea",
+    "fr": "Supprimer la ligne",
+    "pt": "Remover linha",
+    "it": "Rimuovi riga"
+  },
+  "Add line": {
+    "de": "Position hinzufügen",
+    "es": "Añadir línea",
+    "fr": "Ajouter une ligne",
+    "pt": "Adicionar linha",
+    "it": "Aggiungi riga"
+  },
+  "The prices I entered already include tax": {
+    "de": "Die eingegebenen Preise enthalten bereits Steuern",
+    "es": "Los precios que introduje ya incluyen impuestos",
+    "fr": "Les prix saisis incluent déjà les taxes",
+    "pt": "Os preços que introduzi já incluem imposto",
+    "it": "I prezzi inseriti includono già le imposte"
+  },
+  "Net": {
+    "de": "Netto",
+    "es": "Neto",
+    "fr": "Net",
+    "pt": "Líquido",
+    "it": "Netto"
+  },
+  "Tax {rate}%": {
+    "de": "Steuer {rate} %",
+    "es": "Impuesto {rate} %",
+    "fr": "Taxe {rate} %",
+    "pt": "Imposto {rate} %",
+    "it": "Imposta {rate}%"
+  },
+  "Total": {
+    "de": "Gesamt",
+    "es": "Total",
+    "fr": "Total",
+    "pt": "Total",
+    "it": "Totale"
+  },
+  "You are set up as a small business without VAT, so no tax is added and the invoice carries the matching note.": {
+    "de": "Sie sind als Kleinunternehmen ohne Umsatzsteuer eingerichtet. Daher wird keine Steuer berechnet und die Rechnung enthält den entsprechenden Hinweis.",
+    "es": "Está configurado como pequeña empresa sin IVA, por lo que no se añade ningún impuesto y la factura incluye la nota correspondiente.",
+    "fr": "Vous êtes configuré comme petite entreprise sans TVA : aucune taxe n'est ajoutée et la facture comporte la mention correspondante.",
+    "pt": "Está configurado como pequena empresa sem IVA, pelo que não é adicionado imposto e a fatura inclui a nota correspondente.",
+    "it": "È impostato come piccola impresa senza IVA, quindi non viene aggiunta alcuna imposta e la fattura riporta la relativa dicitura."
+  },
+  "Invoice type: simplified (small amount). Fewer details are required.": {
+    "de": "Rechnungsart: vereinfacht (Kleinbetrag). Es sind weniger Angaben erforderlich.",
+    "es": "Tipo de factura: simplificada (importe pequeño). Se requieren menos datos.",
+    "fr": "Type de facture : simplifiée (petit montant). Moins d'informations sont requises.",
+    "pt": "Tipo de fatura: simplificada (valor reduzido). São necessários menos dados.",
+    "it": "Tipo di fattura: semplificata (piccolo importo). Sono richiesti meno dati."
+  },
+  "Invoice type: full invoice. It needs the customer address.": {
+    "de": "Rechnungsart: vollständige Rechnung. Die Kundenadresse ist erforderlich.",
+    "es": "Tipo de factura: factura completa. Requiere la dirección del cliente.",
+    "fr": "Type de facture : facture complète. L'adresse du client est requise.",
+    "pt": "Tipo de fatura: fatura completa. Requer a morada do cliente.",
+    "it": "Tipo di fattura: fattura completa. Richiede l'indirizzo del cliente."
+  },
+  "Always make a full invoice": {
+    "de": "Immer eine vollständige Rechnung erstellen",
+    "es": "Crear siempre una factura completa",
+    "fr": "Toujours créer une facture complète",
+    "pt": "Criar sempre uma fatura completa",
+    "it": "Crea sempre una fattura completa"
+  },
+  "Extras": {
+    "de": "Zusätzliches",
+    "es": "Extras",
+    "fr": "Options supplémentaires",
+    "pt": "Extras",
+    "it": "Extra"
+  },
+  "Invoice language": {
+    "de": "Rechnungssprache",
+    "es": "Idioma de la factura",
+    "fr": "Langue de la facture",
+    "pt": "Idioma da fatura",
+    "it": "Lingua della fattura"
+  },
+  "Currency": {
+    "de": "Währung",
+    "es": "Moneda",
+    "fr": "Devise",
+    "pt": "Moeda",
+    "it": "Valuta"
+  },
+  "Note on the invoice (optional)": {
+    "de": "Hinweis auf der Rechnung (optional)",
+    "es": "Nota en la factura (opcional)",
+    "fr": "Note sur la facture (facultatif)",
+    "pt": "Nota na fatura (opcional)",
+    "it": "Nota sulla fattura (facoltativo)"
+  },
+  "Could not send the invoice": {
+    "de": "Die Rechnung konnte nicht gesendet werden",
+    "es": "No se pudo enviar la factura",
+    "fr": "Impossible d'envoyer la facture",
+    "pt": "Não foi possível enviar a fatura",
+    "it": "Impossibile inviare la fattura"
+  },
+  "Send invoice to {client}": {
+    "de": "Rechnung an {client} senden",
+    "es": "Enviar factura a {client}",
+    "fr": "Envoyer la facture à {client}",
+    "pt": "Enviar fatura a {client}",
+    "it": "Invia fattura a {client}"
+  },
+  "Sending…": {
+    "de": "Wird gesendet …",
+    "es": "Enviando…",
+    "fr": "Envoi en cours…",
+    "pt": "A enviar…",
+    "it": "Invio in corso…"
+  },
+  "Mark as sent": {
+    "de": "Als gesendet markieren",
+    "es": "Marcar como enviada",
+    "fr": "Marquer comme envoyée",
+    "pt": "Marcar como enviada",
+    "it": "Segna come inviata"
+  },
+  "Close": {
+    "de": "Schließen",
+    "es": "Cerrar",
+    "fr": "Fermer",
+    "pt": "Fechar",
+    "it": "Chiudi"
+  },
+  "This invoice was not created from a Network contact, so it can only be emailed.": {
+    "de": "Diese Rechnung wurde nicht aus einem Netzwerkkontakt erstellt und kann daher nur per E-Mail gesendet werden.",
+    "es": "Esta factura no se creó a partir de un contacto de la red, por lo que solo puede enviarse por correo electrónico.",
+    "fr": "Cette facture n'a pas été créée à partir d'un contact du réseau ; elle ne peut donc être envoyée que par e-mail.",
+    "pt": "Esta fatura não foi criada a partir de um contacto da rede, pelo que só pode ser enviada por e-mail.",
+    "it": "Questa fattura non è stata creata da un contatto della rete, quindi può essere inviata solo via e-mail."
+  },
+  "This contact is not matched to a HandyCFO account yet. Check their email on the Network page.": {
+    "de": "Dieser Kontakt ist noch keinem HandyCFO-Konto zugeordnet. Prüfen Sie die E-Mail-Adresse auf der Netzwerkseite.",
+    "es": "Este contacto aún no está vinculado a una cuenta de HandyCFO. Compruebe su correo electrónico en la página Red.",
+    "fr": "Ce contact n'est pas encore associé à un compte HandyCFO. Vérifiez son adresse e-mail sur la page Réseau.",
+    "pt": "Este contacto ainda não está associado a uma conta HandyCFO. Verifique o e-mail na página Rede.",
+    "it": "Questo contatto non è ancora associato a un account HandyCFO. Verifichi il suo indirizzo e-mail nella pagina Rete."
+  },
+  "Nothing selected. You can still download the PDF with the PDF button and send it yourself.": {
+    "de": "Nichts ausgewählt. Sie können das PDF weiterhin über die PDF-Schaltfläche herunterladen und selbst versenden.",
+    "es": "No hay nada seleccionado. Aun así, puede descargar el PDF con el botón PDF y enviarlo usted mismo.",
+    "fr": "Aucune option sélectionnée. Vous pouvez toujours télécharger le PDF avec le bouton PDF et l'envoyer vous-même.",
+    "pt": "Nada selecionado. Pode ainda transferir o PDF com o botão PDF e enviá-lo por si.",
+    "it": "Nessuna opzione selezionata. Può comunque scaricare il PDF con il pulsante PDF e inviarlo personalmente."
+  },
+  "This invoice is not ready to send yet:": {
+    "de": "Diese Rechnung ist noch nicht versandbereit:",
+    "es": "Esta factura aún no está lista para enviarse:",
+    "fr": "Cette facture n'est pas encore prête à être envoyée :",
+    "pt": "Esta fatura ainda não está pronta para ser enviada:",
+    "it": "Questa fattura non è ancora pronta per l'invio:"
+  },
+  "Fix the invoice with Edit, or add the missing business details in Settings.": {
+    "de": "Korrigieren Sie die Rechnung über „Bearbeiten“ oder ergänzen Sie die fehlenden Unternehmensdaten in den Einstellungen.",
+    "es": "Corrija la factura con Editar o añada los datos de empresa que faltan en Ajustes.",
+    "fr": "Corrigez la facture avec Modifier, ou ajoutez les informations d'entreprise manquantes dans les Paramètres.",
+    "pt": "Corrija a fatura com Editar ou adicione os dados da empresa em falta nas Definições.",
+    "it": "Corregga la fattura con Modifica oppure aggiunga i dati aziendali mancanti nelle Impostazioni."
+  },
+  "address": {
+    "de": "Adresse",
+    "es": "dirección",
+    "fr": "adresse",
+    "pt": "morada",
+    "it": "indirizzo"
+  },
+  "bank details": {
+    "de": "Bankverbindung",
+    "es": "datos bancarios",
+    "fr": "coordonnées bancaires",
+    "pt": "dados bancários",
+    "it": "coordinate bancarie"
+  },
+  "tax number": {
+    "de": "Steuernummer",
+    "es": "número fiscal",
+    "fr": "numéro fiscal",
+    "pt": "número fiscal",
+    "it": "numero fiscale"
+  },
+  "Pending": {
+    "de": "Ausstehend",
+    "es": "Pendiente",
+    "fr": "En attente",
+    "pt": "Pendente",
+    "it": "In sospeso"
+  },
+  "Final": {
+    "de": "Letzte",
+    "es": "Final",
+    "fr": "Dernier",
+    "pt": "Final",
+    "it": "Ultimo"
+  },
+  "1st": {
+    "de": "1.",
+    "es": "1.º",
+    "fr": "1er",
+    "pt": "1.º",
+    "it": "1°"
+  },
+  "2nd": {
+    "de": "2.",
+    "es": "2.º",
+    "fr": "2e",
+    "pt": "2.º",
+    "it": "2°"
+  },
+  "Paid": {
+    "de": "Bezahlt",
+    "es": "Pagada",
+    "fr": "Payée",
+    "pt": "Paga",
+    "it": "Pagata"
+  },
+  "Overdue": {
+    "de": "Überfällig",
+    "es": "Vencida",
+    "fr": "En retard",
+    "pt": "Vencida",
+    "it": "Scaduta"
+  },
+  "Draft": {
+    "de": "Entwurf",
+    "es": "Borrador",
+    "fr": "Brouillon",
+    "pt": "Rascunho",
+    "it": "Bozza"
+  },
+  "All": {
+    "de": "Alle",
+    "es": "Todas",
+    "fr": "Toutes",
+    "pt": "Todas",
+    "it": "Tutte"
+  }
+}

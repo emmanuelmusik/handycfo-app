@@ -9,6 +9,7 @@ import { useT } from '../lib/i18n';
 import { COUNTRIES, INVOICE_LANGUAGES, setupFor } from '../lib/countries';
 
 export default function Network({ onOpenChat }) {
+  const { t } = useT();
   const { contacts, loading, refetch } = useContacts();
   const [showAdd, setShowAdd] = useState(false);
   const [toRemove, setToRemove] = useState(null);
@@ -32,7 +33,7 @@ export default function Network({ onOpenChat }) {
       setToRemove(null);
       await refetch();
     } catch (err) {
-      setError(err.message || 'Could not remove this contact');
+      setError(err.message || t('Could not remove this contact'));
     } finally {
       setRemoving(false);
     }
@@ -42,19 +43,19 @@ export default function Network({ onOpenChat }) {
     <div>
       <div className="page-head">
         <div>
-          <h1 className="page-title">Network</h1>
-          <p className="page-sub">Your suppliers and clients. When they use HandyCFO too, you can message each other and send invoices straight into their inbox.</p>
+          <h1 className="page-title">{t('Network')}</h1>
+          <p className="page-sub">{t('Your suppliers and clients. When they use HandyCFO too, you can message each other and send invoices straight into their inbox.')}</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowAdd(true)}>
           <Icon name="plus" size={15} strokeWidth={2} />
-          Add contact
+          {t('Add contact')}
         </button>
       </div>
 
       <div className="filter-pills" style={{ marginBottom: 14 }}>
         {['all', 'Supplier', 'Client'].map((f) => (
           <button key={f} className={`pill ${filter === f ? 'active' : ''}`} onClick={() => setFilter(f)}>
-            {f === 'all' ? 'Everyone' : `${f}s`}
+            {f === 'all' ? t('Everyone') : f === 'Supplier' ? t('Suppliers') : t('Clients')}
           </button>
         ))}
       </div>
@@ -62,10 +63,10 @@ export default function Network({ onOpenChat }) {
       {error && <p style={{ color: 'var(--red)', fontSize: 13 }}>{error}</p>}
 
       {loading ? (
-        <p style={{ color: 'var(--text-faint)' }}>Loading…</p>
+        <p style={{ color: 'var(--text-faint)' }}>{t('Loading…')}</p>
       ) : rows.length === 0 ? (
         <div className="panel"><div className="empty-hint">
-          {contacts.length === 0 ? 'No contacts yet. Add a supplier or client with their email address.' : 'Nobody in this group yet.'}
+          {contacts.length === 0 ? t('No contacts yet. Add a supplier or client with their email address.') : t('Nobody in this group yet.')}
         </div></div>
       ) : (
         <div className="contact-grid">
@@ -75,22 +76,22 @@ export default function Network({ onOpenChat }) {
                 <div className="contact-avatar" style={{ background: c.color || '#3FBF9C' }}>{initialsOf(c.name)}</div>
                 <div style={{ minWidth: 0 }}>
                   <div className="contact-name">{c.name}</div>
-                  <div className="contact-type">{c.relationship}{c.email ? ` · ${c.email}` : ''}</div>
+                  <div className="contact-type">{t(c.relationship)}{c.email ? ` · ${c.email}` : ''}</div>
                 </div>
               </div>
               <div className={`contact-status ${c.on_platform ? 'on' : 'off'}`}>
                 <span className="dot" />
-                {c.on_platform ? 'On HandyCFO' : 'Not on HandyCFO yet'}
+                {c.on_platform ? t('On HandyCFO') : t('Not on HandyCFO yet')}
               </div>
               <div className="contact-actions">
-                <button className="btn btn-sm" disabled={!c.on_platform} onClick={() => onOpenChat(c.id)} title={c.on_platform ? '' : 'They need a HandyCFO account first'}>
-                  <Icon name="message" size={14} />Message
+                <button className="btn btn-sm" disabled={!c.on_platform} onClick={() => onOpenChat(c.id)} title={c.on_platform ? '' : t('They need a HandyCFO account first')}>
+                  <Icon name="message" size={14} />{t('Message')}
                 </button>
                 <button className="btn btn-sm" onClick={() => setEditing(c)}>
-                  <Icon name="edit" size={14} />Edit
+                  <Icon name="edit" size={14} />{t('Edit')}
                 </button>
                 <button className="btn btn-sm" onClick={() => setToRemove(c)}>
-                  <Icon name="trash" size={14} />Remove
+                  <Icon name="trash" size={14} />{t('Remove')}
                 </button>
               </div>
             </div>
@@ -115,9 +116,9 @@ export default function Network({ onOpenChat }) {
 
       {toRemove && (
         <ConfirmModal
-          title="Remove contact?"
-          confirmLabel="Remove"
-          message={`Remove ${toRemove.name} and your messages with them? Invoices and expenses that mention them are kept.`}
+          title={t('Remove contact?')}
+          confirmLabel={t('Remove')}
+          message={t('Remove {name} and your messages with them? Invoices and expenses that mention them are kept.', { name: toRemove.name })}
           busy={removing}
           onConfirm={handleRemove}
           onCancel={() => setToRemove(null)}

@@ -5,6 +5,7 @@ import { fmtMoney } from '../lib/format';
 import PeriodPicker from '../components/PeriodPicker';
 import Icon from '../components/layout/Icon';
 import { exportReportPdf } from '../lib/reportPdf';
+import { useT } from '../lib/i18n';
 import { defaultPeriod, resolvePeriod, isPeriodValid } from '../lib/period';
 
 Chart.register(...registerables);
@@ -36,6 +37,7 @@ function resolveRange(period) {
 }
 
 export default function Reports({ business }) {
+  const { t } = useT();
   const [period, setPeriod] = useState(() => ({ ...defaultPeriod(), key: '6' }));
   const [data, setData] = useState({ income: {}, expenses: {}, categories: {} });
   const [loading, setLoading] = useState(true);
@@ -60,7 +62,7 @@ export default function Reports({ business }) {
       ]);
       if (cancelled) return;
       if (inc.error || exp.error || cats.error) {
-        setError('Could not load the report. Please try again.');
+        setError(t('Could not load the report. Please try again.'));
         setLoading(false);
         return;
       }
@@ -72,7 +74,7 @@ export default function Reports({ business }) {
       setLoading(false);
     })();
     return () => { cancelled = true; };
-  }, [business.id, range]);
+  }, [business.id, range, t]);
 
   const series = useMemo(() => {
     if (!range) return [];
@@ -110,8 +112,8 @@ export default function Reports({ business }) {
       data: {
         labels: series.map((s) => s.label),
         datasets: [
-          { label: 'Income', data: series.map((s) => s.income), backgroundColor: accent, borderRadius: 4 },
-          { label: 'Expenses', data: series.map((s) => s.expenses), backgroundColor: red, borderRadius: 4 },
+          { label: t('Income'), data: series.map((s) => s.income), backgroundColor: accent, borderRadius: 4 },
+          { label: t('Expenses'), data: series.map((s) => s.expenses), backgroundColor: red, borderRadius: 4 },
         ],
       },
       options: {
@@ -124,7 +126,7 @@ export default function Reports({ business }) {
       },
     });
     return () => { trendChart.current?.destroy(); };
-  }, [series, business.currency]);
+  }, [series, business.currency, t]);
 
   useEffect(() => {
     if (!catRef.current) return undefined;
@@ -133,25 +135,25 @@ export default function Reports({ business }) {
     catChart.current = new Chart(catRef.current, {
       type: 'doughnut',
       data: {
-        labels: categoryRows.map(([c]) => c),
+        labels: categoryRows.map(([c]) => t(c)),
         datasets: [{ data: categoryRows.map(([, v]) => v), backgroundColor: categoryRows.map((_, i) => CATEGORY_COLORS[i % CATEGORY_COLORS.length]), borderWidth: 0 }],
       },
       options: { responsive: true, maintainAspectRatio: false, cutout: '64%', plugins: { legend: { display: false } } },
     });
     return () => { catChart.current?.destroy(); };
-  }, [categoryRows]);
+  }, [categoryRows, t]);
 
-  const rangeLabel = range ? range.label : 'Custom range';
+  const rangeLabel = range ? t(range.label) : t('Custom range');
 
   const [exporting, setExporting] = useState(false);
   async function handleExport() {
     setExporting(true);
     setError('');
     try {
-      await exportReportPdf({ business, rangeLabel, totals, series, categoryRows });
+      await exportReportPdf({ business, rangeLabel, totals, series, categoryRows, t });
     } catch (err) {
       console.error('PDF export failed:', err);
-      setError('Could not create the PDF. Please try again.');
+      setError(t('Could not create the PDF. Please try again.'));
     } finally {
       setExporting(false);
     }
@@ -161,51 +163,51 @@ export default function Reports({ business }) {
     <div>
       <div className="page-head">
         <div>
-          <h1 className="page-title">Reports</h1>
-          <p className="page-sub">Income, spending and profit for {business.name}, calculated from your real invoices and expenses.</p>
+          <h1 className="page-title">{t('Reports')}</h1>
+          <p className="page-sub">{t('Income, spending and profit for {name}, calculated from your real invoices and expenses.', { name: business.name })}</p>
         </div>
         <button className="btn btn-primary" onClick={handleExport} disabled={!range || loading || exporting}>
           <Icon name="download" size={15} strokeWidth={2} />
-          {exporting ? 'Preparing PDF…' : 'Export PDF'}
+          {exporting ? t('Preparing PDF…') : t('Export PDF')}
         </button>
       </div>
 
       <PeriodPicker value={period} onChange={setPeriod} monthsOnly />
       {!periodValid && (
-        <p style={{ color: 'var(--red)', fontSize: 12.5, marginTop: -6 }}>Pick a start month on or before the end month.</p>
+        <p style={{ color: 'var(--red)', fontSize: 12.5, marginTop: -6 }}>{t('Pick a start month on or before the end month.')}</p>
       )}
 
       {error && <p style={{ color: 'var(--red)', fontSize: 13 }}>{error}</p>}
 
       <div className="metrics-grid">
         <div className="metric-card">
-          <div className="metric-label"><span className="metric-dot" style={{ background: 'var(--accent)' }} />Income</div>
+          <div className="metric-label"><span className="metric-dot" style={{ background: 'var(--accent)' }} />{t('Income')}</div>
           <div className="metric-value">{fmtMoney(totals.income, business.currency)}</div>
-          <div className="metric-delta">{rangeLabel} · paid invoices</div>
+          <div className="metric-delta">{t('{period} · paid invoices', { period: rangeLabel })}</div>
         </div>
         <div className="metric-card">
-          <div className="metric-label"><span className="metric-dot" style={{ background: 'var(--red-dot)' }} />Expenses</div>
+          <div className="metric-label"><span className="metric-dot" style={{ background: 'var(--red-dot)' }} />{t('Expenses')}</div>
           <div className="metric-value">{fmtMoney(totals.expenses, business.currency)}</div>
           <div className="metric-delta">{rangeLabel}</div>
         </div>
         <div className="metric-card">
-          <div className="metric-label"><span className="metric-dot" style={{ background: 'var(--amber-dot)' }} />Profit</div>
+          <div className="metric-label"><span className="metric-dot" style={{ background: 'var(--amber-dot)' }} />{t('Profit')}</div>
           <div className="metric-value" style={{ color: totals.profit < 0 ? 'var(--red)' : undefined }}>{fmtMoney(totals.profit, business.currency)}</div>
           <div className="metric-delta">
-            {totals.margin == null ? 'No income in this period' : `${totals.margin.toFixed(0)}% margin`}
+            {totals.margin == null ? t('No income in this period') : t('{margin}% margin', { margin: totals.margin.toFixed(0) })}
           </div>
         </div>
       </div>
 
       <div className="two-col">
         <div className="panel" style={{ padding: 18 }}>
-          <div className="section-title">Income vs. expenses</div>
+          <div className="section-title">{t('Income vs. expenses')}</div>
           <div className="chart-box"><canvas ref={trendRef} /></div>
         </div>
         <div className="panel" style={{ padding: 18 }}>
-          <div className="section-title">Where the money went</div>
+          <div className="section-title">{t('Where the money went')}</div>
           {categoryRows.length === 0 ? (
-            <div className="empty-hint">{loading ? 'Loading…' : 'No expenses in this period.'}</div>
+            <div className="empty-hint">{loading ? t('Loading…') : t('No expenses in this period.')}</div>
           ) : (
             <>
               <div className="chart-box small"><canvas ref={catRef} /></div>
@@ -213,7 +215,7 @@ export default function Reports({ business }) {
                 {categoryRows.map(([c, v], i) => (
                   <div className="category-legend-item" key={c}>
                     <span className="category-legend-dot" style={{ background: CATEGORY_COLORS[i % CATEGORY_COLORS.length] }} />
-                    {c} · {fmtMoney(v, business.currency)}
+                    {t(c)} · {fmtMoney(v, business.currency)}
                   </div>
                 ))}
               </div>

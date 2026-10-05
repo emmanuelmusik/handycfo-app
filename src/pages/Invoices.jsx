@@ -47,31 +47,32 @@ function displayStatus(inv) {
   return inv.status;
 }
 
-function describeSend(r, prefix) {
-  const parts = [];
-  if (r.emailed) parts.push(`Emailed to ${r.emailedTo}`);
-  if (r.deliveredInApp) parts.push('delivered to their HandyCFO inbox');
+function describeSend(r, prefix, t) {
   const problems = [r.emailError, r.appError].filter(Boolean).join(' ');
-  if (!parts.length) return `${prefix}${problems || 'Marked as sent.'}`;
-  const text = parts.join(' and ');
-  return `${prefix}${text.charAt(0).toUpperCase()}${text.slice(1)}.${problems ? ` ${problems}` : ''}`;
+  let text = '';
+  if (r.emailed && r.deliveredInApp) text = t('Emailed to {email} and delivered to their HandyCFO inbox.', { email: r.emailedTo });
+  else if (r.emailed) text = t('Emailed to {email}.', { email: r.emailedTo });
+  else if (r.deliveredInApp) text = t('Delivered to their HandyCFO inbox.');
+  if (!text) return `${prefix}${problems || t('Marked as sent.')}`;
+  return `${prefix}${text}${problems ? ` ${problems}` : ''}`;
 }
 
 // Where should the invoice go? Email, the client's HandyCFO inbox, or both.
 function SendOptions({ email, onPlatform, alreadyEmailed, value, onChange, appHint }) {
+  const { t } = useT();
   const emailAvailable = !!email && !alreadyEmailed;
   const emailChecked = emailAvailable && (value.email ?? true);
   const appChecked = onPlatform && (value.app ?? true);
   return (
     <div className="field" style={{ marginBottom: 0 }}>
-      <label>How should we send it?</label>
+      <label>{t('How should we send it?')}</label>
       <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontWeight: 500, opacity: emailAvailable ? 1 : 0.55, marginBottom: 10 }}>
         <input type="checkbox" style={{ width: 'auto', marginTop: 3 }} disabled={!emailAvailable} checked={emailChecked}
           onChange={(e) => onChange({ ...value, email: e.target.checked })} />
         <span>
-          Email it as a PDF
+          {t('Email it as a PDF')}
           <span className="cell-soft" style={{ display: 'block', fontSize: 12, fontWeight: 400 }}>
-            {alreadyEmailed ? 'Already emailed to this client.' : email ? `To ${email}` : 'Add the client\'s email address to use this.'}
+            {alreadyEmailed ? t('Already emailed to this client.') : email ? t('To {email}', { email }) : t('Add the client\'s email address to use this.')}
           </span>
         </span>
       </label>
@@ -79,9 +80,9 @@ function SendOptions({ email, onPlatform, alreadyEmailed, value, onChange, appHi
         <input type="checkbox" style={{ width: 'auto', marginTop: 3 }} disabled={!onPlatform} checked={appChecked}
           onChange={(e) => onChange({ ...value, app: e.target.checked })} />
         <span>
-          Send to their HandyCFO inbox
+          {t('Send to their HandyCFO inbox')}
           <span className="cell-soft" style={{ display: 'block', fontSize: 12, fontWeight: 400 }}>
-            {onPlatform ? 'They can review it and record it as an expense.' : (appHint || 'Only for clients from your network who use HandyCFO.')}
+            {onPlatform ? t('They can review it and record it as an expense.') : (appHint || t('Only for clients from your network who use HandyCFO.'))}
           </span>
         </span>
       </label>
@@ -146,7 +147,7 @@ export default function Invoices({ business, onOpenSettings }) {
     try {
       await updateInvoice(inv.id, { auto_reminders: !inv.auto_reminders });
     } catch (err) {
-      setError(err.message || 'Could not update reminders');
+      setError(err.message || t('Could not update reminders'));
     }
   }
 
@@ -155,7 +156,7 @@ export default function Invoices({ business, onOpenSettings }) {
     setNotice('');
     const r = await api.sendInvoice(inv.id, channels);
     await refetch();
-    setNotice(describeSend(r, ''));
+    setNotice(describeSend(r, '', t));
   }
 
   async function handleDownload(inv) {
@@ -163,7 +164,7 @@ export default function Invoices({ business, onOpenSettings }) {
     try {
       await api.downloadInvoicePdf(inv.id);
     } catch (err) {
-      setError(err.message || 'Could not download the PDF');
+      setError(err.message || t('Could not download the PDF'));
     }
   }
 
@@ -172,7 +173,7 @@ export default function Invoices({ business, onOpenSettings }) {
     try {
       await updateInvoice(inv.id, { status: 'Paid', paid_at: new Date().toISOString() });
     } catch (err) {
-      setError(err.message || 'Could not mark the invoice as paid');
+      setError(err.message || t('Could not mark the invoice as paid'));
     }
   }
 
@@ -183,7 +184,7 @@ export default function Invoices({ business, onOpenSettings }) {
       await deleteInvoice(toDelete.id);
       setToDelete(null);
     } catch (err) {
-      setError(err.message || 'Could not delete the invoice');
+      setError(err.message || t('Could not delete the invoice'));
     } finally {
       setDeleting(false);
     }
@@ -193,12 +194,12 @@ export default function Invoices({ business, onOpenSettings }) {
     <div>
       <div className="page-head">
         <div>
-          <h1 className="page-title">Invoices</h1>
-          <p className="page-sub">Money coming in. Send a bill to a client, then mark it paid when the money arrives. Reminders go out automatically if it is late.</p>
+          <h1 className="page-title">{t('Invoices')}</h1>
+          <p className="page-sub">{t('Money coming in. Send a bill to a client, then mark it paid when the money arrives. Reminders go out automatically if it is late.')}</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowCreate(true)}>
           <Icon name="plus" size={15} strokeWidth={2} />
-          Create new invoice
+          {t('Create new invoice')}
         </button>
       </div>
 
@@ -225,7 +226,7 @@ export default function Invoices({ business, onOpenSettings }) {
                 className={`pill ${filter === f.key ? 'active' : ''}`}
                 onClick={() => setFilter(f.key)}
               >
-                {f.label}
+                {t(f.label)}
               </button>
             ))}
           </div>
@@ -235,25 +236,25 @@ export default function Invoices({ business, onOpenSettings }) {
           <table>
             <thead>
               <tr>
-                <th>Client</th>
-                <th className="amt">Amount</th>
-                <th>Due date</th>
-                <th>Status</th>
-                <th>Reminders sent</th>
-                <th>Automated reminders</th>
+                <th>{t('Client')}</th>
+                <th className="amt">{t('Amount')}</th>
+                <th>{t('Due date')}</th>
+                <th>{t('Status')}</th>
+                <th>{t('Reminders sent')}</th>
+                <th>{t('Automated reminders')}</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {loading && (
-                <tr><td colSpan={7} className="empty-hint">Loading…</td></tr>
+                <tr><td colSpan={7} className="empty-hint">{t('Loading…')}</td></tr>
               )}
               {!loading && rows.length === 0 && (
                 <tr>
                   <td colSpan={7} className="empty-hint">
                     {invoices.length === 0
-                      ? 'No invoices yet. Create your first one to start tracking what you are owed.'
-                      : 'No invoices in this view.'}
+                      ? t('No invoices yet. Create your first one to start tracking what you are owed.')
+                      : t('No invoices in this view.')}
                   </td>
                 </tr>
               )}
@@ -271,10 +272,10 @@ export default function Invoices({ business, onOpenSettings }) {
                   <td>
                     <span className={`badge ${BADGE_CLASS[inv.shownStatus]}`}>
                       <span className="dot" />
-                      {BADGE_LABEL[inv.shownStatus]}
+                      {t(BADGE_LABEL[inv.shownStatus])}
                     </span>
                   </td>
-                  <td className="cell-soft">{REMINDER_LABEL[inv.reminder_level] || '—'}</td>
+                  <td className="cell-soft">{t(REMINDER_LABEL[inv.reminder_level] || '—')}</td>
                   <td>
                     <label className="toggle">
                       <input
@@ -292,14 +293,14 @@ export default function Invoices({ business, onOpenSettings }) {
                       )}
                       {inv.status !== 'Paid' && (
                         <button className="btn btn-sm btn-primary" onClick={() => setToSend(inv)}>
-                          {inv.status === 'Draft' ? 'Send' : 'Send again'}
+                          {inv.status === 'Draft' ? t('Send') : t('Send again')}
                         </button>
                       )}
                       {inv.status !== 'Paid' && (
-                        <button className="btn btn-sm" onClick={() => handleMarkPaid(inv)}>Mark paid</button>
+                        <button className="btn btn-sm" onClick={() => handleMarkPaid(inv)}>{t('Mark paid')}</button>
                       )}
-                      <button className="btn btn-sm" title="Download as PDF" onClick={() => handleDownload(inv)}>PDF</button>
-                      <button className="icon-btn" title="Delete invoice" onClick={() => setToDelete(inv)}>
+                      <button className="btn btn-sm" title={t('Download as PDF')} onClick={() => handleDownload(inv)}>{t('PDF')}</button>
+                      <button className="icon-btn" title={t('Delete invoice')} onClick={() => setToDelete(inv)}>
                         <Icon name="trash" size={14} strokeWidth={2} />
                       </button>
                     </div>
@@ -340,10 +341,10 @@ export default function Invoices({ business, onOpenSettings }) {
 
       {toDelete && (
         <ConfirmModal
-          title="Delete invoice?"
+          title={t('Delete invoice?')}
           message={toDelete.status === 'Draft'
-            ? `Delete the ${fmtMoney(toDelete.amount, toDelete.currency)} draft for ${toDelete.client_name}? This can't be undone.`
-            : `Delete the ${fmtMoney(toDelete.amount, toDelete.currency)} invoice ${toDelete.invoice_number || ''} for ${toDelete.client_name}? Its number will not be used again, so your numbering will have a gap. In most countries sent invoices must be kept for years, so only delete one if it was created by mistake.`}
+            ? t("Delete the {amount} draft for {client}? This can't be undone.", { amount: fmtMoney(toDelete.amount, toDelete.currency), client: toDelete.client_name })
+            : t('Delete the {amount} invoice {number} for {client}? Its number will not be used again, so your numbering will have a gap. In most countries sent invoices must be kept for years, so only delete one if it was created by mistake.', { amount: fmtMoney(toDelete.amount, toDelete.currency), number: toDelete.invoice_number || '', client: toDelete.client_name })}
           busy={deleting}
           onConfirm={handleConfirmDelete}
           onCancel={() => setToDelete(null)}
@@ -577,21 +578,21 @@ function SendModal({ invoice, contact, onClose, onSend, onOpenSettings }) {
     try {
       await onSend(channels);
     } catch (err) {
-      if (err.missing?.length) { setMissing(err.missing); setError(''); } else setError(err.message || 'Could not send the invoice');
+      if (err.missing?.length) { setMissing(err.missing); setError(''); } else setError(err.message || t('Could not send the invoice'));
       setBusy(false);
     }
   }
 
   return (
     <Modal
-      title={`Send invoice to ${invoice.client_name}`}
+      title={t('Send invoice to {client}', { client: invoice.client_name })}
       onClose={onClose}
       maxWidth={420}
       footer={
         <>
-          <button className="btn" onClick={onClose} disabled={busy}>Cancel</button>
+          <button className="btn" onClick={onClose} disabled={busy}>{t('Cancel')}</button>
           <button className="btn btn-primary" onClick={submit} disabled={busy}>
-            {busy ? 'Sending…' : channels.length ? 'Send' : invoice.status === 'Draft' ? 'Mark as sent' : 'Close'}
+            {busy ? t('Sending…') : channels.length ? t('Send') : invoice.status === 'Draft' ? t('Mark as sent') : t('Close')}
           </button>
         </>
       }
@@ -599,12 +600,12 @@ function SendModal({ invoice, contact, onClose, onSend, onOpenSettings }) {
       <SendOptions
         email={email} onPlatform={onPlatform} alreadyEmailed={alreadyEmailed} value={value} onChange={setValue}
         appHint={!invoice.client_contact_id
-          ? 'This invoice was not created from a Network contact, so it can only be emailed.'
-          : 'This contact is not matched to a HandyCFO account yet. Check their email on the Network page.'}
+          ? t('This invoice was not created from a Network contact, so it can only be emailed.')
+          : t('This contact is not matched to a HandyCFO account yet. Check their email on the Network page.')}
       />
       {channels.length === 0 && (
         <p className="cell-soft" style={{ fontSize: 12.5, marginBottom: 0 }}>
-          Nothing selected. You can still download the PDF with the PDF button and send it yourself.
+          {t('Nothing selected. You can still download the PDF with the PDF button and send it yourself.')}
         </p>
       )}
       {missing.length > 0 && (

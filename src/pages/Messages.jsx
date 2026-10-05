@@ -6,8 +6,10 @@ import { api } from '../lib/api';
 import { fmtMoney, fmtDate, initialsOf, timeAgo } from '../lib/format';
 import Modal from '../components/Modal';
 import Icon from '../components/layout/Icon';
+import { useT } from '../lib/i18n';
 
 export default function Messages({ business, initialContactId, onNavigate, onChanged }) {
+  const { t } = useT();
   const { contacts, loading: contactsLoading } = useContacts();
   const { messages, loading: msgLoading, refetch, markRead } = useMessages();
   const { docs } = useInbox(business.id);
@@ -41,20 +43,20 @@ export default function Messages({ business, initialContactId, onNavigate, onCha
     <div>
       <div className="page-head">
         <div>
-          <h1 className="page-title">Messages</h1>
-          <p className="page-sub">Talk to suppliers and clients who use HandyCFO, and see invoices they have sent you.</p>
+          <h1 className="page-title">{t('Messages')}</h1>
+          <p className="page-sub">{t('Talk to suppliers and clients who use HandyCFO, and see invoices they have sent you.')}</p>
         </div>
       </div>
 
       <div className="two-col">
         <div className="panel" style={{ padding: 18 }}>
-          <div className="section-title">Conversations</div>
-          {(contactsLoading || msgLoading) && <div className="empty-hint">Loading…</div>}
+          <div className="section-title">{t('Conversations')}</div>
+          {(contactsLoading || msgLoading) && <div className="empty-hint">{t('Loading…')}</div>}
           {!contactsLoading && !msgLoading && conversations.length === 0 && (
             <div className="empty-hint">
-              No conversations yet. Add a contact who uses HandyCFO in Network, then say hello.
+              {t('No conversations yet. Add a contact who uses HandyCFO in Network, then say hello.')}
               <div style={{ marginTop: 12 }}>
-                <button className="btn btn-sm" onClick={() => onNavigate('network')}>Go to Network</button>
+                <button className="btn btn-sm" onClick={() => onNavigate('network')}>{t('Go to Network')}</button>
               </div>
             </div>
           )}
@@ -63,7 +65,7 @@ export default function Messages({ business, initialContactId, onNavigate, onCha
               <div className="contact-avatar" style={{ background: contact.color || '#3FBF9C' }}>{initialsOf(contact.name)}</div>
               <div className="conversation-main">
                 <div className="conversation-name">{contact.name}{unread > 0 && <span className="unread-dot" />}</div>
-                <div className="conversation-preview">{last ? `${last.sender === 'me' ? 'You: ' : ''}${last.body}` : 'Say hello'}</div>
+                <div className="conversation-preview">{last ? (last.sender === 'me' ? t('You: {message}', { message: last.body }) : last.body) : t('Say hello')}</div>
               </div>
               {last && <div className="cell-soft" style={{ fontSize: 11.5 }}>{timeAgo(last.created_at)}</div>}
             </div>
@@ -71,8 +73,8 @@ export default function Messages({ business, initialContactId, onNavigate, onCha
         </div>
 
         <div className="panel" style={{ padding: 18 }}>
-          <div className="section-title">Incoming invoices</div>
-          {incoming.length === 0 && <div className="empty-hint">Invoices that suppliers send you on HandyCFO appear here.</div>}
+          <div className="section-title">{t('Incoming invoices')}</div>
+          {incoming.length === 0 && <div className="empty-hint">{t('Invoices that suppliers send you on HandyCFO appear here.')}</div>}
           {incoming.map((d) => (
             <div className="incoming-invoice-row" key={d.id}>
               <div className="incoming-invoice-main">
@@ -81,7 +83,7 @@ export default function Messages({ business, initialContactId, onNavigate, onCha
                   {fmtMoney(d.extracted_amount, d.extracted_currency || business.currency)} · {fmtDate(d.extracted_date)}
                 </div>
               </div>
-              <button className="btn btn-sm btn-primary" onClick={() => onNavigate('inbox')}>Review</button>
+              <button className="btn btn-sm btn-primary" onClick={() => onNavigate('inbox')}>{t('Review')}</button>
             </div>
           ))}
         </div>
@@ -101,6 +103,7 @@ export default function Messages({ business, initialContactId, onNavigate, onCha
 }
 
 function ChatModal({ contact, messages, onClose, onSent, onViewed }) {
+  const { t } = useT();
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -124,7 +127,7 @@ function ChatModal({ contact, messages, onClose, onSent, onViewed }) {
       setText('');
       await onSent();
     } catch (err) {
-      setError(err.message || 'Could not send the message');
+      setError(err.message || t('Could not send the message'));
     } finally {
       setBusy(false);
     }
@@ -134,7 +137,7 @@ function ChatModal({ contact, messages, onClose, onSent, onViewed }) {
     <Modal title={contact.name} onClose={onClose}>
       <div style={{ margin: -20 }}>
         <div className="chat-thread" ref={threadRef}>
-          {messages.length === 0 && <div className="chat-bubble system">No messages yet. Say hello.</div>}
+          {messages.length === 0 && <div className="chat-bubble system">{t('No messages yet. Say hello.')}</div>}
           {messages.map((m) => (
             <div key={m.id} className={`chat-bubble ${m.sender}`}>{m.body}</div>
           ))}
@@ -144,17 +147,17 @@ function ChatModal({ contact, messages, onClose, onSent, onViewed }) {
           <div className="chat-input-row">
             <input
               type="text"
-              placeholder="Write a message…"
+              placeholder={t('Write a message…')}
               value={text}
               maxLength={2000}
               onChange={(e) => setText(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') send(); }}
             />
-            <button className="chat-send-btn" onClick={send} disabled={busy} aria-label="Send"><Icon name="send" size={16} /></button>
+            <button className="chat-send-btn" onClick={send} disabled={busy} aria-label={t('Send')}><Icon name="send" size={16} /></button>
           </div>
         ) : (
           <div className="chat-input-row cell-soft" style={{ fontSize: 12.5 }}>
-            {contact.name} is not on HandyCFO yet, so you can't message them here.
+            {t("{name} is not on HandyCFO yet, so you can't message them here.", { name: contact.name })}
           </div>
         )}
       </div>

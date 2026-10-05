@@ -1,0 +1,415 @@
+{
+ "{reason}. Sign in below, or sign up again to get a new link.": {
+  "de": "{reason}. Melden Sie sich unten an oder registrieren Sie sich erneut, um einen neuen Link zu erhalten.",
+  "es": "{reason}. Inicie sesión a continuación o regístrese de nuevo para obtener un enlace nuevo.",
+  "fr": "{reason}. Connectez-vous ci-dessous ou inscrivez-vous à nouveau pour recevoir un nouveau lien.",
+  "pt": "{reason}. Inicie sessão abaixo ou registe-se novamente para obter uma nova ligação.",
+  "it": "{reason}. Acceda qui sotto oppure registrati di nuovo per ricevere un nuovo link."
+ },
+ "Something went wrong": {
+  "de": "Etwas ist schiefgelaufen",
+  "es": "Algo salió mal",
+  "fr": "Une erreur s'est produite",
+  "pt": "Algo correu mal",
+  "it": "Qualcosa è andato storto"
+ },
+ "Check your email": {
+  "de": "Prüfen Sie Ihre E-Mails",
+  "es": "Revise su correo electrónico",
+  "fr": "Consultez vos e-mails",
+  "pt": "Verifique o seu e-mail",
+  "it": "Controlla la tua e-mail"
+ },
+ "We sent a confirmation link to {email}. Open it and you will come straight back here, signed in.": {
+  "de": "Wir haben einen Bestätigungslink an {email} gesendet. Öffnen Sie ihn, und Sie gelangen direkt angemeldet hierher zurück.",
+  "es": "Hemos enviado un enlace de confirmación a {email}. Ábralo y volverá aquí directamente, con la sesión iniciada.",
+  "fr": "Nous avons envoyé un lien de confirmation à {email}. Ouvrez-le et vous reviendrez directement ici, connecté.",
+  "pt": "Enviámos uma ligação de confirmação para {email}. Abra-a e voltará diretamente aqui, com a sessão iniciada.",
+  "it": "Abbiamo inviato un link di conferma a {email}. Aprilo e tornerai direttamente qui, con l'accesso effettuato."
+ },
+ "Back to sign in": {
+  "de": "Zurück zur Anmeldung",
+  "es": "Volver a iniciar sesión",
+  "fr": "Retour à la connexion",
+  "pt": "Voltar ao início de sessão",
+  "it": "Torna all'accesso"
+ },
+ "Welcome back": {
+  "de": "Willkommen zurück",
+  "es": "Bienvenido de nuevo",
+  "fr": "Bon retour",
+  "pt": "Bem-vindo de volta",
+  "it": "Bentornato"
+ },
+ "Create your account": {
+  "de": "Konto erstellen",
+  "es": "Cree su cuenta",
+  "fr": "Créez votre compte",
+  "pt": "Crie a sua conta",
+  "it": "Crea il tuo account"
+ },
+ "HandyCFO — my smart accountant": {
+  "de": "HandyCFO – mein smarter Buchhalter",
+  "es": "HandyCFO: mi contable inteligente",
+  "fr": "HandyCFO – mon comptable intelligent",
+  "pt": "HandyCFO – o meu contabilista inteligente",
+  "it": "HandyCFO – il mio contabile intelligente"
+ },
+ "Email": {
+  "de": "E-Mail",
+  "es": "Correo electrónico",
+  "fr": "E-mail",
+  "pt": "E-mail",
+  "it": "E-mail"
+ },
+ "Password": {
+  "de": "Passwort",
+  "es": "Contraseña",
+  "fr": "Mot de passe",
+  "pt": "Palavra-passe",
+  "it": "Password"
+ },
+ "Please wait…": {
+  "de": "Bitte warten…",
+  "es": "Espere, por favor…",
+  "fr": "Veuillez patienter…",
+  "pt": "Aguarde…",
+  "it": "Attendere…"
+ },
+ "Sign in": {
+  "de": "Anmelden",
+  "es": "Iniciar sesión",
+  "fr": "Se connecter",
+  "pt": "Iniciar sessão",
+  "it": "Accedi"
+ },
+ "Sign up": {
+  "de": "Registrieren",
+  "es": "Registrarse",
+  "fr": "S'inscrire",
+  "pt": "Registar",
+  "it": "Registrati"
+ },
+ "Don't have an account? Sign up": {
+  "de": "Noch kein Konto? Registrieren",
+  "es": "¿No tiene una cuenta? Regístrese",
+  "fr": "Pas de compte ? Inscrivez-vous",
+  "pt": "Não tem conta? Registe-se",
+  "it": "Non hai un account? Registrati"
+ },
+ "Already have an account? Sign in": {
+  "de": "Sie haben bereits ein Konto? Anmelden",
+  "es": "¿Ya tiene una cuenta? Inicie sesión",
+  "fr": "Vous avez déjà un compte ? Connectez-vous",
+  "pt": "Já tem conta? Inicie sessão",
+  "it": "Hai già un account? Accedi"
+ },
+ "Messages": {
+  "de": "Nachrichten",
+  "es": "Mensajes",
+  "fr": "Messages",
+  "pt": "Mensagens",
+  "it": "Messaggi"
+ },
+ "Talk to suppliers and clients who use HandyCFO, and see invoices they have sent you.": {
+  "de": "Sprechen Sie mit Lieferanten und Kunden, die HandyCFO nutzen, und sehen Sie die Rechnungen, die sie Ihnen gesendet haben.",
+  "es": "Hable con proveedores y clientes que usan HandyCFO y vea las facturas que le han enviado.",
+  "fr": "Échangez avec les fournisseurs et clients qui utilisent HandyCFO et consultez les factures qu'ils vous ont envoyées.",
+  "pt": "Converse com fornecedores e clientes que utilizam o HandyCFO e veja as faturas que lhe enviaram.",
+  "it": "Parla con fornitori e clienti che usano HandyCFO e consulta le fatture che ti hanno inviato."
+ },
+ "Conversations": {
+  "de": "Unterhaltungen",
+  "es": "Conversaciones",
+  "fr": "Conversations",
+  "pt": "Conversas",
+  "it": "Conversazioni"
+ },
+ "Loading…": {
+  "de": "Wird geladen…",
+  "es": "Cargando…",
+  "fr": "Chargement…",
+  "pt": "A carregar…",
+  "it": "Caricamento…"
+ },
+ "No conversations yet. Add a contact who uses HandyCFO in Network, then say hello.": {
+  "de": "Noch keine Unterhaltungen. Fügen Sie im Netzwerk einen Kontakt hinzu, der HandyCFO nutzt, und sagen Sie Hallo.",
+  "es": "Aún no hay conversaciones. Añada en Red un contacto que use HandyCFO y salúdelo.",
+  "fr": "Aucune conversation pour le moment. Ajoutez dans Réseau un contact qui utilise HandyCFO, puis dites bonjour.",
+  "pt": "Ainda não há conversas. Adicione na Rede um contacto que use o HandyCFO e diga olá.",
+  "it": "Ancora nessuna conversazione. Aggiungi in Rete un contatto che usa HandyCFO, poi saluta."
+ },
+ "Go to Network": {
+  "de": "Zum Netzwerk",
+  "es": "Ir a Red",
+  "fr": "Aller à Réseau",
+  "pt": "Ir para Rede",
+  "it": "Vai a Rete"
+ },
+ "You: {message}": {
+  "de": "Sie: {message}",
+  "es": "Usted: {message}",
+  "fr": "Vous : {message}",
+  "pt": "Você: {message}",
+  "it": "Tu: {message}"
+ },
+ "Say hello": {
+  "de": "Hallo sagen",
+  "es": "Saludar",
+  "fr": "Dire bonjour",
+  "pt": "Dizer olá",
+  "it": "Saluta"
+ },
+ "Incoming invoices": {
+  "de": "Eingehende Rechnungen",
+  "es": "Facturas recibidas",
+  "fr": "Factures reçues",
+  "pt": "Faturas recebidas",
+  "it": "Fatture in arrivo"
+ },
+ "Invoices that suppliers send you on HandyCFO appear here.": {
+  "de": "Rechnungen, die Lieferanten Ihnen über HandyCFO senden, erscheinen hier.",
+  "es": "Las facturas que los proveedores le envían en HandyCFO aparecen aquí.",
+  "fr": "Les factures que les fournisseurs vous envoient via HandyCFO apparaissent ici.",
+  "pt": "As faturas que os fornecedores lhe enviam através do HandyCFO aparecem aqui.",
+  "it": "Le fatture che i fornitori ti inviano su HandyCFO compaiono qui."
+ },
+ "Review": {
+  "de": "Prüfen",
+  "es": "Revisar",
+  "fr": "Vérifier",
+  "pt": "Rever",
+  "it": "Verifica"
+ },
+ "Could not send the message": {
+  "de": "Die Nachricht konnte nicht gesendet werden",
+  "es": "No se pudo enviar el mensaje",
+  "fr": "Impossible d'envoyer le message",
+  "pt": "Não foi possível enviar a mensagem",
+  "it": "Impossibile inviare il messaggio"
+ },
+ "No messages yet. Say hello.": {
+  "de": "Noch keine Nachrichten. Sagen Sie Hallo.",
+  "es": "Aún no hay mensajes. Salude.",
+  "fr": "Aucun message pour le moment. Dites bonjour.",
+  "pt": "Ainda não há mensagens. Diga olá.",
+  "it": "Ancora nessun messaggio. Saluta."
+ },
+ "Write a message…": {
+  "de": "Nachricht schreiben…",
+  "es": "Escriba un mensaje…",
+  "fr": "Écrivez un message…",
+  "pt": "Escreva uma mensagem…",
+  "it": "Scrivi un messaggio…"
+ },
+ "Send": {
+  "de": "Senden",
+  "es": "Enviar",
+  "fr": "Envoyer",
+  "pt": "Enviar",
+  "it": "Invia"
+ },
+ "{name} is not on HandyCFO yet, so you can't message them here.": {
+  "de": "{name} nutzt HandyCFO noch nicht, daher können Sie hier keine Nachrichten senden.",
+  "es": "{name} aún no está en HandyCFO, por lo que no puede enviarle mensajes aquí.",
+  "fr": "{name} n'est pas encore sur HandyCFO, vous ne pouvez donc pas lui écrire ici.",
+  "pt": "{name} ainda não está no HandyCFO, por isso não lhe pode enviar mensagens aqui.",
+  "it": "{name} non è ancora su HandyCFO, quindi non puoi scrivergli qui."
+ },
+ "Cancel": {
+  "de": "Abbrechen",
+  "es": "Cancelar",
+  "fr": "Annuler",
+  "pt": "Cancelar",
+  "it": "Annulla"
+ },
+ "Working…": {
+  "de": "Wird bearbeitet…",
+  "es": "Procesando…",
+  "fr": "Traitement…",
+  "pt": "A processar…",
+  "it": "Elaborazione…"
+ },
+ "Delete": {
+  "de": "Löschen",
+  "es": "Eliminar",
+  "fr": "Supprimer",
+  "pt": "Eliminar",
+  "it": "Elimina"
+ },
+ "Close": {
+  "de": "Schließen",
+  "es": "Cerrar",
+  "fr": "Fermer",
+  "pt": "Fechar",
+  "it": "Chiudi"
+ },
+ "Inbox": {
+  "de": "Posteingang",
+  "es": "Bandeja de entrada",
+  "fr": "Boîte de réception",
+  "pt": "Caixa de entrada",
+  "it": "Posta in arrivo"
+ },
+ "More": {
+  "de": "Mehr",
+  "es": "Más",
+  "fr": "Plus",
+  "pt": "Mais",
+  "it": "Altro"
+ },
+ "Open menu": {
+  "de": "Menü öffnen",
+  "es": "Abrir menú",
+  "fr": "Ouvrir le menu",
+  "pt": "Abrir menu",
+  "it": "Apri il menu"
+ },
+ "My smart accountant": {
+  "de": "Mein smarter Buchhalter",
+  "es": "Mi contable inteligente",
+  "fr": "Mon comptable intelligent",
+  "pt": "O meu contabilista inteligente",
+  "it": "Il mio contabile intelligente"
+ },
+ "Select business": {
+  "de": "Unternehmen auswählen",
+  "es": "Seleccionar negocio",
+  "fr": "Sélectionner l'entreprise",
+  "pt": "Selecionar empresa",
+  "it": "Seleziona attività"
+ },
+ "Delete business": {
+  "de": "Unternehmen löschen",
+  "es": "Eliminar negocio",
+  "fr": "Supprimer l'entreprise",
+  "pt": "Eliminar empresa",
+  "it": "Elimina attività"
+ },
+ "Add a business": {
+  "de": "Unternehmen hinzufügen",
+  "es": "Añadir un negocio",
+  "fr": "Ajouter une entreprise",
+  "pt": "Adicionar uma empresa",
+  "it": "Aggiungi un'attività"
+ },
+ "Sign out": {
+  "de": "Abmelden",
+  "es": "Cerrar sesión",
+  "fr": "Se déconnecter",
+  "pt": "Terminar sessão",
+  "it": "Esci"
+ },
+ "Dashboard": {
+  "de": "Dashboard",
+  "es": "Panel",
+  "fr": "Tableau de bord",
+  "pt": "Painel",
+  "it": "Dashboard"
+ },
+ "Financial Inbox": {
+  "de": "Finanzposteingang",
+  "es": "Bandeja financiera",
+  "fr": "Boîte financière",
+  "pt": "Caixa financeira",
+  "it": "Posta finanziaria"
+ },
+ "Invoices": {
+  "de": "Rechnungen",
+  "es": "Facturas",
+  "fr": "Factures",
+  "pt": "Faturas",
+  "it": "Fatture"
+ },
+ "Expenses": {
+  "de": "Ausgaben",
+  "es": "Gastos",
+  "fr": "Dépenses",
+  "pt": "Despesas",
+  "it": "Spese"
+ },
+ "Reports": {
+  "de": "Berichte",
+  "es": "Informes",
+  "fr": "Rapports",
+  "pt": "Relatórios",
+  "it": "Report"
+ },
+ "Network": {
+  "de": "Netzwerk",
+  "es": "Red",
+  "fr": "Réseau",
+  "pt": "Rede",
+  "it": "Rete"
+ },
+ "Settings": {
+  "de": "Einstellungen",
+  "es": "Configuración",
+  "fr": "Paramètres",
+  "pt": "Definições",
+  "it": "Impostazioni"
+ },
+ "Business name?": {
+  "de": "Name des Unternehmens?",
+  "es": "¿Nombre del negocio?",
+  "fr": "Nom de l'entreprise ?",
+  "pt": "Nome da empresa?",
+  "it": "Nome dell'attività?"
+ },
+ "Your account has been deleted": {
+  "de": "Ihr Konto wurde gelöscht",
+  "es": "Su cuenta ha sido eliminada",
+  "fr": "Votre compte a été supprimé",
+  "pt": "A sua conta foi eliminada",
+  "it": "Il tuo account è stato eliminato"
+ },
+ "All of your data has been erased. Thank you for trying HandyCFO.": {
+  "de": "Alle Ihre Daten wurden gelöscht. Vielen Dank, dass Sie HandyCFO ausprobiert haben.",
+  "es": "Todos sus datos han sido borrados. Gracias por probar HandyCFO.",
+  "fr": "Toutes vos données ont été effacées. Merci d'avoir essayé HandyCFO.",
+  "pt": "Todos os seus dados foram apagados. Obrigado por experimentar o HandyCFO.",
+  "it": "Tutti i tuoi dati sono stati cancellati. Grazie per aver provato HandyCFO."
+ },
+ "Delete business?": {
+  "de": "Unternehmen löschen?",
+  "es": "¿Eliminar el negocio?",
+  "fr": "Supprimer l'entreprise ?",
+  "pt": "Eliminar a empresa?",
+  "it": "Eliminare l'attività?"
+ },
+ "Delete {name} and all of its invoices, expenses and stored receipts? This can't be undone.": {
+  "de": "{name} und alle zugehörigen Rechnungen, Ausgaben und gespeicherten Belege löschen? Dies kann nicht rückgängig gemacht werden.",
+  "es": "¿Eliminar {name} y todas sus facturas, gastos y recibos almacenados? Esta acción no se puede deshacer.",
+  "fr": "Supprimer {name} ainsi que toutes ses factures, dépenses et reçus enregistrés ? Cette action est irréversible.",
+  "pt": "Eliminar {name} e todas as suas faturas, despesas e recibos guardados? Esta ação não pode ser anulada.",
+  "it": "Eliminare {name} e tutte le sue fatture, spese e ricevute archiviate? L'operazione non può essere annullata."
+ },
+ "Save": {
+  "de": "Speichern",
+  "es": "Guardar",
+  "fr": "Enregistrer",
+  "pt": "Guardar",
+  "it": "Salva"
+ },
+ "Remove": {
+  "de": "Entfernen",
+  "es": "Quitar",
+  "fr": "Retirer",
+  "pt": "Remover",
+  "it": "Rimuovi"
+ },
+ "Edit": {
+  "de": "Bearbeiten",
+  "es": "Editar",
+  "fr": "Modifier",
+  "pt": "Editar",
+  "it": "Modifica"
+ },
+ "Add": {
+  "de": "Hinzufügen",
+  "es": "Añadir",
+  "fr": "Ajouter",
+  "pt": "Adicionar",
+  "it": "Aggiungi"
+ }
+}

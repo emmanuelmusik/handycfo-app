@@ -4,7 +4,7 @@ import { api } from '../lib/api';
 import Modal from '../components/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
-import { useT } from '../lib/i18n';
+import { useT, UI_LANGUAGES } from '../lib/i18n';
 import { COUNTRIES, TAX_MODES, INVOICE_LANGUAGES, setupFor, ibanValid, cleanIban, formatIban } from '../lib/countries';
 
 const PROFILE_KEYS = [
@@ -227,8 +227,10 @@ function BusinessProfile({ business, onUpdateBusiness }) {
   );
 }
 
+const LANGUAGE_NAMES = { en: 'English', de: 'Deutsch', es: 'Español', fr: 'Français', pt: 'Português', it: 'Italiano' };
+
 export default function Settings({ business, userEmail, dropboxResult, onUpdateBusiness, onDeleteBusiness, onAccountDeleted, onSignOut }) {
-  const { t } = useT();
+  const { t, lang, setLang } = useT();
 
   const [error, setError] = useState('');
   const [dropbox, setDropbox] = useState({ loading: true, email: null });
@@ -245,7 +247,7 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
       .select('account_email')
       .eq('provider', 'dropbox')
       .maybeSingle();
-    setDropbox({ loading: false, email: data ? (data.account_email || 'Connected') : null });
+    setDropbox({ loading: false, email: data ? (data.account_email || t('Connected')) : null });
   }, []);
 
   useEffect(() => { loadDropbox(); }, [loadDropbox]);
@@ -257,7 +259,7 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
       const { url } = await api.startDropboxConnect();
       window.location.href = url;
     } catch (err) {
-      setDropboxError(err.message || 'Could not start the Dropbox connection');
+      setDropboxError(err.message || t('Could not start the Dropbox connection'));
       setDropboxBusy(false);
     }
   }
@@ -269,7 +271,7 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
       await api.disconnectDropbox();
       await loadDropbox();
     } catch (err) {
-      setDropboxError(err.message || 'Could not disconnect Dropbox');
+      setDropboxError(err.message || t('Could not disconnect Dropbox'));
     } finally {
       setDropboxBusy(false);
     }
@@ -280,7 +282,7 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
     try {
       await onDeleteBusiness(business);
     } catch (err) {
-      setError(err.message || 'Could not delete the business');
+      setError(err.message || t('Could not delete the business'));
       setDeletingBusiness(false);
       setConfirmBusiness(false);
     }
@@ -290,8 +292,8 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
     <div>
       <div className="page-head">
         <div>
-          <h1 className="page-title">Settings</h1>
-          <p className="page-sub">Your business details, where receipts are stored, and your account.</p>
+          <h1 className="page-title">{t('Settings')}</h1>
+          <p className="page-sub">{t('Your business details, where receipts are stored, and your account.')}</p>
         </div>
       </div>
 
@@ -299,74 +301,84 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
         <BusinessProfile business={business} onUpdateBusiness={onUpdateBusiness} />
 
         <div className="panel settings-card">
-          <div className="section-title">Receipt storage</div>
-          {dropboxResult === 'connected' && <p style={{ color: 'var(--accent-strong)', fontSize: 13, marginTop: 0 }}>Dropbox is connected.</p>}
-          {dropboxResult === 'failed' && <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 0 }}>The Dropbox connection did not go through. Please try again.</p>}
+          <div className="section-title">{t('Receipt storage')}</div>
+          {dropboxResult === 'connected' && <p style={{ color: 'var(--accent-strong)', fontSize: 13, marginTop: 0 }}>{t('Dropbox is connected.')}</p>}
+          {dropboxResult === 'failed' && <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 0 }}>{t('The Dropbox connection did not go through. Please try again.')}</p>}
           <div className="storage-row">
             <div className="storage-icon" style={{ color: '#0061FE' }}><Icon name="dropbox" size={18} /></div>
             <div className="storage-main">
               <div className="storage-name">Dropbox</div>
               <div className={`storage-sub ${dropbox.email ? 'connected' : ''}`}>
-                {dropbox.loading ? 'Checking…' : dropbox.email ? `Connected · ${dropbox.email}` : 'Not connected'}
+                {dropbox.loading ? t('Checking…') : dropbox.email ? t('Connected · {email}', { email: dropbox.email }) : t('Not connected')}
               </div>
             </div>
             {!dropbox.loading && (dropbox.email ? (
-              <button className="btn btn-sm" onClick={disconnectDropbox} disabled={dropboxBusy}>Disconnect</button>
+              <button className="btn btn-sm" onClick={disconnectDropbox} disabled={dropboxBusy}>{t('Disconnect')}</button>
             ) : (
-              <button className="btn btn-sm btn-primary" onClick={connectDropbox} disabled={dropboxBusy}>Connect</button>
+              <button className="btn btn-sm btn-primary" onClick={connectDropbox} disabled={dropboxBusy}>{t('Connect')}</button>
             ))}
           </div>
           {dropboxError && <p style={{ color: 'var(--red)', fontSize: 13 }}>{dropboxError}</p>}
           <div className="storage-note">
             <Icon name="eye" size={14} />
             <span>
-              With Dropbox connected, receipt photos go into your own Dropbox (in an Apps folder, sorted by business) and
-              HandyCFO keeps only the text we read from them. Without it, files are kept in private storage that only you can open.
+              {t('With Dropbox connected, receipt photos go into your own Dropbox (in an Apps folder, sorted by business) and HandyCFO keeps only the text we read from them. Without it, files are kept in private storage that only you can open.')}
             </span>
           </div>
+        </div>
+
+        <div className="panel settings-card">
+          <div className="section-title">{t('Language')}</div>
+          <div className="field" style={{ marginBottom: 8 }}>
+            <label>{t('Language')}</label>
+            <select value={lang} onChange={(e) => setLang(e.target.value)}>
+              {UI_LANGUAGES.map((c) => <option key={c} value={c}>{LANGUAGE_NAMES[c] || c}</option>)}
+            </select>
+          </div>
+          <p className="sub-note">{t('Changes the language of the app. Invoices have their own language setting.')}</p>
         </div>
       </div>
 
       <div className="panel">
-        <div className="section-title">Account</div>
+        <div className="section-title">{t('Account')}</div>
         <div className="settings-row">
           <div>
-            <div className="settings-row-label">Signed in as {userEmail}</div>
-            <div className="settings-row-sub">Sign out on this device. Your data stays safe and you can sign back in any time.</div>
+            <div className="settings-row-label">{t('Signed in as {email}', { email: userEmail })}</div>
+            <div className="settings-row-sub">{t('Sign out on this device. Your data stays safe and you can sign back in any time.')}</div>
           </div>
-          <button className="btn btn-sm" onClick={onSignOut}>Sign out</button>
+          <button className="btn btn-sm" onClick={onSignOut}>{t('Sign out')}</button>
         </div>
       </div>
 
       <div className="panel danger-zone">
-        <div className="section-title" style={{ color: 'var(--red)' }}>Danger zone</div>
+        <div className="section-title" style={{ color: 'var(--red)' }}>{t('Danger zone')}</div>
         {error && <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 0 }}>{error}</p>}
         <div className="settings-row">
           <div>
-            <div className="settings-row-label">Delete this business</div>
-            <div className="settings-row-sub">Removes {business.name} with all its invoices, expenses and inbox items.</div>
+            <div className="settings-row-label">{t('Delete this business')}</div>
+            <div className="settings-row-sub">{t('Removes {name} with all its invoices, expenses and inbox items.', { name: business.name })}</div>
           </div>
-          <button className="btn btn-sm" onClick={() => setConfirmBusiness(true)}>Delete business</button>
+          <button className="btn btn-sm" onClick={() => setConfirmBusiness(true)}>{t('Delete business')}</button>
         </div>
         <div className="settings-row">
           <div>
-            <div className="settings-row-label">Delete my account</div>
-            <div className="settings-row-sub">Permanently erases your account and every business, invoice, expense, contact and message. This can't be undone.</div>
+            <div className="settings-row-label">{t('Delete my account')}</div>
+            <div className="settings-row-sub">{t('Permanently erases your account and every business, invoice, expense, contact and message. This can\'t be undone.')}</div>
           </div>
           <button
             className="btn btn-sm"
             style={{ background: 'var(--red)', borderColor: 'var(--red)', color: '#fff' }}
             onClick={() => setShowDeleteAccount(true)}
           >
-            Delete account
+            {t('Delete account')}
           </button>
         </div>
       </div>
 
       {confirmBusiness && (
         <ConfirmModal
-          title="Delete business?"
-          message={`Delete ${business.name} and all of its invoices, expenses and stored receipts? This can't be undone. Files already in your Dropbox stay there.`}
+          title={t('Delete business?')}
+          message={t('Delete {name} and all of its invoices, expenses and stored receipts? This can\'t be undone. Files already in your Dropbox stay there.', { name: business.name })}
           busy={deletingBusiness}
           onConfirm={handleDeleteBusiness}
           onCancel={() => setConfirmBusiness(false)}
@@ -385,6 +397,7 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
 }
 
 function DeleteAccountModal({ email, onClose, onDeleted }) {
+  const { t } = useT();
   const [typed, setTyped] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -397,38 +410,38 @@ function DeleteAccountModal({ email, onClose, onDeleted }) {
       await api.deleteAccount(typed.trim());
       await onDeleted();
     } catch (err) {
-      setError(err.message || 'Could not delete the account');
+      setError(err.message || t('Could not delete the account'));
       setBusy(false);
     }
   }
 
   return (
     <Modal
-      title="Delete your account"
+      title={t('Delete your account')}
       onClose={busy ? () => {} : onClose}
       maxWidth={420}
       footer={
         <>
-          <button className="btn" onClick={onClose} disabled={busy}>Keep my account</button>
+          <button className="btn" onClick={onClose} disabled={busy}>{t('Keep my account')}</button>
           <button
             className="btn"
             style={{ background: 'var(--red)', borderColor: 'var(--red)', color: '#fff', opacity: matches ? 1 : 0.5 }}
             onClick={submit}
             disabled={!matches || busy}
           >
-            {busy ? 'Deleting…' : 'Delete everything'}
+            {busy ? t('Deleting…') : t('Delete everything')}
           </button>
         </>
       }
     >
       <ul className="delete-warning-list">
-        <li>All your businesses, invoices and expenses are erased.</li>
-        <li>Your contacts and messages are erased.</li>
-        <li>Your Dropbox is disconnected. Files already in Dropbox stay there.</li>
-        <li>This can't be undone.</li>
+        <li>{t('All your businesses, invoices and expenses are erased.')}</li>
+        <li>{t('Your contacts and messages are erased.')}</li>
+        <li>{t('Your Dropbox is disconnected. Files already in Dropbox stay there.')}</li>
+        <li>{t('This can\'t be undone.')}</li>
       </ul>
       <div className="field" style={{ marginBottom: 0 }}>
-        <label>Type your email ({email}) to confirm</label>
+        <label>{t('Type your email ({email}) to confirm', { email })}</label>
         <input type="email" value={typed} onChange={(e) => setTyped(e.target.value)} autoComplete="off" />
       </div>
       {error && <p style={{ color: 'var(--red)', fontSize: 13, marginBottom: 0 }}>{error}</p>}

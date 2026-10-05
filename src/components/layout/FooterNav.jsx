@@ -1,7 +1,9 @@
 import Icon from './Icon';
+import { useT } from '../../lib/i18n';
 import { NAV_ITEMS, FOOTER_VIEWS } from './navItems';
 
 export default function FooterNav({ currentView, onNavigate, onOpenSidebar, badgeCounts = {} }) {
+  const { t } = useT();
   const footerItems = NAV_ITEMS.filter((i) => FOOTER_VIEWS.includes(i.view));
   const isOnMoreView = !FOOTER_VIEWS.includes(currentView);
 
@@ -16,14 +18,14 @@ export default function FooterNav({ currentView, onNavigate, onOpenSidebar, badg
             onClick={() => onNavigate(item.view)}
           >
             <Icon name={item.icon} size={21} />
-            {item.label === 'Financial Inbox' ? 'Inbox' : item.label}
+            {t(item.label === 'Financial Inbox' ? 'Inbox' : item.label)}
             {!!count && <span className="footer-badge">{count}</span>}
           </button>
         );
       })}
       <button className={`footer-nav-item ${isOnMoreView ? 'active' : ''}`} onClick={onOpenSidebar}>
         <Icon name="more" size={21} />
-        More
+        {t('More')}
       </button>
     </nav>
   );

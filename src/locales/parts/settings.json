@@ -1,0 +1,982 @@
+{
+  "The business needs a name.": {
+    "de": "Das Unternehmen braucht einen Namen.",
+    "es": "El negocio necesita un nombre.",
+    "fr": "L'entreprise doit avoir un nom.",
+    "pt": "O negócio precisa de um nome.",
+    "it": "L'attività ha bisogno di un nome."
+  },
+  "That IBAN does not look right. Please check it for typos.": {
+    "de": "Diese IBAN scheint nicht korrekt zu sein. Bitte prüfen Sie sie auf Tippfehler.",
+    "es": "Este IBAN no parece correcto. Compruebe si hay errores de escritura.",
+    "fr": "Cet IBAN semble incorrect. Veuillez vérifier s'il contient des fautes de frappe.",
+    "pt": "Este IBAN não parece correto. Verifique se há erros de digitação.",
+    "it": "Questo IBAN non sembra corretto. La preghiamo di controllare che non ci siano errori di battitura."
+  },
+  "Could not save your changes": {
+    "de": "Ihre Änderungen konnten nicht gespeichert werden",
+    "es": "No se pudieron guardar los cambios",
+    "fr": "Impossible d'enregistrer vos modifications",
+    "pt": "Não foi possível guardar as suas alterações",
+    "it": "Impossibile salvare le modifiche"
+  },
+  "IBAN": {
+    "de": "IBAN",
+    "es": "IBAN",
+    "fr": "IBAN",
+    "pt": "IBAN",
+    "it": "IBAN"
+  },
+  "BIC / SWIFT": {
+    "de": "BIC / SWIFT",
+    "es": "BIC / SWIFT",
+    "fr": "BIC / SWIFT",
+    "pt": "BIC / SWIFT",
+    "it": "BIC / SWIFT"
+  },
+  "Bank name": {
+    "de": "Name der Bank",
+    "es": "Nombre del banco",
+    "fr": "Nom de la banque",
+    "pt": "Nome do banco",
+    "it": "Nome della banca"
+  },
+  "Sort code": {
+    "de": "Bankleitzahl (Sort Code)",
+    "es": "Código de sucursal (Sort Code)",
+    "fr": "Code guichet (Sort Code)",
+    "pt": "Código de agência (Sort Code)",
+    "it": "Codice di filiale (Sort Code)"
+  },
+  "Account number": {
+    "de": "Kontonummer",
+    "es": "Número de cuenta",
+    "fr": "Numéro de compte",
+    "pt": "Número de conta",
+    "it": "Numero di conto"
+  },
+  "Routing number (ABA)": {
+    "de": "Routing-Nummer (ABA)",
+    "es": "Número de ruta (ABA)",
+    "fr": "Numéro de routage (ABA)",
+    "pt": "Número de routing (ABA)",
+    "it": "Numero di routing (ABA)"
+  },
+  "IBAN or account number": {
+    "de": "IBAN oder Kontonummer",
+    "es": "IBAN o número de cuenta",
+    "fr": "IBAN ou numéro de compte",
+    "pt": "IBAN ou número de conta",
+    "it": "IBAN o numero di conto"
+  },
+  "BIC / SWIFT / routing code": {
+    "de": "BIC / SWIFT / Routing-Code",
+    "es": "BIC / SWIFT / código de ruta",
+    "fr": "BIC / SWIFT / code de routage",
+    "pt": "BIC / SWIFT / código de routing",
+    "it": "BIC / SWIFT / codice di routing"
+  },
+  "Business profile": {
+    "de": "Unternehmensprofil",
+    "es": "Perfil del negocio",
+    "fr": "Profil de l'entreprise",
+    "pt": "Perfil do negócio",
+    "it": "Profilo dell'attività"
+  },
+  "These details are printed on every invoice you send, so fill them in once here.": {
+    "de": "Diese Angaben werden auf jeder von Ihnen versendeten Rechnung abgedruckt. Tragen Sie sie daher einmalig hier ein.",
+    "es": "Estos datos se imprimen en todas las facturas que envía, así que complételos una sola vez aquí.",
+    "fr": "Ces informations figurent sur chaque facture que vous envoyez ; renseignez-les une seule fois ici.",
+    "pt": "Estes dados são impressos em todas as faturas que envia, por isso preencha-os apenas uma vez aqui.",
+    "it": "Questi dati vengono stampati su ogni fattura che invia, quindi li inserisca una sola volta qui."
+  },
+  "Business": {
+    "de": "Unternehmen",
+    "es": "Negocio",
+    "fr": "Entreprise",
+    "pt": "Negócio",
+    "it": "Attività"
+  },
+  "Trading name": {
+    "de": "Handelsname",
+    "es": "Nombre comercial",
+    "fr": "Nom commercial",
+    "pt": "Nome comercial",
+    "it": "Nome commerciale"
+  },
+  "Legal name (if different)": {
+    "de": "Firmenname laut Register (falls abweichend)",
+    "es": "Razón social (si es distinta)",
+    "fr": "Raison sociale (si différente)",
+    "pt": "Denominação social (se diferente)",
+    "it": "Ragione sociale (se diversa)"
+  },
+  "e.g. Sweet Candles GmbH": {
+    "de": "z. B. Sweet Candles GmbH",
+    "es": "p. ej. Sweet Candles GmbH",
+    "fr": "p. ex. Sweet Candles GmbH",
+    "pt": "p. ex. Sweet Candles GmbH",
+    "it": "ad es. Sweet Candles GmbH"
+  },
+  "What kind of business": {
+    "de": "Art des Unternehmens",
+    "es": "Tipo de negocio",
+    "fr": "Type d'activité",
+    "pt": "Tipo de negócio",
+    "it": "Tipo di attività"
+  },
+  "e.g. Design studio": {
+    "de": "z. B. Designstudio",
+    "es": "p. ej. Estudio de diseño",
+    "fr": "p. ex. Studio de design",
+    "pt": "p. ex. Estúdio de design",
+    "it": "ad es. Studio di design"
+  },
+  "Country": {
+    "de": "Land",
+    "es": "País",
+    "fr": "Pays",
+    "pt": "País",
+    "it": "Paese"
+  },
+  "Currency": {
+    "de": "Währung",
+    "es": "Moneda",
+    "fr": "Devise",
+    "pt": "Moeda",
+    "it": "Valuta"
+  },
+  "Euro (EUR)": {
+    "de": "Euro (EUR)",
+    "es": "Euro (EUR)",
+    "fr": "Euro (EUR)",
+    "pt": "Euro (EUR)",
+    "it": "Euro (EUR)"
+  },
+  "US Dollar (USD)": {
+    "de": "US-Dollar (USD)",
+    "es": "Dólar estadounidense (USD)",
+    "fr": "Dollar américain (USD)",
+    "pt": "Dólar norte-americano (USD)",
+    "it": "Dollaro statunitense (USD)"
+  },
+  "British Pound (GBP)": {
+    "de": "Britisches Pfund (GBP)",
+    "es": "Libra esterlina (GBP)",
+    "fr": "Livre sterling (GBP)",
+    "pt": "Libra esterlina (GBP)",
+    "it": "Sterlina britannica (GBP)"
+  },
+  "Address": {
+    "de": "Adresse",
+    "es": "Dirección",
+    "fr": "Adresse",
+    "pt": "Morada",
+    "it": "Indirizzo"
+  },
+  "Street and number": {
+    "de": "Straße und Hausnummer",
+    "es": "Calle y número",
+    "fr": "Rue et numéro",
+    "pt": "Rua e número",
+    "it": "Via e numero civico"
+  },
+  "Postal code": {
+    "de": "Postleitzahl",
+    "es": "Código postal",
+    "fr": "Code postal",
+    "pt": "Código postal",
+    "it": "CAP"
+  },
+  "City": {
+    "de": "Ort",
+    "es": "Ciudad",
+    "fr": "Ville",
+    "pt": "Cidade",
+    "it": "Città"
+  },
+  "State / province": {
+    "de": "Bundesland / Provinz",
+    "es": "Estado / provincia",
+    "fr": "État / province",
+    "pt": "Estado / província",
+    "it": "Stato / provincia"
+  },
+  "Tax": {
+    "de": "Steuer",
+    "es": "Impuestos",
+    "fr": "Taxes",
+    "pt": "Impostos",
+    "it": "Imposte"
+  },
+  "The tax number (Steuernummer) and the VAT number are two different numbers. Enter both if you have both.": {
+    "de": "Die Steuernummer und die UID-Nummer (USt-IdNr.) sind zwei verschiedene Nummern. Tragen Sie beide ein, falls Sie beide besitzen.",
+    "es": "El número fiscal (Steuernummer) y el número de IVA son dos números distintos. Introduzca ambos si dispone de los dos.",
+    "fr": "Le numéro fiscal (Steuernummer) et le numéro de TVA sont deux numéros différents. Saisissez les deux si vous les avez.",
+    "pt": "O número fiscal (Steuernummer) e o número de IVA são dois números diferentes. Introduza ambos, se tiver os dois.",
+    "it": "Il numero fiscale (Steuernummer) e la partita IVA sono due numeri diversi. Inserisca entrambi se li possiede."
+  },
+  "How you charge tax": {
+    "de": "Wie Sie Steuern berechnen",
+    "es": "Cómo aplica los impuestos",
+    "fr": "Comment vous facturez les taxes",
+    "pt": "Como cobra os impostos",
+    "it": "Come applica le imposte"
+  },
+  "Usual tax rate (%)": {
+    "de": "Üblicher Steuersatz (%)",
+    "es": "Tipo impositivo habitual (%)",
+    "fr": "Taux de taxe habituel (%)",
+    "pt": "Taxa de imposto habitual (%)",
+    "it": "Aliquota abituale (%)"
+  },
+  "Bank details for payments": {
+    "de": "Bankverbindung für Zahlungen",
+    "es": "Datos bancarios para pagos",
+    "fr": "Coordonnées bancaires pour les paiements",
+    "pt": "Dados bancários para pagamentos",
+    "it": "Coordinate bancarie per i pagamenti"
+  },
+  "Account holder": {
+    "de": "Kontoinhaber",
+    "es": "Titular de la cuenta",
+    "fr": "Titulaire du compte",
+    "pt": "Titular da conta",
+    "it": "Intestatario del conto"
+  },
+  "Contact on invoices": {
+    "de": "Kontakt auf Rechnungen",
+    "es": "Contacto en las facturas",
+    "fr": "Contact sur les factures",
+    "pt": "Contacto nas faturas",
+    "it": "Contatto sulle fatture"
+  },
+  "Email": {
+    "de": "E-Mail",
+    "es": "Correo electrónico",
+    "fr": "E-mail",
+    "pt": "E-mail",
+    "it": "E-mail"
+  },
+  "Phone": {
+    "de": "Telefon",
+    "es": "Teléfono",
+    "fr": "Téléphone",
+    "pt": "Telefone",
+    "it": "Telefono"
+  },
+  "Website": {
+    "de": "Website",
+    "es": "Sitio web",
+    "fr": "Site web",
+    "pt": "Website",
+    "it": "Sito web"
+  },
+  "Invoice defaults": {
+    "de": "Rechnungsvorgaben",
+    "es": "Valores predeterminados de facturas",
+    "fr": "Paramètres par défaut des factures",
+    "pt": "Predefinições das faturas",
+    "it": "Impostazioni predefinite delle fatture"
+  },
+  "Number prefix": {
+    "de": "Nummernpräfix",
+    "es": "Prefijo de numeración",
+    "fr": "Préfixe de numérotation",
+    "pt": "Prefixo de numeração",
+    "it": "Prefisso di numerazione"
+  },
+  "First number": {
+    "de": "Erste Nummer",
+    "es": "Primer número",
+    "fr": "Premier numéro",
+    "pt": "Primeiro número",
+    "it": "Primo numero"
+  },
+  "Payment due after (days)": {
+    "de": "Zahlungsziel (Tage)",
+    "es": "Vencimiento del pago (días)",
+    "fr": "Échéance de paiement (jours)",
+    "pt": "Prazo de pagamento (dias)",
+    "it": "Scadenza del pagamento (giorni)"
+  },
+  "Invoices are numbered like {example} when you send them. Numbers are never reused.": {
+    "de": "Rechnungen werden beim Versand wie {example} nummeriert. Nummern werden nie wiederverwendet.",
+    "es": "Las facturas se numeran como {example} al enviarlas. Los números nunca se reutilizan.",
+    "fr": "Les factures sont numérotées comme {example} lors de l'envoi. Les numéros ne sont jamais réutilisés.",
+    "pt": "As faturas são numeradas como {example} quando as envia. Os números nunca são reutilizados.",
+    "it": "Le fatture vengono numerate come {example} al momento dell'invio. I numeri non vengono mai riutilizzati."
+  },
+  "Invoice language": {
+    "de": "Rechnungssprache",
+    "es": "Idioma de la factura",
+    "fr": "Langue de la facture",
+    "pt": "Idioma da fatura",
+    "it": "Lingua della fattura"
+  },
+  "Footer text (optional)": {
+    "de": "Fußzeile (optional)",
+    "es": "Texto del pie de página (opcional)",
+    "fr": "Texte de pied de page (facultatif)",
+    "pt": "Texto do rodapé (opcional)",
+    "it": "Testo a piè di pagina (facoltativo)"
+  },
+  "e.g. Thank you for your business!": {
+    "de": "z. B. Vielen Dank für Ihren Auftrag!",
+    "es": "p. ej. ¡Gracias por su confianza!",
+    "fr": "p. ex. Merci de votre confiance !",
+    "pt": "p. ex. Obrigado pela sua preferência!",
+    "it": "ad es. Grazie per la fiducia!"
+  },
+  "Saving…": {
+    "de": "Wird gespeichert …",
+    "es": "Guardando…",
+    "fr": "Enregistrement…",
+    "pt": "A guardar…",
+    "it": "Salvataggio…"
+  },
+  "Saved": {
+    "de": "Gespeichert",
+    "es": "Guardado",
+    "fr": "Enregistré",
+    "pt": "Guardado",
+    "it": "Salvato"
+  },
+  "Save changes": {
+    "de": "Änderungen speichern",
+    "es": "Guardar cambios",
+    "fr": "Enregistrer les modifications",
+    "pt": "Guardar alterações",
+    "it": "Salva modifiche"
+  },
+  "Connected": {
+    "de": "Verbunden",
+    "es": "Conectado",
+    "fr": "Connecté",
+    "pt": "Ligado",
+    "it": "Collegato"
+  },
+  "Could not start the Dropbox connection": {
+    "de": "Die Dropbox-Verbindung konnte nicht gestartet werden",
+    "es": "No se pudo iniciar la conexión con Dropbox",
+    "fr": "Impossible de démarrer la connexion à Dropbox",
+    "pt": "Não foi possível iniciar a ligação ao Dropbox",
+    "it": "Impossibile avviare la connessione a Dropbox"
+  },
+  "Could not disconnect Dropbox": {
+    "de": "Dropbox konnte nicht getrennt werden",
+    "es": "No se pudo desconectar Dropbox",
+    "fr": "Impossible de déconnecter Dropbox",
+    "pt": "Não foi possível desligar o Dropbox",
+    "it": "Impossibile scollegare Dropbox"
+  },
+  "Could not delete the business": {
+    "de": "Das Unternehmen konnte nicht gelöscht werden",
+    "es": "No se pudo eliminar el negocio",
+    "fr": "Impossible de supprimer l'entreprise",
+    "pt": "Não foi possível eliminar o negócio",
+    "it": "Impossibile eliminare l'attività"
+  },
+  "Settings": {
+    "de": "Einstellungen",
+    "es": "Ajustes",
+    "fr": "Paramètres",
+    "pt": "Definições",
+    "it": "Impostazioni"
+  },
+  "Your business details, where receipts are stored, and your account.": {
+    "de": "Ihre Unternehmensdaten, der Speicherort Ihrer Belege und Ihr Konto.",
+    "es": "Los datos de su negocio, dónde se guardan los recibos y su cuenta.",
+    "fr": "Les informations de votre entreprise, l'endroit où sont stockés vos reçus et votre compte.",
+    "pt": "Os dados do seu negócio, onde os recibos são guardados e a sua conta.",
+    "it": "I dati della sua attività, dove vengono archiviate le ricevute e il suo account."
+  },
+  "Receipt storage": {
+    "de": "Belegspeicher",
+    "es": "Almacenamiento de recibos",
+    "fr": "Stockage des reçus",
+    "pt": "Armazenamento de recibos",
+    "it": "Archiviazione delle ricevute"
+  },
+  "Dropbox is connected.": {
+    "de": "Dropbox ist verbunden.",
+    "es": "Dropbox está conectado.",
+    "fr": "Dropbox est connecté.",
+    "pt": "O Dropbox está ligado.",
+    "it": "Dropbox è collegato."
+  },
+  "The Dropbox connection did not go through. Please try again.": {
+    "de": "Die Dropbox-Verbindung ist nicht zustande gekommen. Bitte versuchen Sie es erneut.",
+    "es": "La conexión con Dropbox no se completó. Inténtelo de nuevo.",
+    "fr": "La connexion à Dropbox a échoué. Veuillez réessayer.",
+    "pt": "A ligação ao Dropbox não foi concluída. Tente novamente.",
+    "it": "La connessione a Dropbox non è andata a buon fine. La preghiamo di riprovare."
+  },
+  "Checking…": {
+    "de": "Wird geprüft …",
+    "es": "Comprobando…",
+    "fr": "Vérification…",
+    "pt": "A verificar…",
+    "it": "Verifica in corso…"
+  },
+  "Connected · {email}": {
+    "de": "Verbunden · {email}",
+    "es": "Conectado · {email}",
+    "fr": "Connecté · {email}",
+    "pt": "Ligado · {email}",
+    "it": "Collegato · {email}"
+  },
+  "Not connected": {
+    "de": "Nicht verbunden",
+    "es": "No conectado",
+    "fr": "Non connecté",
+    "pt": "Não ligado",
+    "it": "Non collegato"
+  },
+  "Disconnect": {
+    "de": "Trennen",
+    "es": "Desconectar",
+    "fr": "Déconnecter",
+    "pt": "Desligar",
+    "it": "Scollega"
+  },
+  "Connect": {
+    "de": "Verbinden",
+    "es": "Conectar",
+    "fr": "Connecter",
+    "pt": "Ligar",
+    "it": "Collega"
+  },
+  "With Dropbox connected, receipt photos go into your own Dropbox (in an Apps folder, sorted by business) and HandyCFO keeps only the text we read from them. Without it, files are kept in private storage that only you can open.": {
+    "de": "Bei verbundener Dropbox werden Belegfotos in Ihrer eigenen Dropbox gespeichert (in einem Ordner „Apps“, nach Unternehmen sortiert), und HandyCFO behält nur den daraus gelesenen Text. Ohne Dropbox werden die Dateien in einem privaten Speicher abgelegt, den nur Sie öffnen können.",
+    "es": "Con Dropbox conectado, las fotos de los recibos se guardan en su propio Dropbox (en una carpeta Apps, ordenadas por negocio) y HandyCFO solo conserva el texto que leemos de ellas. Sin Dropbox, los archivos se guardan en un almacenamiento privado al que solo usted puede acceder.",
+    "fr": "Lorsque Dropbox est connecté, les photos de reçus sont enregistrées dans votre propre Dropbox (dans un dossier Apps, classées par entreprise) et HandyCFO ne conserve que le texte que nous en extrayons. Sans Dropbox, les fichiers sont conservés dans un espace privé que vous seul pouvez ouvrir.",
+    "pt": "Com o Dropbox ligado, as fotografias dos recibos são guardadas no seu próprio Dropbox (numa pasta Apps, organizadas por negócio) e o HandyCFO conserva apenas o texto que lemos delas. Sem o Dropbox, os ficheiros ficam num armazenamento privado a que só o utilizador tem acesso.",
+    "it": "Con Dropbox collegato, le foto delle ricevute vengono salvate nel suo Dropbox (in una cartella Apps, ordinate per attività) e HandyCFO conserva solo il testo che ne ricaviamo. Senza Dropbox, i file vengono conservati in uno spazio privato accessibile solo a lei."
+  },
+  "Language": {
+    "de": "Sprache",
+    "es": "Idioma",
+    "fr": "Langue",
+    "pt": "Idioma",
+    "it": "Lingua"
+  },
+  "Changes the language of the app. Invoices have their own language setting.": {
+    "de": "Ändert die Sprache der App. Rechnungen haben eine eigene Spracheinstellung.",
+    "es": "Cambia el idioma de la aplicación. Las facturas tienen su propio ajuste de idioma.",
+    "fr": "Modifie la langue de l'application. Les factures ont leur propre réglage de langue.",
+    "pt": "Altera o idioma da aplicação. As faturas têm a sua própria definição de idioma.",
+    "it": "Cambia la lingua dell'app. Le fatture hanno una propria impostazione della lingua."
+  },
+  "Account": {
+    "de": "Konto",
+    "es": "Cuenta",
+    "fr": "Compte",
+    "pt": "Conta",
+    "it": "Account"
+  },
+  "Signed in as {email}": {
+    "de": "Angemeldet als {email}",
+    "es": "Sesión iniciada como {email}",
+    "fr": "Connecté en tant que {email}",
+    "pt": "Sessão iniciada como {email}",
+    "it": "Accesso effettuato come {email}"
+  },
+  "Sign out on this device. Your data stays safe and you can sign back in any time.": {
+    "de": "Auf diesem Gerät abmelden. Ihre Daten bleiben sicher, und Sie können sich jederzeit wieder anmelden.",
+    "es": "Cierre la sesión en este dispositivo. Sus datos permanecen seguros y puede volver a iniciar sesión cuando quiera.",
+    "fr": "Déconnectez-vous de cet appareil. Vos données restent en sécurité et vous pouvez vous reconnecter à tout moment.",
+    "pt": "Termine a sessão neste dispositivo. Os seus dados permanecem seguros e pode iniciar sessão novamente a qualquer momento.",
+    "it": "Esca da questo dispositivo. I suoi dati restano al sicuro e può accedere di nuovo in qualsiasi momento."
+  },
+  "Sign out": {
+    "de": "Abmelden",
+    "es": "Cerrar sesión",
+    "fr": "Se déconnecter",
+    "pt": "Terminar sessão",
+    "it": "Esci"
+  },
+  "Danger zone": {
+    "de": "Gefahrenbereich",
+    "es": "Zona de peligro",
+    "fr": "Zone dangereuse",
+    "pt": "Zona de perigo",
+    "it": "Zona di pericolo"
+  },
+  "Delete this business": {
+    "de": "Dieses Unternehmen löschen",
+    "es": "Eliminar este negocio",
+    "fr": "Supprimer cette entreprise",
+    "pt": "Eliminar este negócio",
+    "it": "Elimina questa attività"
+  },
+  "Removes {name} with all its invoices, expenses and inbox items.": {
+    "de": "Entfernt {name} mit allen Rechnungen, Ausgaben und Posteingangselementen.",
+    "es": "Elimina {name} junto con todas sus facturas, gastos y elementos de la bandeja de entrada.",
+    "fr": "Supprime {name} avec toutes ses factures, dépenses et éléments de la boîte de réception.",
+    "pt": "Elimina {name} com todas as suas faturas, despesas e itens da caixa de entrada.",
+    "it": "Rimuove {name} con tutte le sue fatture, spese ed elementi della posta in arrivo."
+  },
+  "Delete business": {
+    "de": "Unternehmen löschen",
+    "es": "Eliminar negocio",
+    "fr": "Supprimer l'entreprise",
+    "pt": "Eliminar negócio",
+    "it": "Elimina attività"
+  },
+  "Delete my account": {
+    "de": "Mein Konto löschen",
+    "es": "Eliminar mi cuenta",
+    "fr": "Supprimer mon compte",
+    "pt": "Eliminar a minha conta",
+    "it": "Elimina il mio account"
+  },
+  "Permanently erases your account and every business, invoice, expense, contact and message. This can't be undone.": {
+    "de": "Löscht Ihr Konto sowie alle Unternehmen, Rechnungen, Ausgaben, Kontakte und Nachrichten dauerhaft. Dies kann nicht rückgängig gemacht werden.",
+    "es": "Elimina de forma permanente su cuenta y todos los negocios, facturas, gastos, contactos y mensajes. Esta acción no se puede deshacer.",
+    "fr": "Supprime définitivement votre compte ainsi que toutes les entreprises, factures, dépenses, contacts et messages. Cette action est irréversible.",
+    "pt": "Elimina permanentemente a sua conta e todos os negócios, faturas, despesas, contactos e mensagens. Esta ação não pode ser anulada.",
+    "it": "Elimina definitivamente il suo account e tutte le attività, fatture, spese, contatti e messaggi. Questa operazione non può essere annullata."
+  },
+  "Delete account": {
+    "de": "Konto löschen",
+    "es": "Eliminar cuenta",
+    "fr": "Supprimer le compte",
+    "pt": "Eliminar conta",
+    "it": "Elimina account"
+  },
+  "Delete business?": {
+    "de": "Unternehmen löschen?",
+    "es": "¿Eliminar negocio?",
+    "fr": "Supprimer l'entreprise ?",
+    "pt": "Eliminar negócio?",
+    "it": "Eliminare l'attività?"
+  },
+  "Delete {name} and all of its invoices, expenses and stored receipts? This can't be undone. Files already in your Dropbox stay there.": {
+    "de": "{name} und alle zugehörigen Rechnungen, Ausgaben und gespeicherten Belege löschen? Dies kann nicht rückgängig gemacht werden. Dateien, die bereits in Ihrer Dropbox liegen, bleiben dort erhalten.",
+    "es": "¿Eliminar {name} y todas sus facturas, gastos y recibos guardados? Esta acción no se puede deshacer. Los archivos que ya están en su Dropbox permanecen allí.",
+    "fr": "Supprimer {name} ainsi que toutes ses factures, dépenses et tous ses reçus enregistrés ? Cette action est irréversible. Les fichiers déjà présents dans votre Dropbox y restent.",
+    "pt": "Eliminar {name} e todas as suas faturas, despesas e recibos guardados? Esta ação não pode ser anulada. Os ficheiros que já estão no seu Dropbox permanecem lá.",
+    "it": "Eliminare {name} e tutte le sue fatture, spese e ricevute archiviate? Questa operazione non può essere annullata. I file già presenti nel suo Dropbox restano lì."
+  },
+  "Could not delete the account": {
+    "de": "Das Konto konnte nicht gelöscht werden",
+    "es": "No se pudo eliminar la cuenta",
+    "fr": "Impossible de supprimer le compte",
+    "pt": "Não foi possível eliminar a conta",
+    "it": "Impossibile eliminare l'account"
+  },
+  "Delete your account": {
+    "de": "Ihr Konto löschen",
+    "es": "Eliminar su cuenta",
+    "fr": "Supprimer votre compte",
+    "pt": "Eliminar a sua conta",
+    "it": "Elimina il suo account"
+  },
+  "Keep my account": {
+    "de": "Mein Konto behalten",
+    "es": "Conservar mi cuenta",
+    "fr": "Conserver mon compte",
+    "pt": "Manter a minha conta",
+    "it": "Mantieni il mio account"
+  },
+  "Deleting…": {
+    "de": "Wird gelöscht …",
+    "es": "Eliminando…",
+    "fr": "Suppression…",
+    "pt": "A eliminar…",
+    "it": "Eliminazione…"
+  },
+  "Delete everything": {
+    "de": "Alles löschen",
+    "es": "Eliminar todo",
+    "fr": "Tout supprimer",
+    "pt": "Eliminar tudo",
+    "it": "Elimina tutto"
+  },
+  "All your businesses, invoices and expenses are erased.": {
+    "de": "Alle Ihre Unternehmen, Rechnungen und Ausgaben werden gelöscht.",
+    "es": "Se eliminan todos sus negocios, facturas y gastos.",
+    "fr": "Toutes vos entreprises, factures et dépenses sont supprimées.",
+    "pt": "Todos os seus negócios, faturas e despesas são eliminados.",
+    "it": "Tutte le sue attività, fatture e spese vengono eliminate."
+  },
+  "Your contacts and messages are erased.": {
+    "de": "Ihre Kontakte und Nachrichten werden gelöscht.",
+    "es": "Se eliminan sus contactos y mensajes.",
+    "fr": "Vos contacts et messages sont supprimés.",
+    "pt": "Os seus contactos e mensagens são eliminados.",
+    "it": "I suoi contatti e messaggi vengono eliminati."
+  },
+  "Your Dropbox is disconnected. Files already in Dropbox stay there.": {
+    "de": "Ihre Dropbox wird getrennt. Dateien, die bereits in Dropbox liegen, bleiben dort erhalten.",
+    "es": "Se desconecta su Dropbox. Los archivos que ya están en Dropbox permanecen allí.",
+    "fr": "Votre Dropbox est déconnecté. Les fichiers déjà présents dans Dropbox y restent.",
+    "pt": "O seu Dropbox é desligado. Os ficheiros que já estão no Dropbox permanecem lá.",
+    "it": "Il suo Dropbox viene scollegato. I file già presenti in Dropbox restano lì."
+  },
+  "This can't be undone.": {
+    "de": "Dies kann nicht rückgängig gemacht werden.",
+    "es": "Esta acción no se puede deshacer.",
+    "fr": "Cette action est irréversible.",
+    "pt": "Esta ação não pode ser anulada.",
+    "it": "Questa operazione non può essere annullata."
+  },
+  "Type your email ({email}) to confirm": {
+    "de": "Geben Sie zur Bestätigung Ihre E-Mail-Adresse ein ({email})",
+    "es": "Escriba su correo electrónico ({email}) para confirmar",
+    "fr": "Saisissez votre adresse e-mail ({email}) pour confirmer",
+    "pt": "Escreva o seu e-mail ({email}) para confirmar",
+    "it": "Digiti il suo indirizzo e-mail ({email}) per confermare"
+  },
+  "Could not remove this contact": {
+    "de": "Dieser Kontakt konnte nicht entfernt werden",
+    "es": "No se pudo eliminar este contacto",
+    "fr": "Impossible de supprimer ce contact",
+    "pt": "Não foi possível remover este contacto",
+    "it": "Impossibile rimuovere questo contatto"
+  },
+  "Network": {
+    "de": "Netzwerk",
+    "es": "Red",
+    "fr": "Réseau",
+    "pt": "Rede",
+    "it": "Rete"
+  },
+  "Your suppliers and clients. When they use HandyCFO too, you can message each other and send invoices straight into their inbox.": {
+    "de": "Ihre Lieferanten und Kunden. Wenn sie ebenfalls HandyCFO nutzen, können Sie einander Nachrichten schreiben und Rechnungen direkt in deren Posteingang senden.",
+    "es": "Sus proveedores y clientes. Si ellos también usan HandyCFO, pueden enviarse mensajes y usted puede enviar facturas directamente a su bandeja de entrada.",
+    "fr": "Vos fournisseurs et clients. S'ils utilisent aussi HandyCFO, vous pouvez échanger des messages et envoyer des factures directement dans leur boîte de réception.",
+    "pt": "Os seus fornecedores e clientes. Se também utilizarem o HandyCFO, podem trocar mensagens e pode enviar faturas diretamente para a caixa de entrada deles.",
+    "it": "I suoi fornitori e clienti. Se usano anche HandyCFO, potete scambiarvi messaggi e lei può inviare fatture direttamente nella loro posta in arrivo."
+  },
+  "Add contact": {
+    "de": "Kontakt hinzufügen",
+    "es": "Añadir contacto",
+    "fr": "Ajouter un contact",
+    "pt": "Adicionar contacto",
+    "it": "Aggiungi contatto"
+  },
+  "Everyone": {
+    "de": "Alle",
+    "es": "Todos",
+    "fr": "Tout le monde",
+    "pt": "Todos",
+    "it": "Tutti"
+  },
+  "Suppliers": {
+    "de": "Lieferanten",
+    "es": "Proveedores",
+    "fr": "Fournisseurs",
+    "pt": "Fornecedores",
+    "it": "Fornitori"
+  },
+  "Clients": {
+    "de": "Kunden",
+    "es": "Clientes",
+    "fr": "Clients",
+    "pt": "Clientes",
+    "it": "Clienti"
+  },
+  "Loading…": {
+    "de": "Wird geladen …",
+    "es": "Cargando…",
+    "fr": "Chargement…",
+    "pt": "A carregar…",
+    "it": "Caricamento…"
+  },
+  "No contacts yet. Add a supplier or client with their email address.": {
+    "de": "Noch keine Kontakte. Fügen Sie einen Lieferanten oder Kunden mit dessen E-Mail-Adresse hinzu.",
+    "es": "Aún no hay contactos. Añada un proveedor o cliente con su correo electrónico.",
+    "fr": "Aucun contact pour le moment. Ajoutez un fournisseur ou un client avec son adresse e-mail.",
+    "pt": "Ainda não há contactos. Adicione um fornecedor ou cliente com o respetivo e-mail.",
+    "it": "Ancora nessun contatto. Aggiunga un fornitore o un cliente con il suo indirizzo e-mail."
+  },
+  "Nobody in this group yet.": {
+    "de": "In dieser Gruppe ist noch niemand.",
+    "es": "Aún no hay nadie en este grupo.",
+    "fr": "Personne dans ce groupe pour le moment.",
+    "pt": "Ainda não há ninguém neste grupo.",
+    "it": "Ancora nessuno in questo gruppo."
+  },
+  "On HandyCFO": {
+    "de": "Auf HandyCFO",
+    "es": "En HandyCFO",
+    "fr": "Sur HandyCFO",
+    "pt": "No HandyCFO",
+    "it": "Su HandyCFO"
+  },
+  "Not on HandyCFO yet": {
+    "de": "Noch nicht auf HandyCFO",
+    "es": "Aún no está en HandyCFO",
+    "fr": "Pas encore sur HandyCFO",
+    "pt": "Ainda não está no HandyCFO",
+    "it": "Non ancora su HandyCFO"
+  },
+  "They need a HandyCFO account first": {
+    "de": "Es wird zuerst ein HandyCFO-Konto benötigt",
+    "es": "Primero necesitan una cuenta de HandyCFO",
+    "fr": "Un compte HandyCFO est d'abord nécessaire",
+    "pt": "Primeiro precisam de uma conta HandyCFO",
+    "it": "Serve prima un account HandyCFO"
+  },
+  "Message": {
+    "de": "Nachricht",
+    "es": "Mensaje",
+    "fr": "Message",
+    "pt": "Mensagem",
+    "it": "Messaggio"
+  },
+  "Edit": {
+    "de": "Bearbeiten",
+    "es": "Editar",
+    "fr": "Modifier",
+    "pt": "Editar",
+    "it": "Modifica"
+  },
+  "Remove": {
+    "de": "Entfernen",
+    "es": "Eliminar",
+    "fr": "Supprimer",
+    "pt": "Remover",
+    "it": "Rimuovi"
+  },
+  "Remove contact?": {
+    "de": "Kontakt entfernen?",
+    "es": "¿Eliminar contacto?",
+    "fr": "Supprimer le contact ?",
+    "pt": "Remover contacto?",
+    "it": "Rimuovere il contatto?"
+  },
+  "Remove {name} and your messages with them? Invoices and expenses that mention them are kept.": {
+    "de": "{name} und Ihre Nachrichten mit diesem Kontakt entfernen? Rechnungen und Ausgaben, in denen der Kontakt genannt wird, bleiben erhalten.",
+    "es": "¿Eliminar a {name} y sus mensajes con este contacto? Se conservan las facturas y los gastos que lo mencionan.",
+    "fr": "Supprimer {name} et vos messages avec ce contact ? Les factures et dépenses qui le mentionnent sont conservées.",
+    "pt": "Remover {name} e as suas mensagens com este contacto? As faturas e despesas que o mencionam são mantidas.",
+    "it": "Rimuovere {name} e i suoi messaggi con questo contatto? Le fatture e le spese che lo menzionano vengono conservate."
+  },
+  "Add a name.": {
+    "de": "Bitte geben Sie einen Namen ein.",
+    "es": "Añada un nombre.",
+    "fr": "Veuillez saisir un nom.",
+    "pt": "Adicione um nome.",
+    "it": "Inserisca un nome."
+  },
+  "Could not save this contact": {
+    "de": "Dieser Kontakt konnte nicht gespeichert werden",
+    "es": "No se pudo guardar este contacto",
+    "fr": "Impossible d'enregistrer ce contact",
+    "pt": "Não foi possível guardar este contacto",
+    "it": "Impossibile salvare questo contatto"
+  },
+  "Edit contact": {
+    "de": "Kontakt bearbeiten",
+    "es": "Editar contacto",
+    "fr": "Modifier le contact",
+    "pt": "Editar contacto",
+    "it": "Modifica contatto"
+  },
+  "Cancel": {
+    "de": "Abbrechen",
+    "es": "Cancelar",
+    "fr": "Annuler",
+    "pt": "Cancelar",
+    "it": "Annulla"
+  },
+  "Save": {
+    "de": "Speichern",
+    "es": "Guardar",
+    "fr": "Enregistrer",
+    "pt": "Guardar",
+    "it": "Salva"
+  },
+  "Name": {
+    "de": "Name",
+    "es": "Nombre",
+    "fr": "Nom",
+    "pt": "Nome",
+    "it": "Nome"
+  },
+  "e.g. Brantwood Ltd.": {
+    "de": "z. B. Brantwood Ltd.",
+    "es": "p. ej. Brantwood Ltd.",
+    "fr": "p. ex. Brantwood Ltd.",
+    "pt": "p. ex. Brantwood Ltd.",
+    "it": "ad es. Brantwood Ltd."
+  },
+  "Email (we check if they already use HandyCFO)": {
+    "de": "E-Mail (wir prüfen, ob der Kontakt HandyCFO bereits nutzt)",
+    "es": "Correo electrónico (comprobamos si ya usa HandyCFO)",
+    "fr": "E-mail (nous vérifions s'il utilise déjà HandyCFO)",
+    "pt": "E-mail (verificamos se já utiliza o HandyCFO)",
+    "it": "E-mail (verifichiamo se usa già HandyCFO)"
+  },
+  "They are your": {
+    "de": "Dieser Kontakt ist Ihr(e)",
+    "es": "Es su",
+    "fr": "Il s'agit de votre",
+    "pt": "É o seu",
+    "it": "È il suo"
+  },
+  "Supplier (you pay them)": {
+    "de": "Lieferant (Sie zahlen an ihn)",
+    "es": "Proveedor (usted le paga)",
+    "fr": "Fournisseur (vous le payez)",
+    "pt": "Fornecedor (você paga-lhe)",
+    "it": "Fornitore (lo paga lei)"
+  },
+  "Client (they pay you)": {
+    "de": "Kunde (er zahlt an Sie)",
+    "es": "Cliente (le paga a usted)",
+    "fr": "Client (il vous paie)",
+    "pt": "Cliente (paga-lhe a si)",
+    "it": "Cliente (paga lei)"
+  },
+  "Address and tax details (used on invoices)": {
+    "de": "Adress- und Steuerangaben (für Rechnungen)",
+    "es": "Dirección y datos fiscales (se usan en las facturas)",
+    "fr": "Adresse et informations fiscales (utilisées sur les factures)",
+    "pt": "Morada e dados fiscais (usados nas faturas)",
+    "it": "Indirizzo e dati fiscali (usati sulle fatture)"
+  },
+  "Not set": {
+    "de": "Nicht festgelegt",
+    "es": "Sin definir",
+    "fr": "Non défini",
+    "pt": "Não definido",
+    "it": "Non impostato"
+  },
+  "VAT / tax ID": {
+    "de": "UID-Nummer / Steuernummer",
+    "es": "NIF-IVA / identificación fiscal",
+    "fr": "N° de TVA / identifiant fiscal",
+    "pt": "NIF / número de IVA",
+    "it": "Partita IVA / codice fiscale"
+  },
+  "Language for their invoices": {
+    "de": "Sprache für deren Rechnungen",
+    "es": "Idioma de sus facturas",
+    "fr": "Langue de leurs factures",
+    "pt": "Idioma das faturas deste contacto",
+    "it": "Lingua delle loro fatture"
+  },
+  "Same as my business": {
+    "de": "Wie mein Unternehmen",
+    "es": "Igual que mi negocio",
+    "fr": "Identique à mon entreprise",
+    "pt": "Igual ao meu negócio",
+    "it": "Come la mia attività"
+  },
+  "New business": {
+    "de": "Neues Unternehmen",
+    "es": "Nuevo negocio",
+    "fr": "Nouvelle entreprise",
+    "pt": "Novo negócio",
+    "it": "Nuova attività"
+  },
+  "Could not create the business": {
+    "de": "Das Unternehmen konnte nicht erstellt werden",
+    "es": "No se pudo crear el negocio",
+    "fr": "Impossible de créer l'entreprise",
+    "pt": "Não foi possível criar o negócio",
+    "it": "Impossibile creare l'attività"
+  },
+  "Let's set up your first business": {
+    "de": "Richten wir Ihr erstes Unternehmen ein",
+    "es": "Configuremos su primer negocio",
+    "fr": "Configurons votre première entreprise",
+    "pt": "Vamos configurar o seu primeiro negócio",
+    "it": "Configuriamo la sua prima attività"
+  },
+  "You can add more later, and switch between them from the sidebar.": {
+    "de": "Sie können später weitere hinzufügen und über die Seitenleiste zwischen ihnen wechseln.",
+    "es": "Puede añadir más más adelante y cambiar entre ellos desde la barra lateral.",
+    "fr": "Vous pourrez en ajouter d'autres plus tard et passer de l'une à l'autre depuis la barre latérale.",
+    "pt": "Pode adicionar mais mais tarde e alternar entre eles a partir da barra lateral.",
+    "it": "Potrà aggiungerne altre in seguito e passare dall'una all'altra dalla barra laterale."
+  },
+  "Business name": {
+    "de": "Name des Unternehmens",
+    "es": "Nombre del negocio",
+    "fr": "Nom de l'entreprise",
+    "pt": "Nome do negócio",
+    "it": "Nome dell'attività"
+  },
+  "e.g. The Johmacos": {
+    "de": "z. B. The Johmacos",
+    "es": "p. ej. The Johmacos",
+    "fr": "p. ex. The Johmacos",
+    "pt": "p. ex. The Johmacos",
+    "it": "ad es. The Johmacos"
+  },
+  "What it does": {
+    "de": "Was das Unternehmen macht",
+    "es": "A qué se dedica",
+    "fr": "Son activité",
+    "pt": "O que faz",
+    "it": "Di cosa si occupa"
+  },
+  "e.g. Freelance design": {
+    "de": "z. B. Freelance-Design",
+    "es": "p. ej. Diseño freelance",
+    "fr": "p. ex. Design en freelance",
+    "pt": "p. ex. Design freelancer",
+    "it": "ad es. Design freelance"
+  },
+  "Creating…": {
+    "de": "Wird erstellt …",
+    "es": "Creando…",
+    "fr": "Création…",
+    "pt": "A criar…",
+    "it": "Creazione…"
+  },
+  "Get started": {
+    "de": "Los geht's",
+    "es": "Comenzar",
+    "fr": "Commencer",
+    "pt": "Começar",
+    "it": "Inizia"
+  },
+  "I charge VAT": {
+    "de": "Ich berechne Umsatzsteuer",
+    "es": "Aplico IVA",
+    "fr": "Je facture la TVA",
+    "pt": "Cobro IVA",
+    "it": "Applico l'IVA"
+  },
+  "Small business, no VAT charged (Kleinunternehmer)": {
+    "de": "Kleinunternehmer, keine Umsatzsteuer ausgewiesen",
+    "es": "Pequeña empresa, sin IVA (Kleinunternehmer)",
+    "fr": "Petite entreprise, sans TVA (Kleinunternehmer)",
+    "pt": "Pequena empresa, sem IVA (Kleinunternehmer)",
+    "it": "Piccola impresa, senza IVA (Kleinunternehmer)"
+  },
+  "I charge sales tax": {
+    "de": "Ich berechne Sales Tax",
+    "es": "Aplico impuesto sobre las ventas",
+    "fr": "Je facture la taxe de vente",
+    "pt": "Cobro imposto sobre vendas",
+    "it": "Applico la sales tax"
+  },
+  "I do not charge VAT or sales tax": {
+    "de": "Ich berechne weder Umsatzsteuer noch Sales Tax",
+    "es": "No aplico IVA ni impuesto sobre las ventas",
+    "fr": "Je ne facture ni TVA ni taxe de vente",
+    "pt": "Não cobro IVA nem imposto sobre vendas",
+    "it": "Non applico né IVA né sales tax"
+  },
+  "Supplier": {
+    "de": "Lieferant",
+    "es": "Proveedor",
+    "fr": "Fournisseur",
+    "pt": "Fornecedor",
+    "it": "Fornitore"
+  },
+  "Client": {
+    "de": "Kunde",
+    "es": "Cliente",
+    "fr": "Client",
+    "pt": "Cliente",
+    "it": "Cliente"
+  }
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Icon from './Icon';
+import { useT } from '../../lib/i18n';
 import { NAV_ITEMS } from './navItems';
 import logoIcon from '../../assets/logo-icon.png';
 
@@ -17,6 +18,7 @@ export default function Sidebar({
   userEmail,
   onSignOut,
 }) {
+  const { t } = useT();
   const [bizMenuOpen, setBizMenuOpen] = useState(false);
   const currentBusiness = businesses.find((b) => b.id === currentBusinessId);
 
@@ -28,7 +30,7 @@ export default function Sidebar({
           <div className="brand-mark"><img src={logoIcon} alt="HandyCFO" /></div>
           <div>
             <div className="brand-name">HandyCFO</div>
-            <div className="brand-sub">My smart accountant</div>
+            <div className="brand-sub">{t('My smart accountant')}</div>
           </div>
         </div>
 
@@ -38,7 +40,7 @@ export default function Sidebar({
               {currentBusiness?.short_code || '??'}
             </div>
             <div className="biz-switcher-label">
-              <div className="biz-switcher-name">{currentBusiness?.name || 'Select business'}</div>
+              <div className="biz-switcher-name">{currentBusiness?.name || t('Select business')}</div>
               <div className="biz-switcher-type">{currentBusiness?.business_type}</div>
             </div>
             <Icon name="chevronDown" size={14} strokeWidth={2} />
@@ -56,7 +58,7 @@ export default function Sidebar({
                   {businesses.length > 1 && (
                     <button
                       className="biz-menu-item-delete"
-                      title="Delete business"
+                      title={t('Delete business')}
                       onClick={(e) => { e.stopPropagation(); onDeleteBusiness(b); }}
                     >
                       <Icon name="trash" size={13} />
@@ -70,7 +72,7 @@ export default function Sidebar({
                 onClick={() => { setBizMenuOpen(false); onAddBusiness(); }}
               >
                 <Icon name="plus" size={15} strokeWidth={2} />
-                Add a business
+                {t('Add a business')}
               </button>
             </div>
           )}
@@ -86,7 +88,7 @@ export default function Sidebar({
                 onClick={() => onNavigate(item.view)}
               >
                 <Icon name={item.icon} />
-                {item.label}
+                {t(item.label)}
                 {!!count && <span className="nav-badge">{count}</span>}
               </button>
             );
@@ -104,7 +106,7 @@ export default function Sidebar({
                 onClick={onSignOut}
                 style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'var(--sidebar-text-dim)', fontSize: 11.5 }}
               >
-                Sign out
+                {t('Sign out')}
               </button>
             </div>
           </div>

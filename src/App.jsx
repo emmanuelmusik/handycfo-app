@@ -17,6 +17,7 @@ import { supabase } from './lib/supabaseClient';
 import Sidebar from './components/layout/Sidebar';
 import MobileTopbar from './components/layout/MobileTopbar';
 import FooterNav from './components/layout/FooterNav';
+import { useT } from './lib/i18n';
 
 export default function App() {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -28,6 +29,7 @@ export default function App() {
 }
 
 function AuthenticatedApp({ userEmail, onSignOut }) {
+  const { t } = useT();
   const { businesses, loading, createBusiness, updateBusiness, deleteBusiness } = useBusinesses();
   const [currentBusinessId, setCurrentBusinessId] = useState(null);
   // Coming back from Dropbox lands on /?dropbox=connected, so open Settings to show the result.
@@ -45,7 +47,7 @@ function AuthenticatedApp({ userEmail, onSignOut }) {
   const refreshBadges = () => setBadgeKey((k) => k + 1);
 
   async function handleAddBusiness() {
-    const name = window.prompt('Business name?');
+    const name = window.prompt(t('Business name?'));
     if (!name) return;
     const created = await createBusiness({ name, businessType: 'New business' });
     setCurrentBusinessId(created.id);
@@ -75,8 +77,8 @@ function AuthenticatedApp({ userEmail, onSignOut }) {
       <div className="goodbye-overlay show">
         <div className="goodbye-card">
           <div className="goodbye-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg></div>
-          <h2>Your account has been deleted</h2>
-          <p>All of your data has been erased. Thank you for trying HandyCFO.</p>
+          <h2>{t('Your account has been deleted')}</h2>
+          <p>{t('All of your data has been erased. Thank you for trying HandyCFO.')}</p>
         </div>
       </div>
     );
@@ -139,8 +141,8 @@ function AuthenticatedApp({ userEmail, onSignOut }) {
 
       {businessToDelete && (
         <ConfirmModal
-          title="Delete business?"
-          message={`Delete ${businessToDelete.name} and all of its invoices, expenses and stored receipts? This can't be undone.`}
+          title={t('Delete business?')}
+          message={t("Delete {name} and all of its invoices, expenses and stored receipts? This can't be undone.", { name: businessToDelete.name })}
           onConfirm={() => handleDeleteBusiness(businessToDelete).catch((e) => window.alert(e.message))}
           onCancel={() => setBusinessToDelete(null)}
         />

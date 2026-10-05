@@ -4,8 +4,14 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 // translation when one exists for the chosen language, otherwise the English text.
 // Placeholders look like {name}: t('Hello {name}', { name: 'Eva' }).
 // Step 2 adds dictionaries to DICTIONARIES; screens need no change.
-export const UI_LANGUAGES = ['en'];
-const DICTIONARIES = { en: {} };
+import de from '../locales/de';
+import es from '../locales/es';
+import fr from '../locales/fr';
+import pt from '../locales/pt';
+import it from '../locales/it';
+
+export const UI_LANGUAGES = ['en', 'de', 'es', 'fr', 'pt', 'it'];
+const DICTIONARIES = { en: {}, de, es, fr, pt, it };
 
 function pickInitial() {
   try {

@@ -1,0 +1,1017 @@
+{
+ "preparing the file": {
+  "de": "die Datei vorbereitet wurde",
+  "es": "se preparaba el archivo",
+  "fr": "de la préparation du fichier",
+  "pt": "a preparar o ficheiro",
+  "it": "la preparazione del file"
+ },
+ "sending it to the server": {
+  "de": "sie an den Server gesendet wurde",
+  "es": "se enviaba al servidor",
+  "fr": "de l'envoi au serveur",
+  "pt": "a enviar para o servidor",
+  "it": "l'invio al server"
+ },
+ "Found {count} receipts in {name}.": {
+  "de": "{count} Belege in {name} gefunden.",
+  "es": "Se encontraron {count} recibos en {name}.",
+  "fr": "{count} reçus trouvés dans {name}.",
+  "pt": "Foram encontrados {count} recibos em {name}.",
+  "it": "Trovate {count} ricevute in {name}."
+ },
+ "Could not reach the server (network error while {stage}).": {
+  "de": "Der Server ist nicht erreichbar (Netzwerkfehler, während {stage}).",
+  "es": "No se pudo conectar con el servidor (error de red mientras {stage}).",
+  "fr": "Impossible de joindre le serveur (erreur réseau lors de {stage}).",
+  "pt": "Não foi possível contactar o servidor (erro de rede ao {stage}).",
+  "it": "Impossibile raggiungere il server (errore di rete durante {stage})."
+ },
+ "{error} (while {stage})": {
+  "de": "{error} (während {stage})",
+  "es": "{error} (mientras {stage})",
+  "fr": "{error} (lors de {stage})",
+  "pt": "{error} (ao {stage})",
+  "it": "{error} (durante {stage})"
+ },
+ "No file was received from the picker. Please try again.": {
+  "de": "Es wurde keine Datei von der Auswahl empfangen. Bitte versuchen Sie es erneut.",
+  "es": "No se recibió ningún archivo del selector. Inténtelo de nuevo.",
+  "fr": "Aucun fichier n'a été reçu du sélecteur. Veuillez réessayer.",
+  "pt": "Não foi recebido nenhum ficheiro do seletor. Tente novamente.",
+  "it": "Nessun file ricevuto dal selettore. Riprovi."
+ },
+ "photo": {
+  "de": "Foto",
+  "es": "foto",
+  "fr": "photo",
+  "pt": "foto",
+  "it": "foto"
+ },
+ "{type}, {size} KB": {
+  "de": "{type}, {size} KB",
+  "es": "{type}, {size} KB",
+  "fr": "{type}, {size} Ko",
+  "pt": "{type}, {size} KB",
+  "it": "{type}, {size} KB"
+ },
+ "unknown type": {
+  "de": "unbekannter Typ",
+  "es": "tipo desconocido",
+  "fr": "type inconnu",
+  "pt": "tipo desconhecido",
+  "it": "tipo sconosciuto"
+ },
+ "Financial Inbox": {
+  "de": "Finanzposteingang",
+  "es": "Bandeja financiera",
+  "fr": "Boîte de réception financière",
+  "pt": "Caixa de entrada financeira",
+  "it": "Posta in arrivo finanziaria"
+ },
+ "Where receipts wait to be checked. Snap a receipt or drop a PDF, we read it, you confirm it, and it becomes an expense.": {
+  "de": "Hier warten Belege auf die Prüfung. Fotografieren Sie einen Beleg oder legen Sie ein PDF ab, wir lesen es aus, Sie bestätigen es, und es wird zu einer Ausgabe.",
+  "es": "Aquí esperan los recibos a ser revisados. Haga una foto de un recibo o suelte un PDF, nosotros lo leemos, usted lo confirma y se convierte en un gasto.",
+  "fr": "Les reçus attendent ici d'être vérifiés. Photographiez un reçu ou déposez un PDF, nous le lisons, vous le confirmez, et il devient une dépense.",
+  "pt": "Aqui aguardam os recibos para verificação. Tire uma fotografia a um recibo ou largue um PDF, nós lemo-lo, você confirma e passa a ser uma despesa.",
+  "it": "Qui le ricevute attendono di essere verificate. Scatti una foto a una ricevuta o trascini un PDF, noi la leggiamo, lei la conferma e diventa una spesa."
+ },
+ "Files are kept in your connected cloud storage — only the text lives here.": {
+  "de": "Dateien werden in Ihrem verbundenen Cloud-Speicher aufbewahrt – hier wird nur der Text gespeichert.",
+  "es": "Los archivos se guardan en su almacenamiento en la nube conectado; aquí solo se conserva el texto.",
+  "fr": "Les fichiers sont conservés dans votre stockage cloud connecté ; seul le texte est conservé ici.",
+  "pt": "Os ficheiros ficam guardados no seu armazenamento na nuvem associado; aqui só fica o texto.",
+  "it": "I file sono conservati nel suo archivio cloud collegato: qui resta solo il testo."
+ },
+ "Snap it or drop it": {
+  "de": "Fotografieren oder ablegen",
+  "es": "Fotografíelo o suéltelo",
+  "fr": "Photographiez ou déposez",
+  "pt": "Fotografe ou largue",
+  "it": "Scatti o trascini"
+ },
+ "Take a photo of a receipt, or pick several from your gallery. One photo or PDF can hold several receipts.": {
+  "de": "Fotografieren Sie einen Beleg oder wählen Sie mehrere aus Ihrer Galerie aus. Ein Foto oder PDF kann mehrere Belege enthalten.",
+  "es": "Haga una foto de un recibo o elija varios de su galería. Una foto o un PDF puede contener varios recibos.",
+  "fr": "Prenez un reçu en photo ou choisissez-en plusieurs dans votre galerie. Une photo ou un PDF peut contenir plusieurs reçus.",
+  "pt": "Tire uma fotografia a um recibo ou escolha vários da sua galeria. Uma fotografia ou PDF pode conter vários recibos.",
+  "it": "Scatti una foto a una ricevuta o ne scelga più d'una dalla galleria. Una foto o un PDF può contenere più ricevute."
+ },
+ "Add a receipt": {
+  "de": "Beleg hinzufügen",
+  "es": "Añadir un recibo",
+  "fr": "Ajouter un reçu",
+  "pt": "Adicionar um recibo",
+  "it": "Aggiungi una ricevuta"
+ },
+ "Each one is listed below to review.": {
+  "de": "Jeder davon ist unten zur Prüfung aufgeführt.",
+  "es": "Cada uno aparece abajo para su revisión.",
+  "fr": "Chacun est listé ci-dessous pour vérification.",
+  "pt": "Cada um está listado abaixo para revisão.",
+  "it": "Ognuna è elencata qui sotto per la verifica."
+ },
+ "Sending… reading your receipt…": {
+  "de": "Wird gesendet… Ihr Beleg wird gelesen…",
+  "es": "Enviando… leyendo su recibo…",
+  "fr": "Envoi… lecture de votre reçu…",
+  "pt": "A enviar… a ler o seu recibo…",
+  "it": "Invio in corso… lettura della ricevuta…"
+ },
+ "Dismiss": {
+  "de": "Schließen",
+  "es": "Descartar",
+  "fr": "Fermer",
+  "pt": "Dispensar",
+  "it": "Chiudi"
+ },
+ "From supplier": {
+  "de": "Vom Lieferanten",
+  "es": "De proveedor",
+  "fr": "Du fournisseur",
+  "pt": "Do fornecedor",
+  "it": "Dal fornitore"
+ },
+ "Possible duplicate": {
+  "de": "Mögliches Duplikat",
+  "es": "Posible duplicado",
+  "fr": "Doublon possible",
+  "pt": "Possível duplicado",
+  "it": "Possibile duplicato"
+ },
+ "Ready to review": {
+  "de": "Bereit zur Prüfung",
+  "es": "Listo para revisar",
+  "fr": "Prêt à vérifier",
+  "pt": "Pronto para revisão",
+  "it": "Pronto per la verifica"
+ },
+ "Review": {
+  "de": "Prüfen",
+  "es": "Revisar",
+  "fr": "Vérifier",
+  "pt": "Rever",
+  "it": "Verifica"
+ },
+ "Nothing waiting. New scans and supplier invoices will show up here.": {
+  "de": "Nichts ausstehend. Neue Scans und Lieferantenrechnungen erscheinen hier.",
+  "es": "No hay nada pendiente. Los nuevos escaneos y las facturas de proveedores aparecerán aquí.",
+  "fr": "Rien en attente. Les nouveaux scans et les factures de fournisseurs apparaîtront ici.",
+  "pt": "Nada pendente. Os novos digitalizados e as faturas de fornecedores aparecerão aqui.",
+  "it": "Nessun elemento in attesa. Le nuove scansioni e le fatture dei fornitori compariranno qui."
+ },
+ "Loading…": {
+  "de": "Wird geladen…",
+  "es": "Cargando…",
+  "fr": "Chargement…",
+  "pt": "A carregar…",
+  "it": "Caricamento…"
+ },
+ "{count} invoice sent to you by suppliers on HandyCFO.": {
+  "de": "{count} Rechnung wurde Ihnen von Lieferanten über HandyCFO gesendet.",
+  "es": "{count} factura enviada por proveedores a través de HandyCFO.",
+  "fr": "{count} facture vous a été envoyée par des fournisseurs sur HandyCFO.",
+  "pt": "{count} fatura enviada por fornecedores através do HandyCFO.",
+  "it": "{count} fattura inviata dai fornitori tramite HandyCFO."
+ },
+ "{count} invoices sent to you by suppliers on HandyCFO.": {
+  "de": "{count} Rechnungen wurden Ihnen von Lieferanten über HandyCFO gesendet.",
+  "es": "{count} facturas enviadas por proveedores a través de HandyCFO.",
+  "fr": "{count} factures vous ont été envoyées par des fournisseurs sur HandyCFO.",
+  "pt": "{count} faturas enviadas por fornecedores através do HandyCFO.",
+  "it": "{count} fatture inviate dai fornitori tramite HandyCFO."
+ },
+ "Add a merchant name.": {
+  "de": "Geben Sie einen Händlernamen ein.",
+  "es": "Añada el nombre del comercio.",
+  "fr": "Ajoutez le nom du commerçant.",
+  "pt": "Adicione o nome do comerciante.",
+  "it": "Aggiunga il nome dell'esercente."
+ },
+ "Enter a valid amount.": {
+  "de": "Geben Sie einen gültigen Betrag ein.",
+  "es": "Introduzca un importe válido.",
+  "fr": "Saisissez un montant valide.",
+  "pt": "Introduza um montante válido.",
+  "it": "Inserisca un importo valido."
+ },
+ "Enter a valid VAT amount, or leave it empty.": {
+  "de": "Geben Sie einen gültigen USt-Betrag ein oder lassen Sie das Feld leer.",
+  "es": "Introduzca un importe de IVA válido o déjelo vacío.",
+  "fr": "Saisissez un montant de TVA valide ou laissez le champ vide.",
+  "pt": "Introduza um montante de IVA válido ou deixe vazio.",
+  "it": "Inserisca un importo IVA valido oppure lasci il campo vuoto."
+ },
+ "VAT can not be more than the total amount.": {
+  "de": "Die USt darf nicht höher als der Gesamtbetrag sein.",
+  "es": "El IVA no puede ser superior al importe total.",
+  "fr": "La TVA ne peut pas dépasser le montant total.",
+  "pt": "O IVA não pode ser superior ao montante total.",
+  "it": "L'IVA non può superare l'importo totale."
+ },
+ "Could not record the expense": {
+  "de": "Die Ausgabe konnte nicht erfasst werden",
+  "es": "No se pudo registrar el gasto",
+  "fr": "Impossible d'enregistrer la dépense",
+  "pt": "Não foi possível registar a despesa",
+  "it": "Impossibile registrare la spesa"
+ },
+ "Could not discard this document": {
+  "de": "Dieses Dokument konnte nicht verworfen werden",
+  "es": "No se pudo descartar este documento",
+  "fr": "Impossible de supprimer ce document",
+  "pt": "Não foi possível descartar este documento",
+  "it": "Impossibile scartare questo documento"
+ },
+ "We were not sure about this one. Please check each field.": {
+  "de": "Hier waren wir uns nicht sicher. Bitte prüfen Sie jedes Feld.",
+  "es": "No estábamos seguros de este. Revise cada campo.",
+  "fr": "Nous n'étions pas sûrs de celui-ci. Veuillez vérifier chaque champ.",
+  "pt": "Não tivemos a certeza deste. Verifique cada campo.",
+  "it": "Non eravamo sicuri di questo. Controlli ogni campo."
+ },
+ "Please double-check the amounts before you confirm.": {
+  "de": "Bitte prüfen Sie die Beträge vor der Bestätigung noch einmal.",
+  "es": "Revise de nuevo los importes antes de confirmar.",
+  "fr": "Veuillez revérifier les montants avant de confirmer.",
+  "pt": "Verifique novamente os montantes antes de confirmar.",
+  "it": "Ricontrolli gli importi prima di confermare."
+ },
+ "Sent to you on HandyCFO.": {
+  "de": "Über HandyCFO an Sie gesendet.",
+  "es": "Enviado a usted a través de HandyCFO.",
+  "fr": "Envoyé à votre attention sur HandyCFO.",
+  "pt": "Enviado para si através do HandyCFO.",
+  "it": "Inviato a lei tramite HandyCFO."
+ },
+ "Read automatically. Fix anything that looks off.": {
+  "de": "Automatisch ausgelesen. Korrigieren Sie alles, was nicht stimmt.",
+  "es": "Leído automáticamente. Corrija lo que no parezca correcto.",
+  "fr": "Lu automatiquement. Corrigez tout ce qui semble incorrect.",
+  "pt": "Lido automaticamente. Corrija o que lhe parecer incorreto.",
+  "it": "Letto automaticamente. Corregga ciò che non sembra corretto."
+ },
+ "Review document": {
+  "de": "Dokument prüfen",
+  "es": "Revisar documento",
+  "fr": "Vérifier le document",
+  "pt": "Rever documento",
+  "it": "Verifica documento"
+ },
+ "Discard": {
+  "de": "Verwerfen",
+  "es": "Descartar",
+  "fr": "Supprimer",
+  "pt": "Descartar",
+  "it": "Scarta"
+ },
+ "Later": {
+  "de": "Später",
+  "es": "Más tarde",
+  "fr": "Plus tard",
+  "pt": "Mais tarde",
+  "it": "Più tardi"
+ },
+ "Saving…": {
+  "de": "Wird gespeichert…",
+  "es": "Guardando…",
+  "fr": "Enregistrement…",
+  "pt": "A guardar…",
+  "it": "Salvataggio…"
+ },
+ "Record anyway": {
+  "de": "Trotzdem erfassen",
+  "es": "Registrar de todos modos",
+  "fr": "Enregistrer quand même",
+  "pt": "Registar mesmo assim",
+  "it": "Registra comunque"
+ },
+ "Confirm & record": {
+  "de": "Bestätigen und erfassen",
+  "es": "Confirmar y registrar",
+  "fr": "Confirmer et enregistrer",
+  "pt": "Confirmar e registar",
+  "it": "Conferma e registra"
+ },
+ "Receipt": {
+  "de": "Beleg",
+  "es": "Recibo",
+  "fr": "Reçu",
+  "pt": "Recibo",
+  "it": "Ricevuta"
+ },
+ "Open the PDF": {
+  "de": "PDF öffnen",
+  "es": "Abrir el PDF",
+  "fr": "Ouvrir le PDF",
+  "pt": "Abrir o PDF",
+  "it": "Apri il PDF"
+ },
+ "Could not load the file preview.": {
+  "de": "Die Dateivorschau konnte nicht geladen werden.",
+  "es": "No se pudo cargar la vista previa del archivo.",
+  "fr": "Impossible de charger l'aperçu du fichier.",
+  "pt": "Não foi possível carregar a pré-visualização do ficheiro.",
+  "it": "Impossibile caricare l'anteprima del file."
+ },
+ "No file attached.": {
+  "de": "Keine Datei angehängt.",
+  "es": "Ningún archivo adjunto.",
+  "fr": "Aucun fichier joint.",
+  "pt": "Nenhum ficheiro anexado.",
+  "it": "Nessun file allegato."
+ },
+ "This came in as an invoice from a supplier.": {
+  "de": "Dies ging als Rechnung eines Lieferanten ein.",
+  "es": "Esto llegó como una factura de un proveedor.",
+  "fr": "Ceci est arrivé sous forme de facture d'un fournisseur.",
+  "pt": "Isto chegou como fatura de um fornecedor.",
+  "it": "Questo è arrivato come fattura di un fornitore."
+ },
+ "This looks like a duplicate: {merchant} for {amount} on {date} is already recorded. If it is the same receipt, press Discard. If it really is a separate purchase, press Record anyway.": {
+  "de": "Das sieht nach einem Duplikat aus: {merchant} über {amount} am {date} ist bereits erfasst. Handelt es sich um denselben Beleg, wählen Sie Verwerfen. Handelt es sich um einen separaten Einkauf, wählen Sie Trotzdem erfassen.",
+  "es": "Parece un duplicado: ya está registrado {merchant} por {amount} el {date}. Si es el mismo recibo, pulse Descartar. Si realmente es otra compra, pulse Registrar de todos modos.",
+  "fr": "Cela ressemble à un doublon : {merchant} pour {amount} le {date} est déjà enregistré. S'il s'agit du même reçu, cliquez sur Supprimer. S'il s'agit bien d'un achat distinct, cliquez sur Enregistrer quand même.",
+  "pt": "Isto parece um duplicado: {merchant} no valor de {amount} em {date} já está registado. Se for o mesmo recibo, prima Descartar. Se for realmente uma compra distinta, prima Registar mesmo assim.",
+  "it": "Sembra un duplicato: {merchant} per {amount} il {date} è già registrato. Se è la stessa ricevuta, prema Scarta. Se è davvero un acquisto separato, prema Registra comunque."
+ },
+ "an expense": {
+  "de": "eine Ausgabe",
+  "es": "un gasto",
+  "fr": "une dépense",
+  "pt": "uma despesa",
+  "it": "una spesa"
+ },
+ "the same day": {
+  "de": "demselben Tag",
+  "es": "el mismo día",
+  "fr": "le même jour",
+  "pt": "o mesmo dia",
+  "it": "lo stesso giorno"
+ },
+ "Merchant": {
+  "de": "Händler",
+  "es": "Comercio",
+  "fr": "Commerçant",
+  "pt": "Comerciante",
+  "it": "Esercente"
+ },
+ "Date": {
+  "de": "Datum",
+  "es": "Fecha",
+  "fr": "Date",
+  "pt": "Data",
+  "it": "Data"
+ },
+ "Category": {
+  "de": "Kategorie",
+  "es": "Categoría",
+  "fr": "Catégorie",
+  "pt": "Categoria",
+  "it": "Categoria"
+ },
+ "Total paid": {
+  "de": "Gesamtbetrag bezahlt",
+  "es": "Total pagado",
+  "fr": "Total payé",
+  "pt": "Total pago",
+  "it": "Totale pagato"
+ },
+ "VAT included": {
+  "de": "Enthaltene USt",
+  "es": "IVA incluido",
+  "fr": "TVA incluse",
+  "pt": "IVA incluído",
+  "it": "IVA inclusa"
+ },
+ "Currency": {
+  "de": "Währung",
+  "es": "Moneda",
+  "fr": "Devise",
+  "pt": "Moeda",
+  "it": "Valuta"
+ },
+ "{name}: {message}": {
+  "de": "{name}: {message}",
+  "es": "{name}: {message}",
+  "fr": "{name} : {message}",
+  "pt": "{name}: {message}",
+  "it": "{name}: {message}"
+ },
+ "could not be read": {
+  "de": "konnte nicht gelesen werden",
+  "es": "no se pudo leer",
+  "fr": "n'a pas pu être lu",
+  "pt": "não foi possível ler",
+  "it": "non è stato possibile leggerlo"
+ },
+ "Could not open the receipt": {
+  "de": "Der Beleg konnte nicht geöffnet werden",
+  "es": "No se pudo abrir el recibo",
+  "fr": "Impossible d'ouvrir le reçu",
+  "pt": "Não foi possível abrir o recibo",
+  "it": "Impossibile aprire la ricevuta"
+ },
+ "Could not delete the expense": {
+  "de": "Die Ausgabe konnte nicht gelöscht werden",
+  "es": "No se pudo eliminar el gasto",
+  "fr": "Impossible de supprimer la dépense",
+  "pt": "Não foi possível eliminar a despesa",
+  "it": "Impossibile eliminare la spesa"
+ },
+ "Expenses": {
+  "de": "Ausgaben",
+  "es": "Gastos",
+  "fr": "Dépenses",
+  "pt": "Despesas",
+  "it": "Spese"
+ },
+ "Money going out. Everything you have spent on the business. Add one by hand, or scan a receipt in the Financial Inbox.": {
+  "de": "Ausgehendes Geld. Alles, was Sie für das Unternehmen ausgegeben haben. Fügen Sie eine Ausgabe manuell hinzu oder scannen Sie einen Beleg im Finanzposteingang.",
+  "es": "Dinero que sale. Todo lo que ha gastado en el negocio. Añada uno manualmente o escanee un recibo en la Bandeja financiera.",
+  "fr": "L'argent qui sort. Tout ce que vous avez dépensé pour l'entreprise. Ajoutez-en une à la main ou scannez un reçu dans la Boîte de réception financière.",
+  "pt": "Dinheiro que sai. Tudo o que gastou no negócio. Adicione uma manualmente ou digitalize um recibo na Caixa de entrada financeira.",
+  "it": "Denaro in uscita. Tutto ciò che ha speso per l'attività. Ne aggiunga una a mano oppure scansioni una ricevuta nella Posta in arrivo finanziaria."
+ },
+ "Reading receipt…": {
+  "de": "Beleg wird gelesen…",
+  "es": "Leyendo recibo…",
+  "fr": "Lecture du reçu…",
+  "pt": "A ler o recibo…",
+  "it": "Lettura della ricevuta…"
+ },
+ "Scan receipt": {
+  "de": "Beleg scannen",
+  "es": "Escanear recibo",
+  "fr": "Scanner un reçu",
+  "pt": "Digitalizar recibo",
+  "it": "Scansiona ricevuta"
+ },
+ "Add expense": {
+  "de": "Ausgabe hinzufügen",
+  "es": "Añadir gasto",
+  "fr": "Ajouter une dépense",
+  "pt": "Adicionar despesa",
+  "it": "Aggiungi spesa"
+ },
+ "All categories": {
+  "de": "Alle Kategorien",
+  "es": "Todas las categorías",
+  "fr": "Toutes les catégories",
+  "pt": "Todas as categorias",
+  "it": "Tutte le categorie"
+ },
+ "Amount": {
+  "de": "Betrag",
+  "es": "Importe",
+  "fr": "Montant",
+  "pt": "Montante",
+  "it": "Importo"
+ },
+ "Bank match": {
+  "de": "Bankabgleich",
+  "es": "Conciliación bancaria",
+  "fr": "Rapprochement bancaire",
+  "pt": "Correspondência bancária",
+  "it": "Riconciliazione bancaria"
+ },
+ "No expenses yet. Add one here, or scan a receipt in the Financial Inbox.": {
+  "de": "Noch keine Ausgaben. Fügen Sie hier eine hinzu oder scannen Sie einen Beleg im Finanzposteingang.",
+  "es": "Aún no hay gastos. Añada uno aquí o escanee un recibo en la Bandeja financiera.",
+  "fr": "Aucune dépense pour l'instant. Ajoutez-en une ici ou scannez un reçu dans la Boîte de réception financière.",
+  "pt": "Ainda não há despesas. Adicione uma aqui ou digitalize um recibo na Caixa de entrada financeira.",
+  "it": "Ancora nessuna spesa. Ne aggiunga una qui o scansioni una ricevuta nella Posta in arrivo finanziaria."
+ },
+ "No expenses in this category.": {
+  "de": "Keine Ausgaben in dieser Kategorie.",
+  "es": "No hay gastos en esta categoría.",
+  "fr": "Aucune dépense dans cette catégorie.",
+  "pt": "Não há despesas nesta categoria.",
+  "it": "Nessuna spesa in questa categoria."
+ },
+ "incl. {amount} VAT": {
+  "de": "inkl. {amount} USt",
+  "es": "incl. {amount} de IVA",
+  "fr": "dont {amount} de TVA",
+  "pt": "incl. {amount} de IVA",
+  "it": "incl. {amount} di IVA"
+ },
+ "Matched to bank": {
+  "de": "Mit Bank abgeglichen",
+  "es": "Conciliado con el banco",
+  "fr": "Rapproché de la banque",
+  "pt": "Conciliado com o banco",
+  "it": "Riconciliato con la banca"
+ },
+ "Awaiting match": {
+  "de": "Abgleich ausstehend",
+  "es": "Pendiente de conciliar",
+  "fr": "En attente de rapprochement",
+  "pt": "A aguardar correspondência",
+  "it": "In attesa di riconciliazione"
+ },
+ "View receipt": {
+  "de": "Beleg anzeigen",
+  "es": "Ver recibo",
+  "fr": "Voir le reçu",
+  "pt": "Ver recibo",
+  "it": "Visualizza ricevuta"
+ },
+ "Delete expense": {
+  "de": "Ausgabe löschen",
+  "es": "Eliminar gasto",
+  "fr": "Supprimer la dépense",
+  "pt": "Eliminar despesa",
+  "it": "Elimina spesa"
+ },
+ "Review receipt {current} of {total}": {
+  "de": "Beleg {current} von {total} prüfen",
+  "es": "Revisar recibo {current} de {total}",
+  "fr": "Vérifier le reçu {current} sur {total}",
+  "pt": "Rever recibo {current} de {total}",
+  "it": "Verifica ricevuta {current} di {total}"
+ },
+ "Review receipt": {
+  "de": "Beleg prüfen",
+  "es": "Revisar recibo",
+  "fr": "Vérifier le reçu",
+  "pt": "Rever recibo",
+  "it": "Verifica ricevuta"
+ },
+ "You already have an expense from {merchant} for {amount} on {date}. Add this one anyway?": {
+  "de": "Sie haben bereits eine Ausgabe von {merchant} über {amount} am {date}. Trotzdem hinzufügen?",
+  "es": "Ya tiene un gasto de {merchant} por {amount} el {date}. ¿Añadir este de todos modos?",
+  "fr": "Vous avez déjà une dépense chez {merchant} de {amount} le {date}. Ajouter celle-ci quand même ?",
+  "pt": "Já tem uma despesa de {merchant} no valor de {amount} em {date}. Adicionar esta mesmo assim?",
+  "it": "Ha già una spesa presso {merchant} di {amount} il {date}. Aggiungere comunque questa?"
+ },
+ "Delete expense?": {
+  "de": "Ausgabe löschen?",
+  "es": "¿Eliminar gasto?",
+  "fr": "Supprimer la dépense ?",
+  "pt": "Eliminar despesa?",
+  "it": "Eliminare la spesa?"
+ },
+ "Delete the {amount} expense from {merchant}? This can't be undone.": {
+  "de": "Die Ausgabe über {amount} bei {merchant} löschen? Dies kann nicht rückgängig gemacht werden.",
+  "es": "¿Eliminar el gasto de {amount} en {merchant}? Esta acción no se puede deshacer.",
+  "fr": "Supprimer la dépense de {amount} chez {merchant} ? Cette action est irréversible.",
+  "pt": "Eliminar a despesa de {amount} em {merchant}? Esta ação não pode ser anulada.",
+  "it": "Eliminare la spesa di {amount} presso {merchant}? L'operazione non può essere annullata."
+ },
+ "Could not save the expense": {
+  "de": "Die Ausgabe konnte nicht gespeichert werden",
+  "es": "No se pudo guardar el gasto",
+  "fr": "Impossible d'enregistrer la dépense",
+  "pt": "Não foi possível guardar a despesa",
+  "it": "Impossibile salvare la spesa"
+ },
+ "Cancel": {
+  "de": "Abbrechen",
+  "es": "Cancelar",
+  "fr": "Annuler",
+  "pt": "Cancelar",
+  "it": "Annulla"
+ },
+ "Save expense": {
+  "de": "Ausgabe speichern",
+  "es": "Guardar gasto",
+  "fr": "Enregistrer la dépense",
+  "pt": "Guardar despesa",
+  "it": "Salva spesa"
+ },
+ "e.g. Figma Inc.": {
+  "de": "z. B. Figma Inc.",
+  "es": "p. ej., Figma Inc.",
+  "fr": "p. ex. Figma Inc.",
+  "pt": "p. ex., Figma Inc.",
+  "it": "ad es. Figma Inc."
+ },
+ "Amount (€, total paid)": {
+  "de": "Betrag (€, Gesamtbetrag bezahlt)",
+  "es": "Importe (€, total pagado)",
+  "fr": "Montant (€, total payé)",
+  "pt": "Montante (€, total pago)",
+  "it": "Importo (€, totale pagato)"
+ },
+ "VAT included (€)": {
+  "de": "Enthaltene USt (€)",
+  "es": "IVA incluido (€)",
+  "fr": "TVA incluse (€)",
+  "pt": "IVA incluído (€)",
+  "it": "IVA inclusa (€)"
+ },
+ "Could not load the report. Please try again.": {
+  "de": "Der Bericht konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
+  "es": "No se pudo cargar el informe. Inténtelo de nuevo.",
+  "fr": "Impossible de charger le rapport. Veuillez réessayer.",
+  "pt": "Não foi possível carregar o relatório. Tente novamente.",
+  "it": "Impossibile caricare il report. Riprovi."
+ },
+ "Income": {
+  "de": "Einnahmen",
+  "es": "Ingresos",
+  "fr": "Revenus",
+  "pt": "Receitas",
+  "it": "Entrate"
+ },
+ "Custom range": {
+  "de": "Benutzerdefinierter Zeitraum",
+  "es": "Rango personalizado",
+  "fr": "Période personnalisée",
+  "pt": "Intervalo personalizado",
+  "it": "Intervallo personalizzato"
+ },
+ "Could not create the PDF. Please try again.": {
+  "de": "Das PDF konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+  "es": "No se pudo crear el PDF. Inténtelo de nuevo.",
+  "fr": "Impossible de créer le PDF. Veuillez réessayer.",
+  "pt": "Não foi possível criar o PDF. Tente novamente.",
+  "it": "Impossibile creare il PDF. Riprovi."
+ },
+ "Reports": {
+  "de": "Berichte",
+  "es": "Informes",
+  "fr": "Rapports",
+  "pt": "Relatórios",
+  "it": "Report"
+ },
+ "Income, spending and profit for {name}, calculated from your real invoices and expenses.": {
+  "de": "Einnahmen, Ausgaben und Gewinn für {name}, berechnet aus Ihren tatsächlichen Rechnungen und Ausgaben.",
+  "es": "Ingresos, gastos y beneficio de {name}, calculados a partir de sus facturas y gastos reales.",
+  "fr": "Revenus, dépenses et bénéfice de {name}, calculés à partir de vos factures et dépenses réelles.",
+  "pt": "Receitas, despesas e lucro de {name}, calculados a partir das suas faturas e despesas reais.",
+  "it": "Entrate, spese e utile di {name}, calcolati dalle sue fatture e spese reali."
+ },
+ "Preparing PDF…": {
+  "de": "PDF wird vorbereitet…",
+  "es": "Preparando PDF…",
+  "fr": "Préparation du PDF…",
+  "pt": "A preparar PDF…",
+  "it": "Preparazione del PDF…"
+ },
+ "Export PDF": {
+  "de": "PDF exportieren",
+  "es": "Exportar PDF",
+  "fr": "Exporter en PDF",
+  "pt": "Exportar PDF",
+  "it": "Esporta PDF"
+ },
+ "Pick a start month on or before the end month.": {
+  "de": "Wählen Sie einen Startmonat, der nicht nach dem Endmonat liegt.",
+  "es": "Elija un mes de inicio igual o anterior al mes final.",
+  "fr": "Choisissez un mois de début antérieur ou égal au mois de fin.",
+  "pt": "Escolha um mês de início igual ou anterior ao mês final.",
+  "it": "Scelga un mese di inizio uguale o precedente al mese finale."
+ },
+ "{period} · paid invoices": {
+  "de": "{period} · bezahlte Rechnungen",
+  "es": "{period} · facturas pagadas",
+  "fr": "{period} · factures payées",
+  "pt": "{period} · faturas pagas",
+  "it": "{period} · fatture pagate"
+ },
+ "Profit": {
+  "de": "Gewinn",
+  "es": "Beneficio",
+  "fr": "Bénéfice",
+  "pt": "Lucro",
+  "it": "Utile"
+ },
+ "No income in this period": {
+  "de": "Keine Einnahmen in diesem Zeitraum",
+  "es": "Sin ingresos en este período",
+  "fr": "Aucun revenu sur cette période",
+  "pt": "Sem receitas neste período",
+  "it": "Nessuna entrata in questo periodo"
+ },
+ "{margin}% margin": {
+  "de": "{margin} % Marge",
+  "es": "{margin} % de margen",
+  "fr": "{margin} % de marge",
+  "pt": "{margin} % de margem",
+  "it": "{margin}% di margine"
+ },
+ "Income vs. expenses": {
+  "de": "Einnahmen vs. Ausgaben",
+  "es": "Ingresos frente a gastos",
+  "fr": "Revenus et dépenses",
+  "pt": "Receitas vs. despesas",
+  "it": "Entrate e spese"
+ },
+ "Where the money went": {
+  "de": "Wofür das Geld ausgegeben wurde",
+  "es": "En qué se fue el dinero",
+  "fr": "Où est allé l'argent",
+  "pt": "Para onde foi o dinheiro",
+  "it": "Dove è andato il denaro"
+ },
+ "No expenses in this period.": {
+  "de": "Keine Ausgaben in diesem Zeitraum.",
+  "es": "No hay gastos en este período.",
+  "fr": "Aucune dépense sur cette période.",
+  "pt": "Sem despesas neste período.",
+  "it": "Nessuna spesa in questo periodo."
+ },
+ "Good morning, {name} 👋": {
+  "de": "Guten Morgen, {name} 👋",
+  "es": "Buenos días, {name} 👋",
+  "fr": "Bonjour, {name} 👋",
+  "pt": "Bom dia, {name} 👋",
+  "it": "Buongiorno, {name} 👋"
+ },
+ "there": {
+  "de": "zusammen",
+  "es": "usted",
+  "fr": "vous",
+  "pt": "você",
+  "it": "lei"
+ },
+ "Here's where {name}'s money stands right now.": {
+  "de": "So steht es aktuell um die Finanzen von {name}.",
+  "es": "Así están ahora mismo las finanzas de {name}.",
+  "fr": "Voici où en sont actuellement les finances de {name}.",
+  "pt": "Eis a situação financeira atual de {name}.",
+  "it": "Ecco la situazione finanziaria attuale di {name}."
+ },
+ "Pick a start date on or before the end date. Showing this month meanwhile.": {
+  "de": "Wählen Sie ein Startdatum, das nicht nach dem Enddatum liegt. Bis dahin wird der aktuelle Monat angezeigt.",
+  "es": "Elija una fecha de inicio igual o anterior a la fecha final. Mientras tanto se muestra este mes.",
+  "fr": "Choisissez une date de début antérieure ou égale à la date de fin. Le mois en cours est affiché en attendant.",
+  "pt": "Escolha uma data de início igual ou anterior à data final. Entretanto, é apresentado o mês atual.",
+  "it": "Scelga una data di inizio uguale o precedente alla data finale. Nel frattempo viene mostrato questo mese."
+ },
+ "Revenue": {
+  "de": "Umsatz",
+  "es": "Ingresos",
+  "fr": "Chiffre d'affaires",
+  "pt": "Receita",
+  "it": "Ricavi"
+ },
+ "Outstanding owed to you": {
+  "de": "Ausstehende Forderungen an Sie",
+  "es": "Pendiente de cobro",
+  "fr": "Montants qui vous sont dus",
+  "pt": "Valores em dívida a seu favor",
+  "it": "Crediti in sospeso a suo favore"
+ },
+ "Right now · across {count} invoice(s)": {
+  "de": "Aktuell · über {count} Rechnung(en)",
+  "es": "Ahora mismo · en {count} factura(s)",
+  "fr": "En ce moment · sur {count} facture(s)",
+  "pt": "Neste momento · em {count} fatura(s)",
+  "it": "Al momento · su {count} fattura/e"
+ },
+ "{count} invoice overdue": {
+  "de": "{count} Rechnung überfällig",
+  "es": "{count} factura vencida",
+  "fr": "{count} facture en retard",
+  "pt": "{count} fatura em atraso",
+  "it": "{count} fattura scaduta"
+ },
+ "{count} invoices overdue": {
+  "de": "{count} Rechnungen überfällig",
+  "es": "{count} facturas vencidas",
+  "fr": "{count} factures en retard",
+  "pt": "{count} faturas em atraso",
+  "it": "{count} fatture scadute"
+ },
+ "{amount} needs following up": {
+  "de": "{amount} erfordern eine Nachverfolgung",
+  "es": "{amount} requieren seguimiento",
+  "fr": "{amount} nécessitent un suivi",
+  "pt": "{amount} requerem acompanhamento",
+  "it": "{amount} richiedono un sollecito"
+ },
+ "Nothing recorded yet for {name}. Create your first invoice or scan a receipt to get started.": {
+  "de": "Für {name} wurde noch nichts erfasst. Erstellen Sie Ihre erste Rechnung oder scannen Sie einen Beleg, um zu beginnen.",
+  "es": "Aún no hay nada registrado para {name}. Cree su primera factura o escanee un recibo para empezar.",
+  "fr": "Rien n'est encore enregistré pour {name}. Créez votre première facture ou scannez un reçu pour commencer.",
+  "pt": "Ainda não há registos para {name}. Crie a sua primeira fatura ou digitalize um recibo para começar.",
+  "it": "Non c'è ancora nulla di registrato per {name}. Crei la sua prima fattura o scansioni una ricevuta per iniziare."
+ },
+ "Show figures for": {
+  "de": "Zahlen anzeigen für",
+  "es": "Mostrar cifras de",
+  "fr": "Afficher les chiffres pour",
+  "pt": "Mostrar valores de",
+  "it": "Mostra i valori per"
+ },
+ "Which year": {
+  "de": "Welches Jahr",
+  "es": "Qué año",
+  "fr": "Quelle année",
+  "pt": "Que ano",
+  "it": "Quale anno"
+ },
+ "From": {
+  "de": "Von",
+  "es": "Desde",
+  "fr": "Du",
+  "pt": "De",
+  "it": "Da"
+ },
+ "To": {
+  "de": "Bis",
+  "es": "Hasta",
+  "fr": "Au",
+  "pt": "Até",
+  "it": "A"
+ },
+ "Financial report": {
+  "de": "Finanzbericht",
+  "es": "Informe financiero",
+  "fr": "Rapport financier",
+  "pt": "Relatório financeiro",
+  "it": "Report finanziario"
+ },
+ "Prepared with HandyCFO on {date}": {
+  "de": "Erstellt mit HandyCFO am {date}",
+  "es": "Preparado con HandyCFO el {date}",
+  "fr": "Préparé avec HandyCFO le {date}",
+  "pt": "Preparado com o HandyCFO em {date}",
+  "it": "Preparato con HandyCFO il {date}"
+ },
+ "VAT ID: {id}": {
+  "de": "UID-Nr.: {id}",
+  "es": "NIF-IVA: {id}",
+  "fr": "N° de TVA : {id}",
+  "pt": "NIF/NIPC: {id}",
+  "it": "P. IVA: {id}"
+ },
+ "Paid invoices": {
+  "de": "Bezahlte Rechnungen",
+  "es": "Facturas pagadas",
+  "fr": "Factures payées",
+  "pt": "Faturas pagas",
+  "it": "Fatture pagate"
+ },
+ "Money spent": {
+  "de": "Ausgegebenes Geld",
+  "es": "Dinero gastado",
+  "fr": "Argent dépensé",
+  "pt": "Dinheiro gasto",
+  "it": "Denaro speso"
+ },
+ "No expenses were recorded in this period.": {
+  "de": "In diesem Zeitraum wurden keine Ausgaben erfasst.",
+  "es": "No se registraron gastos en este período.",
+  "fr": "Aucune dépense n'a été enregistrée sur cette période.",
+  "pt": "Não foram registadas despesas neste período.",
+  "it": "Nessuna spesa è stata registrata in questo periodo."
+ },
+ "Month by month": {
+  "de": "Monat für Monat",
+  "es": "Mes a mes",
+  "fr": "Mois par mois",
+  "pt": "Mês a mês",
+  "it": "Mese per mese"
+ },
+ "Month": {
+  "de": "Monat",
+  "es": "Mes",
+  "fr": "Mois",
+  "pt": "Mês",
+  "it": "Mese"
+ },
+ "Total": {
+  "de": "Gesamt",
+  "es": "Total",
+  "fr": "Total",
+  "pt": "Total",
+  "it": "Totale"
+ },
+ "Page {page} of {pages}": {
+  "de": "Seite {page} von {pages}",
+  "es": "Página {page} de {pages}",
+  "fr": "Page {page} sur {pages}",
+  "pt": "Página {page} de {pages}",
+  "it": "Pagina {page} di {pages}"
+ },
+ "Software": {
+  "de": "Software",
+  "es": "Software",
+  "fr": "Logiciels",
+  "pt": "Software",
+  "it": "Software"
+ },
+ "Travel": {
+  "de": "Reisen",
+  "es": "Viajes",
+  "fr": "Déplacements",
+  "pt": "Viagens",
+  "it": "Viaggi"
+ },
+ "Office": {
+  "de": "Büro",
+  "es": "Oficina",
+  "fr": "Bureau",
+  "pt": "Escritório",
+  "it": "Ufficio"
+ },
+ "Meals": {
+  "de": "Verpflegung",
+  "es": "Comidas",
+  "fr": "Repas",
+  "pt": "Refeições",
+  "it": "Pasti"
+ },
+ "Marketing": {
+  "de": "Marketing",
+  "es": "Marketing",
+  "fr": "Marketing",
+  "pt": "Marketing",
+  "it": "Marketing"
+ },
+ "Materials": {
+  "de": "Material",
+  "es": "Materiales",
+  "fr": "Matériel",
+  "pt": "Materiais",
+  "it": "Materiali"
+ },
+ "Shipping": {
+  "de": "Versand",
+  "es": "Envíos",
+  "fr": "Expédition",
+  "pt": "Envios",
+  "it": "Spedizioni"
+ },
+ "Other": {
+  "de": "Sonstiges",
+  "es": "Otros",
+  "fr": "Autres",
+  "pt": "Outros",
+  "it": "Altro"
+ },
+ "This month": {
+  "de": "Dieser Monat",
+  "es": "Este mes",
+  "fr": "Ce mois-ci",
+  "pt": "Este mês",
+  "it": "Questo mese"
+ },
+ "Last 3 months": {
+  "de": "Letzte 3 Monate",
+  "es": "Últimos 3 meses",
+  "fr": "3 derniers mois",
+  "pt": "Últimos 3 meses",
+  "it": "Ultimi 3 mesi"
+ },
+ "Last 6 months": {
+  "de": "Letzte 6 Monate",
+  "es": "Últimos 6 meses",
+  "fr": "6 derniers mois",
+  "pt": "Últimos 6 meses",
+  "it": "Ultimi 6 mesi"
+ },
+ "Last year": {
+  "de": "Letztes Jahr",
+  "es": "Año pasado",
+  "fr": "Année dernière",
+  "pt": "Ano passado",
+  "it": "Anno scorso"
+ },
+ "A specific year…": {
+  "de": "Ein bestimmtes Jahr…",
+  "es": "Un año concreto…",
+  "fr": "Une année précise…",
+  "pt": "Um ano específico…",
+  "it": "Un anno specifico…"
+ },
+ "Custom period…": {
+  "de": "Benutzerdefinierter Zeitraum…",
+  "es": "Período personalizado…",
+  "fr": "Période personnalisée…",
+  "pt": "Período personalizado…",
+  "it": "Periodo personalizzato…"
+ },
+ "Preparing…": {
+  "de": "Wird vorbereitet…",
+  "es": "Preparando…",
+  "fr": "Préparation…",
+  "pt": "A preparar…",
+  "it": "Preparazione…"
+ },
+ "Sending…": {
+  "de": "Wird gesendet…",
+  "es": "Enviando…",
+  "fr": "Envoi…",
+  "pt": "A enviar…",
+  "it": "Invio in corso…"
+ },
+ "Waiting…": {
+  "de": "Wartet…",
+  "es": "En espera…",
+  "fr": "En attente…",
+  "pt": "A aguardar…",
+  "it": "In attesa…"
+ },
+ "Reading your receipt…": {
+  "de": "Ihr Beleg wird gelesen…",
+  "es": "Leyendo su recibo…",
+  "fr": "Lecture de votre reçu…",
+  "pt": "A ler o seu recibo…",
+  "it": "Lettura della ricevuta…"
+ }
+}
