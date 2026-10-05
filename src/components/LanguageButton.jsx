@@ -5,7 +5,7 @@ import Icon from './layout/Icon';
 const NAMES = { en: 'English', de: 'Deutsch', es: 'Español', fr: 'Français', pt: 'Português', it: 'Italiano' };
 
 // Always-visible language switcher, fixed at the top right of the screen.
-export default function LanguageButton() {
+export default function LanguageButton({ inline = false }) {
   const { t, lang, setLang } = useT();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -25,7 +25,7 @@ export default function LanguageButton() {
   }, [open]);
 
   return (
-    <div className="lang-switch" ref={ref}>
+    <div className={`lang-switch ${inline ? 'inline' : 'floating'}`} ref={ref}>
       <button className="lang-btn" onClick={() => setOpen((o) => !o)} aria-label={t('Language')} aria-haspopup="menu" aria-expanded={open} title={t('Language')}>
         <Icon name="globe" size={17} strokeWidth={1.8} />
         <span className="lang-code">{lang.toUpperCase()}</span>
