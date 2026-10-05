@@ -95,6 +95,15 @@ export default function Invoices({ business }) {
     }
   }
 
+  async function handleDownload(inv) {
+    setError('');
+    try {
+      await api.downloadInvoicePdf(inv.id);
+    } catch (err) {
+      setError(err.message || 'Could not download the PDF');
+    }
+  }
+
   async function handleMarkPaid(inv) {
     setError('');
     try {
@@ -211,6 +220,7 @@ export default function Invoices({ business }) {
                       {inv.status !== 'Paid' && (
                         <button className="btn btn-sm" onClick={() => handleMarkPaid(inv)}>Mark paid</button>
                       )}
+                      <button className="btn btn-sm" title="Download as PDF" onClick={() => handleDownload(inv)}>PDF</button>
                       <button className="icon-btn" title="Delete invoice" onClick={() => setToDelete(inv)}>
                         <Icon name="trash" size={14} strokeWidth={2} />
                       </button>

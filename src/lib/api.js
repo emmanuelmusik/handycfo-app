@@ -26,6 +26,27 @@ async function authedFetch(path, options = {}) {
   return res.json();
 }
 
+// Downloads a file the server generates (like an invoice PDF) and saves it.
+async function downloadFile(path, fallbackName) {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not signed in');
+  const res = await fetch(`${API_URL}${path}`, { headers: { Authorization: `Bearer ${session.access_token}` } });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || `Download failed (${res.status})`);
+  }
+  const blob = await res.blob();
+  const match = /filename="([^"]+)"/.exec(res.headers.get('Content-Disposition') || '');
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = match ? match[1] : fallbackName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
 const post = (path, body) => authedFetch(path, { method: 'POST', body: JSON.stringify(body || {}) });
 const del = (path) => authedFetch(path, { method: 'DELETE' });
 
@@ -49,6 +70,7 @@ export const api = {
   refreshNetwork: () => post('/network/refresh'),
   sendMessage: (contactId, body) => post('/messages', { contactId, body }),
   sendInvoice: (invoiceId) => post(`/invoices/${invoiceId}/send`),
+  downloadInvoicePdf: (invoiceId) => downloadFile(`/invoices/${invoiceId}/pdf`, 'Invoice.pdf'),
 
   // Account
   deleteBusiness: (id) => del(`/businesses/${id}`),
