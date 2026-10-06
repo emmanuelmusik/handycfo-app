@@ -1,3 +1,5 @@
+import { useMediaConsent } from '../components/MediaConsent';
+import { hasMediaConsent } from '../lib/consent';
 import { useEffect, useRef, useState } from 'react';
 import { useInbox } from '../hooks/useInbox';
 import { api } from '../lib/api';
@@ -18,6 +20,7 @@ export default function Inbox({ business, onChanged }) {
   const [found, setFound] = useState('');
   const [drag, setDrag] = useState(false);
   const fileInput = useRef(null);
+  const { guard, consentModal } = useMediaConsent();
 
   function setStep(tempId, step) {
     setPending((p) => p.map((x) => (x.id === tempId ? { ...x, step } : x)));
@@ -76,15 +79,15 @@ export default function Inbox({ business, onChanged }) {
 
       <div
         className={`dropzone ${drag ? 'drag' : ''}`}
-        onClick={() => fileInput.current?.click()}
+        onClick={() => guard(() => fileInput.current?.click())}
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
         onDragLeave={() => setDrag(false)}
-        onDrop={(e) => { e.preventDefault(); setDrag(false); handleFiles(e.dataTransfer.files); }}
+        onDrop={(e) => { e.preventDefault(); setDrag(false); if (hasMediaConsent()) handleFiles(e.dataTransfer.files); else guard(() => {}); }}
       >
         <div className="dropzone-icon"><Icon name="camera" size={22} /></div>
         <h3>{t('Snap it or drop it')}</h3>
         <p>{t('Take a photo of a receipt, or pick several from your gallery. One photo or PDF can hold several receipts.')}</p>
-        <button className="btn btn-primary" onClick={(e) => { e.stopPropagation(); fileInput.current?.click(); }}>
+        <button className="btn btn-primary" onClick={(e) => { e.stopPropagation(); guard(() => fileInput.current?.click()); }}>
           <Icon name="plus" size={15} strokeWidth={2} />
           {t('Add a receipt')}
         </button>
@@ -99,6 +102,7 @@ export default function Inbox({ business, onChanged }) {
         />
       </div>
 
+      {consentModal}
       {error && <p style={{ color: 'var(--red)', fontSize: 13 }}>{error}</p>}
       {found && <p style={{ color: 'var(--accent-strong)', fontSize: 13 }}>{found} {t('Each one is listed below to review.')}</p>}
 

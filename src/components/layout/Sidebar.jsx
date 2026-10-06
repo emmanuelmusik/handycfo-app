@@ -110,6 +110,10 @@ export default function Sidebar({
               </button>
             </div>
           </div>
+          <div className="sidebar-legal">
+            <a href="/privacy" target="_blank" rel="noopener noreferrer">{t('Privacy Policy')}</a>
+            <a href="/support" target="_blank" rel="noopener noreferrer">{t('Support')}</a>
+          </div>
         </div>
       </aside>
     </>

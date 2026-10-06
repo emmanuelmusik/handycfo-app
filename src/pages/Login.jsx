@@ -103,6 +103,11 @@ export default function Login() {
         >
           {mode === 'signin' ? t("Don't have an account? Sign up") : t('Already have an account? Sign in')}
         </button>
+        <p className="auth-legal">
+          <a href="/privacy" target="_blank" rel="noopener noreferrer">{t('Privacy Policy')}</a>
+          {' · '}
+          <a href="/support" target="_blank" rel="noopener noreferrer">{t('Support')}</a>
+        </p>
       </div>
     </div>
   );

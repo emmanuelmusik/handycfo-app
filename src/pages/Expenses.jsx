@@ -1,3 +1,4 @@
+import { useMediaConsent } from '../components/MediaConsent';
 import { useMemo, useRef, useState } from 'react';
 import { useExpenses } from '../hooks/useExpenses';
 import Modal from '../components/Modal';
@@ -28,6 +29,7 @@ export default function Expenses({ business }) {
   const { t } = useT();
   const { expenses, loading, refetch, createExpense, deleteExpense } = useExpenses(business.id);
   const fileInput = useRef(null);
+  const { guard, consentModal } = useMediaConsent();
   const [scanning, setScanning] = useState(false);
   const [queue, setQueue] = useState([]); // scanned receipts waiting for a check, one at a time
   const [queueTotal, setQueueTotal] = useState(0);
@@ -98,7 +100,7 @@ export default function Expenses({ business }) {
           <p className="page-sub">{t('Money going out. Everything you have spent on the business. Add one by hand, or scan a receipt in the Financial Inbox.')}</p>
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          <button className="btn" onClick={() => fileInput.current?.click()} disabled={scanning}>
+          <button className="btn" onClick={() => guard(() => fileInput.current?.click())} disabled={scanning}>
             <Icon name="camera" size={15} strokeWidth={2} />
             {scanning ? t('Reading receipt…') : t('Scan receipt')}
           </button>
@@ -118,6 +120,7 @@ export default function Expenses({ business }) {
         </div>
       </div>
 
+      {consentModal}
       {error && <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 0 }}>{error}</p>}
 
       <div className="panel">

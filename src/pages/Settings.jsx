@@ -4,6 +4,7 @@ import { api } from '../lib/api';
 import Modal from '../components/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
+import { hasMediaConsent, withdrawMediaConsent } from '../lib/consent';
 import { useT, UI_LANGUAGES } from '../lib/i18n';
 import { COUNTRIES, TAX_MODES, INVOICE_LANGUAGES, setupFor, ibanValid, cleanIban, formatIban } from '../lib/countries';
 
@@ -339,6 +340,8 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
         </div>
       </div>
 
+      <PrivacyPanel />
+
       <div className="panel">
         <div className="section-title">{t('Account')}</div>
         <div className="settings-row">
@@ -392,6 +395,43 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
           onDeleted={onAccountDeleted}
         />
       )}
+    </div>
+  );
+}
+
+function PrivacyPanel() {
+  const { t } = useT();
+  const [allowed, setAllowed] = useState(hasMediaConsent());
+  return (
+    <div className="panel">
+      <div className="section-title">{t('Privacy and support')}</div>
+      <div className="settings-row">
+        <div>
+          <div className="settings-row-label">{t('Camera, photos and files')}</div>
+          <div className="settings-row-sub">
+            {allowed
+              ? t('You allowed HandyCFO to open your camera, gallery and files when you add a receipt.')
+              : t("Not allowed yet. We'll ask before the first receipt you add.")}
+          </div>
+        </div>
+        {allowed && (
+          <button className="btn btn-sm" onClick={() => { withdrawMediaConsent(); setAllowed(false); }}>{t('Withdraw permission')}</button>
+        )}
+      </div>
+      <div className="settings-row">
+        <div>
+          <div className="settings-row-label">{t('Privacy Policy')}</div>
+          <div className="settings-row-sub">{t('How we handle your data.')}</div>
+        </div>
+        <a className="btn btn-sm" href="/privacy" target="_blank" rel="noopener noreferrer">{t('Open')}</a>
+      </div>
+      <div className="settings-row">
+        <div>
+          <div className="settings-row-label">{t('Support')}</div>
+          <div className="settings-row-sub">{t('Questions, problems or feedback.')}</div>
+        </div>
+        <a className="btn btn-sm" href="/support" target="_blank" rel="noopener noreferrer">{t('Open')}</a>
+      </div>
     </div>
   );
 }
