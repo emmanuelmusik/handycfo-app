@@ -2,11 +2,12 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { api } from './api';
 
 // Tells the screens which plan the person is on and how much of this month they have used.
-const PlanContext = createContext({ info: null, refresh: () => {}, openPaywall: () => {}, gate: () => true });
+const PlanContext = createContext({ info: null, refresh: () => {}, openPaywall: () => {}, openManage: () => {}, gate: () => true });
 
 export function PlanProvider({ children }) {
   const [info, setInfo] = useState(null);
   const [paywall, setPaywall] = useState(null);
+  const [manage, setManage] = useState(false);
 
   const refresh = useCallback(async () => {
     try { setInfo(await api.getPlan()); } catch { /* keep the last known plan */ }
@@ -30,6 +31,9 @@ export function PlanProvider({ children }) {
     info,
     refresh,
     paywall,
+    manage,
+    openManage: () => setManage(true),
+    closeManage: () => setManage(false),
     closePaywall: () => setPaywall(null),
     openPaywall: (detail = {}) => setPaywall(detail),
     // For paid-only features: returns true when allowed, otherwise opens the upgrade screen.
@@ -38,7 +42,7 @@ export function PlanProvider({ children }) {
       setPaywall({ code: 'plan_feature', feature });
       return false;
     },
-  }), [info, refresh, paywall]);
+  }), [info, refresh, paywall, manage]);
 
   return <PlanContext.Provider value={value}>{children}</PlanContext.Provider>;
 }

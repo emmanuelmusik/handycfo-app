@@ -36,6 +36,9 @@ function BusinessProfile({ business, onUpdateBusiness }) {
   const dirty = JSON.stringify(form) !== initial;
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const setup = setupFor(form.country);
+  // Open by default only while the details invoices need are still missing.
+  const incomplete = !business.street || !business.postal_code || !business.city;
+  const [open, setOpen] = useState(incomplete);
 
   function changeCountry(code) {
     const s = setupFor(code);
@@ -127,8 +130,14 @@ function BusinessProfile({ business, onUpdateBusiness }) {
 
   return (
     <div className="panel settings-card profile-card">
-      <div className="section-title">{t('Business profile')}</div>
-      <p className="sub-note">{t('These details are printed on every invoice you send, so fill them in once here.')}</p>
+      <button className="collapse-head" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+        <span>
+          <span className="section-title" style={{ margin: 0 }}>{t('Business profile')}</span>
+          <span className="collapse-sub">{open ? t('These details are printed on every invoice you send, so fill them in once here.') : [form.legal_name || form.name, form.city, dirty ? t('Unsaved changes') : ''].filter(Boolean).join(' · ')}</span>
+        </span>
+        <Icon name="chevron" size={18} strokeWidth={2} className={`collapse-chevron ${open ? 'open' : ''}`} />
+      </button>
+      {open && <div className="collapse-body">
 
       <div className="sub-head">{t('Business')}</div>
       <div className="field-row">
@@ -225,6 +234,7 @@ function BusinessProfile({ business, onUpdateBusiness }) {
       <button className="btn btn-primary" onClick={save} disabled={!dirty || saving}>
         {saving ? t('Saving…') : saved ? t('Saved') : t('Save changes')}
       </button>
+      </div>}
     </div>
   );
 }
@@ -299,6 +309,8 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
         </div>
       </div>
 
+      <PlanPanel />
+
       <div className="settings-grid">
         <BusinessProfile business={business} onUpdateBusiness={onUpdateBusiness} />
 
@@ -340,8 +352,6 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
           <p className="sub-note">{t('Changes the language of the app. Invoices have their own language setting.')}</p>
         </div>
       </div>
-
-      <PlanPanel />
 
       <PrivacyPanel />
 
@@ -415,8 +425,8 @@ function UsageBar({ label, used, limit }) {
 
 function PlanPanel() {
   const { t } = useT();
-  const { info, openPaywall } = usePlan();
-  if (!info || !info.enforced) return null; // limits are not switched on yet
+  const { info, openPaywall, openManage } = usePlan();
+  if (!info) return null;
   const names = { free: t('Free'), monthly: t('Monthly'), quarterly: t('Quarterly') };
   return (
     <div className="panel">
@@ -430,11 +440,14 @@ function PlanPanel() {
               : t('Your free allowance resets at the start of each month.')}
           </div>
         </div>
-        {!info.paid && <button className="btn btn-sm btn-primary" onClick={() => openPaywall({})}>{t('Upgrade')}</button>}
+        {info.paid
+          ? <button className="btn btn-sm" onClick={openManage}>{t('Manage subscription')}</button>
+          : <button className="btn btn-sm btn-primary" onClick={() => openPaywall({})}>{t('Upgrade to Pro')}</button>}
       </div>
       <UsageBar label={t('Receipt scans this month')} used={info.usage.scans} limit={info.limits.scans} />
       <UsageBar label={t('Invoices sent this month')} used={info.usage.invoices} limit={info.limits.invoices} />
       <UsageBar label={t('Businesses')} used={info.usage.businesses} limit={info.limits.businesses} />
+      {!info.enforced && <p className="sub-note" style={{ marginTop: 12, marginBottom: 0 }}>{t('Limits are not active yet. Everything is available while we get ready to launch.')}</p>}
     </div>
   );
 }

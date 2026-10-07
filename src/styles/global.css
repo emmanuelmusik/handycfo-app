@@ -1060,3 +1060,14 @@ a.btn { text-decoration: none; display: inline-flex; align-items: center; }
 .paywall-price span { font-size: 12px; font-weight: 400; color: var(--text-faint); margin-left: 3px; }
 .paywall-sub { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
 .paywall-note { font-size: 12px; color: var(--text-faint); margin: 14px 0 0; line-height: 1.5; }
+
+/* ---- collapsible profile, plan button ---- */
+.collapse-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.collapse-sub { display: block; margin-top: 3px; font-size: 12.5px; color: var(--text-soft); font-weight: 400; }
+.collapse-chevron { flex-shrink: 0; transition: transform .2s; color: var(--text-soft); }
+.collapse-chevron.open { transform: rotate(180deg); }
+.collapse-body { margin-top: 14px; }
+.sidebar-plan { display: flex; align-items: center; gap: 8px; width: 100%; margin-bottom: 10px; padding: 9px 12px; border: 1px solid var(--accent-strong, #2a9d78); border-radius: var(--radius-sm); background: transparent; color: var(--accent-strong, #2a9d78); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.sidebar-plan:hover { background: rgba(63,191,156,.12); }
+.sidebar-plan.paid { border-color: var(--sidebar-border, rgba(255,255,255,.2)); color: var(--sidebar-text-dim, inherit); font-weight: 500; }
+.manage-links { display: flex; gap: 8px; flex-wrap: wrap; }

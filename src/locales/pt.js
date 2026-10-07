@@ -469,5 +469,16 @@ export default {
  "Receipt scans this month": "Leituras de recibos este mês",
  "Invoices sent this month": "Faturas enviadas este mês",
  "Businesses": "Empresas",
- "Could not add the business": "Não foi possível adicionar a empresa"
+ "Could not add the business": "Não foi possível adicionar a empresa",
+ "Manage subscription": "Gerir subscrição",
+ "You are on the {plan} plan.": "Está no plano {plan}.",
+ "You are on the Free plan, so there is nothing to end.": "Está no plano gratuito, não há nada a cancelar.",
+ "Your subscription is billed by the App Store or Google Play, so you end it there. You keep all paid features until the end of the period you already paid for.": "A sua subscrição é cobrada pela App Store ou pelo Google Play, por isso cancela-a lá. Mantém todas as funções pagas até ao fim do período já pago.",
+ "End in the App Store": "Cancelar na App Store",
+ "End in Google Play": "Cancelar no Google Play",
+ "Ending a subscription never deletes your data. Your account moves to the Free plan.": "Cancelar uma subscrição nunca apaga os seus dados. A sua conta passa para o plano gratuito.",
+ "Pro plan · Manage": "Plano Pro · Gerir",
+ "Upgrade to Pro": "Atualizar para Pro",
+ "Limits are not active yet. Everything is available while we get ready to launch.": "Os limites ainda não estão ativos. Tudo está disponível enquanto nos preparamos para o lançamento.",
+ "Unsaved changes": "Alterações por guardar"
 };

@@ -20,6 +20,7 @@ import FooterNav from './components/layout/FooterNav';
 import { useT } from './lib/i18n';
 import { PlanProvider } from './lib/plan';
 import Paywall from './components/Paywall';
+import ManageSubscription from './components/ManageSubscription';
 
 export default function App() {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -31,6 +32,7 @@ export default function App() {
     <PlanProvider>
       <AuthenticatedApp userEmail={user.email} onSignOut={signOut} />
       <Paywall />
+      <ManageSubscription />
     </PlanProvider>
   );
 }

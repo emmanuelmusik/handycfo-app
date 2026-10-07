@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Icon from './Icon';
 import { useT } from '../../lib/i18n';
+import { usePlan } from '../../lib/plan';
 import { NAV_ITEMS } from './navItems';
 import logoIcon from '../../assets/logo-icon.png';
 
@@ -19,6 +20,7 @@ export default function Sidebar({
   onSignOut,
 }) {
   const { t } = useT();
+  const { info: plan, openPaywall, openManage } = usePlan();
   const [bizMenuOpen, setBizMenuOpen] = useState(false);
   const currentBusiness = businesses.find((b) => b.id === currentBusinessId);
 
@@ -96,6 +98,13 @@ export default function Sidebar({
         </nav>
 
         <div className="sidebar-footer">
+          <button
+            className={`sidebar-plan ${plan?.paid ? 'paid' : ''}`}
+            onClick={() => (plan?.paid ? openManage() : openPaywall({}))}
+          >
+            <Icon name="sparkle" size={15} strokeWidth={2} />
+            <span>{plan?.paid ? t('Pro plan · Manage') : t('Upgrade to Pro')}</span>
+          </button>
           <div className="user-chip">
             <div className="user-avatar">{(userEmail || '?').slice(0, 2).toUpperCase()}</div>
             <div style={{ minWidth: 0, flex: 1 }}>

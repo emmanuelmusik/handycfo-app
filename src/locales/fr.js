@@ -469,5 +469,16 @@ export default {
  "Receipt scans this month": "Scans de reçus ce mois-ci",
  "Invoices sent this month": "Factures envoyées ce mois-ci",
  "Businesses": "Entreprises",
- "Could not add the business": "Impossible d'ajouter l'entreprise"
+ "Could not add the business": "Impossible d'ajouter l'entreprise",
+ "Manage subscription": "Gérer l'abonnement",
+ "You are on the {plan} plan.": "Vous avez le forfait {plan}.",
+ "You are on the Free plan, so there is nothing to end.": "Vous êtes sur le forfait gratuit, il n'y a rien à résilier.",
+ "Your subscription is billed by the App Store or Google Play, so you end it there. You keep all paid features until the end of the period you already paid for.": "Votre abonnement est facturé par l'App Store ou Google Play : c'est là que vous le résiliez. Vous gardez toutes les fonctions payantes jusqu'à la fin de la période déjà payée.",
+ "End in the App Store": "Résilier dans l'App Store",
+ "End in Google Play": "Résilier dans Google Play",
+ "Ending a subscription never deletes your data. Your account moves to the Free plan.": "Résilier un abonnement ne supprime jamais vos données. Votre compte passe au forfait gratuit.",
+ "Pro plan · Manage": "Forfait Pro · Gérer",
+ "Upgrade to Pro": "Passer à Pro",
+ "Limits are not active yet. Everything is available while we get ready to launch.": "Les limites ne sont pas encore actives. Tout est disponible en attendant le lancement.",
+ "Unsaved changes": "Modifications non enregistrées"
 };
