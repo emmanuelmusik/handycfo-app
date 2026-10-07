@@ -6,6 +6,7 @@ import Icon from '../components/layout/Icon';
 import { useContacts } from '../hooks/useContacts';
 import { api } from '../lib/api';
 import { useT } from '../lib/i18n';
+import { usePlan } from '../lib/plan';
 import { COUNTRIES, INVOICE_LANGUAGES, setupFor } from '../lib/countries';
 import { computeInvoice } from '../lib/invoiceMath';
 
@@ -108,6 +109,7 @@ function profileGaps(b) {
 
 export default function Invoices({ business, onOpenSettings }) {
   const { t } = useT();
+  const { gate } = usePlan();
   const { invoices, loading, refetch, createInvoice, saveDraft, loadItems, updateInvoice, deleteInvoice } = useInvoices(business.id);
   const [editing, setEditing] = useState(null);
   const [filter, setFilter] = useState('all');
@@ -144,6 +146,7 @@ export default function Invoices({ business, onOpenSettings }) {
 
   async function handleToggleReminders(inv) {
     setError('');
+    if (!inv.auto_reminders && !gate('reminders')) return;
     try {
       await updateInvoice(inv.id, { auto_reminders: !inv.auto_reminders });
     } catch (err) {

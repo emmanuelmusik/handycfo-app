@@ -26,6 +26,11 @@ async function authedFetch(path, options = {}) {
     if (body.duplicate) err.duplicate = body.duplicate;
     if (body.missing) err.missing = body.missing;
     if (body.warnings) err.warnings = body.warnings;
+    // A plan limit or a paid-only feature: show the upgrade screen from anywhere.
+    if (res.status === 402 && (body.code === 'plan_limit' || body.code === 'plan_feature')) {
+      err.code = body.code;
+      window.dispatchEvent(new CustomEvent('handycfo:paywall', { detail: { code: body.code, kind: body.kind, feature: body.feature } }));
+    }
     throw err;
   }
   return res.json();
@@ -52,16 +57,18 @@ async function downloadFile(path, fallbackName) {
   setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 
+const usageChanged = (r) => { window.dispatchEvent(new Event('handycfo:usage-changed')); return r; };
 const post = (path, body) => authedFetch(path, { method: 'POST', body: JSON.stringify(body || {}) });
 const put = (path, body) => authedFetch(path, { method: 'PUT', body: JSON.stringify(body || {}) });
 const del = (path) => authedFetch(path, { method: 'DELETE' });
 
 export const api = {
+  getPlan: () => authedFetch('/plan'),
   startDropboxConnect: () => authedFetch('/auth/dropbox/start'),
   disconnectDropbox: () => authedFetch('/auth/dropbox/disconnect', { method: 'POST' }),
 
   // Financial Inbox
-  scanReceipt: (payload) => post('/receipts/scan', payload),
+  scanReceipt: (payload) => post('/receipts/scan', payload).then(usageChanged),
   inboxFileLink: (docId) => authedFetch(`/inbox/${docId}/file`),
   confirmInboxDoc: (docId, fields, allowDuplicate = false) => post(`/inbox/${docId}/confirm`, allowDuplicate ? { ...fields, allowDuplicate: true } : fields),
   discardInboxDoc: (docId) => del(`/inbox/${docId}`),
@@ -79,7 +86,7 @@ export const api = {
   createInvoice: (fields) => post('/invoices', fields),
   saveInvoice: (id, fields) => put(`/invoices/${id}`, fields),
   checkInvoice: (id) => authedFetch(`/invoices/${id}/check`),
-  sendInvoice: (invoiceId, channels) => post(`/invoices/${invoiceId}/send`, channels ? { channels } : {}),
+  sendInvoice: (invoiceId, channels) => post(`/invoices/${invoiceId}/send`, channels ? { channels } : {}).then(usageChanged),
   downloadInvoicePdf: (invoiceId) => downloadFile(`/invoices/${invoiceId}/pdf`, 'Invoice.pdf'),
 
   // Account

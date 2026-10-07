@@ -6,6 +6,7 @@ import PeriodPicker from '../components/PeriodPicker';
 import Icon from '../components/layout/Icon';
 import { exportReportPdf } from '../lib/reportPdf';
 import { useT } from '../lib/i18n';
+import { usePlan } from '../lib/plan';
 import { defaultPeriod, resolvePeriod, isPeriodValid } from '../lib/period';
 
 Chart.register(...registerables);
@@ -145,8 +146,10 @@ export default function Reports({ business }) {
 
   const rangeLabel = range ? t(range.label) : t('Custom range');
 
+  const { gate } = usePlan();
   const [exporting, setExporting] = useState(false);
   async function handleExport() {
+    if (!gate('export')) return;
     setExporting(true);
     setError('');
     try {

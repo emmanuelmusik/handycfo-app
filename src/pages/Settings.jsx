@@ -4,6 +4,7 @@ import { api } from '../lib/api';
 import Modal from '../components/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 import Icon from '../components/layout/Icon';
+import { usePlan } from '../lib/plan';
 import { hasMediaConsent, withdrawMediaConsent } from '../lib/consent';
 import { useT, UI_LANGUAGES } from '../lib/i18n';
 import { COUNTRIES, TAX_MODES, INVOICE_LANGUAGES, setupFor, ibanValid, cleanIban, formatIban } from '../lib/countries';
@@ -340,6 +341,8 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
         </div>
       </div>
 
+      <PlanPanel />
+
       <PrivacyPanel />
 
       <div className="panel">
@@ -395,6 +398,43 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
           onDeleted={onAccountDeleted}
         />
       )}
+    </div>
+  );
+}
+
+function UsageBar({ label, used, limit }) {
+  const unlimited = limit === null || limit === undefined;
+  const pct = unlimited ? 0 : Math.min(100, Math.round((used / limit) * 100));
+  return (
+    <div className="usage-row">
+      <div className="usage-top"><span>{label}</span><span>{unlimited ? used : `${used} / ${limit}`}</span></div>
+      {!unlimited && <div className="usage-bar"><div className={`usage-fill ${pct >= 100 ? 'full' : ''}`} style={{ width: `${pct}%` }} /></div>}
+    </div>
+  );
+}
+
+function PlanPanel() {
+  const { t } = useT();
+  const { info, openPaywall } = usePlan();
+  if (!info || !info.enforced) return null; // limits are not switched on yet
+  const names = { free: t('Free'), monthly: t('Monthly'), quarterly: t('Quarterly') };
+  return (
+    <div className="panel">
+      <div className="section-title">{t('Your plan')}</div>
+      <div className="settings-row">
+        <div>
+          <div className="settings-row-label">{names[info.plan] || info.plan}{info.isTrial ? ` · ${t('trial')}` : ''}</div>
+          <div className="settings-row-sub">
+            {info.paid && info.periodEnd
+              ? t('Renews or ends on {date}.', { date: new Date(info.periodEnd).toLocaleDateString() })
+              : t('Your free allowance resets at the start of each month.')}
+          </div>
+        </div>
+        {!info.paid && <button className="btn btn-sm btn-primary" onClick={() => openPaywall({})}>{t('Upgrade')}</button>}
+      </div>
+      <UsageBar label={t('Receipt scans this month')} used={info.usage.scans} limit={info.limits.scans} />
+      <UsageBar label={t('Invoices sent this month')} used={info.usage.invoices} limit={info.limits.invoices} />
+      <UsageBar label={t('Businesses')} used={info.usage.businesses} limit={info.limits.businesses} />
     </div>
   );
 }

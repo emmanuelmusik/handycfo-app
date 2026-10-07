@@ -18,6 +18,8 @@ import Sidebar from './components/layout/Sidebar';
 import MobileTopbar from './components/layout/MobileTopbar';
 import FooterNav from './components/layout/FooterNav';
 import { useT } from './lib/i18n';
+import { PlanProvider } from './lib/plan';
+import Paywall from './components/Paywall';
 
 export default function App() {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -25,7 +27,12 @@ export default function App() {
   if (authLoading) return null; // avoid a login-page flash while the session check resolves
   if (!user) return <Login />;
 
-  return <AuthenticatedApp userEmail={user.email} onSignOut={signOut} />;
+  return (
+    <PlanProvider>
+      <AuthenticatedApp userEmail={user.email} onSignOut={signOut} />
+      <Paywall />
+    </PlanProvider>
+  );
 }
 
 function AuthenticatedApp({ userEmail, onSignOut }) {
@@ -49,8 +56,16 @@ function AuthenticatedApp({ userEmail, onSignOut }) {
   async function handleAddBusiness() {
     const name = window.prompt(t('Business name?'));
     if (!name) return;
-    const created = await createBusiness({ name, businessType: 'New business' });
-    setCurrentBusinessId(created.id);
+    try {
+      const created = await createBusiness({ name, businessType: 'New business' });
+      setCurrentBusinessId(created.id);
+    } catch (err) {
+      if (String(err?.message || '').includes('plan_limit_businesses')) {
+        window.dispatchEvent(new CustomEvent('handycfo:paywall', { detail: { code: 'plan_limit', kind: 'businesses' } }));
+      } else {
+        window.alert(err?.message || t('Could not add the business'));
+      }
+    }
   }
 
   async function handleDeleteBusiness(business) {
