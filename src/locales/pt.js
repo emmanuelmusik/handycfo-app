@@ -482,5 +482,8 @@ export default {
  "Limits are not active yet. Everything is available while we get ready to launch.": "Os limites ainda não estão ativos. Tudo está disponível enquanto nos preparamos para o lançamento.",
  "Unsaved changes": "Alterações por guardar",
  "Owner": "Proprietário",
- "Unlimited access on this account.": "Acesso ilimitado nesta conta."
+ "Unlimited access on this account.": "Acesso ilimitado nesta conta.",
+ "Continue with Google": "Continuar com o Google",
+ "Continue with Apple": "Continuar com a Apple",
+ "or": "ou"
 };

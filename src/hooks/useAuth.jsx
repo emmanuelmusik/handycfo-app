@@ -37,6 +37,8 @@ export function AuthProvider({ children }) {
     // The confirmation link brings the person back to wherever they signed up (this site).
     signUp: (email, password) => supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin } }),
     signIn: (email, password) => supabase.auth.signInWithPassword({ email, password }),
+    // Google / Apple: Supabase sends the person to the provider and back to this site, signed in.
+    signInWithProvider: (provider) => supabase.auth.signInWithOAuth({ provider, options: { redirectTo: window.location.origin } }),
     signOut: () => supabase.auth.signOut(),
   };
 
