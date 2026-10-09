@@ -1071,3 +1071,11 @@ a.btn { text-decoration: none; display: inline-flex; align-items: center; }
 .sidebar-plan:hover { background: rgba(63,191,156,.12); }
 .sidebar-plan.paid { border-color: var(--sidebar-border, rgba(255,255,255,.2)); color: var(--sidebar-text-dim, inherit); font-weight: 500; }
 .manage-links { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Settings page: consistent card padding, spacing and no sideways overflow */
+.settings-page > .settings-card, .settings-page > .settings-grid { margin-bottom: 16px; }
+.settings-page .settings-grid > * { min-width: 0; }
+.settings-page { max-width: 100%; }
+.settings-page .settings-card { padding: 18px; box-sizing: border-box; }
+.settings-page .settings-row { gap: 12px; }
+.settings-page .settings-row > div:first-child { min-width: 0; }

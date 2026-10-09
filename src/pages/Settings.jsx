@@ -301,7 +301,7 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
   }
 
   return (
-    <div>
+    <div className="settings-page">
       <div className="page-head">
         <div>
           <h1 className="page-title">{t('Settings')}</h1>
@@ -355,7 +355,7 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
 
       <PrivacyPanel />
 
-      <div className="panel">
+      <div className="panel settings-card">
         <div className="section-title">{t('Account')}</div>
         <div className="settings-row">
           <div>
@@ -366,7 +366,7 @@ export default function Settings({ business, userEmail, dropboxResult, onUpdateB
         </div>
       </div>
 
-      <div className="panel danger-zone">
+      <div className="panel settings-card danger-zone">
         <div className="section-title" style={{ color: 'var(--red)' }}>{t('Danger zone')}</div>
         {error && <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 0 }}>{error}</p>}
         <div className="settings-row">
@@ -429,7 +429,7 @@ function PlanPanel() {
   if (!info) return null;
   const names = { free: t('Free'), monthly: t('Monthly'), quarterly: t('Quarterly'), owner: t('Owner') };
   return (
-    <div className="panel">
+    <div className="panel settings-card">
       <div className="section-title">{t('Your plan')}</div>
       <div className="settings-row">
         <div>
@@ -458,7 +458,7 @@ function PrivacyPanel() {
   const { t } = useT();
   const [allowed, setAllowed] = useState(hasMediaConsent());
   return (
-    <div className="panel">
+    <div className="panel settings-card">
       <div className="section-title">{t('Privacy and support')}</div>
       <div className="settings-row">
         <div>
