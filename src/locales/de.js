@@ -480,5 +480,7 @@ export default {
  "Pro plan · Manage": "Pro-Tarif · Verwalten",
  "Upgrade to Pro": "Auf Pro upgraden",
  "Limits are not active yet. Everything is available while we get ready to launch.": "Die Limits sind noch nicht aktiv. Bis zum Start steht alles zur Verfügung.",
- "Unsaved changes": "Nicht gespeicherte Änderungen"
+ "Unsaved changes": "Nicht gespeicherte Änderungen",
+ "Owner": "Inhaber",
+ "Unlimited access on this account.": "Unbegrenzter Zugriff für dieses Konto."
 };

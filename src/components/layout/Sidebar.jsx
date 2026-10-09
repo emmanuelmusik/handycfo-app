@@ -46,7 +46,7 @@ export default function Sidebar({
               <div className="biz-switcher-type">{currentBusiness?.business_type}</div>
             </div>
             <Icon name="chevronDown" size={14} strokeWidth={2} />
-          </button>
+          </button>}
           {bizMenuOpen && (
             <div className="biz-menu">
               {businesses.map((b) => (
@@ -98,13 +98,13 @@ export default function Sidebar({
         </nav>
 
         <div className="sidebar-footer">
-          <button
+          {!plan?.unlimited && <button
             className={`sidebar-plan ${plan?.paid ? 'paid' : ''}`}
             onClick={() => (plan?.paid ? openManage() : openPaywall({}))}
           >
             <Icon name="sparkle" size={15} strokeWidth={2} />
             <span>{plan?.paid ? t('Pro plan · Manage') : t('Upgrade to Pro')}</span>
-          </button>
+          </button>}
           <div className="user-chip">
             <div className="user-avatar">{(userEmail || '?').slice(0, 2).toUpperCase()}</div>
             <div style={{ minWidth: 0, flex: 1 }}>

@@ -427,7 +427,7 @@ function PlanPanel() {
   const { t } = useT();
   const { info, openPaywall, openManage } = usePlan();
   if (!info) return null;
-  const names = { free: t('Free'), monthly: t('Monthly'), quarterly: t('Quarterly') };
+  const names = { free: t('Free'), monthly: t('Monthly'), quarterly: t('Quarterly'), owner: t('Owner') };
   return (
     <div className="panel">
       <div className="section-title">{t('Your plan')}</div>
@@ -435,12 +435,14 @@ function PlanPanel() {
         <div>
           <div className="settings-row-label">{names[info.plan] || info.plan}{info.isTrial ? ` · ${t('trial')}` : ''}</div>
           <div className="settings-row-sub">
-            {info.paid && info.periodEnd
+            {info.unlimited
+              ? t('Unlimited access on this account.')
+              : info.paid && info.periodEnd
               ? t('Renews or ends on {date}.', { date: new Date(info.periodEnd).toLocaleDateString() })
               : t('Your free allowance resets at the start of each month.')}
           </div>
         </div>
-        {info.paid
+        {info.unlimited ? null : info.paid
           ? <button className="btn btn-sm" onClick={openManage}>{t('Manage subscription')}</button>
           : <button className="btn btn-sm btn-primary" onClick={() => openPaywall({})}>{t('Upgrade to Pro')}</button>}
       </div>

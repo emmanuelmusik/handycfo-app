@@ -480,5 +480,7 @@ export default {
  "Pro plan · Manage": "Piano Pro · Gestisci",
  "Upgrade to Pro": "Passa a Pro",
  "Limits are not active yet. Everything is available while we get ready to launch.": "I limiti non sono ancora attivi. Tutto è disponibile mentre ci prepariamo al lancio.",
- "Unsaved changes": "Modifiche non salvate"
+ "Unsaved changes": "Modifiche non salvate",
+ "Owner": "Proprietario",
+ "Unlimited access on this account.": "Accesso illimitato su questo account."
 };
