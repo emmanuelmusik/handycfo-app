@@ -1086,3 +1086,9 @@ a.btn { text-decoration: none; display: inline-flex; align-items: center; }
 .auth-apple { background: #000; color: #fff; border-color: #000; }
 .auth-or { display: flex; align-items: center; gap: 12px; margin: 14px 0 16px; color: var(--text-faint); font-size: 12.5px; }
 .auth-or::before, .auth-or::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* Store purchase buttons */
+.paywall-plan-btn { font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.paywall-plan-btn:disabled { opacity: .6; cursor: default; }
+.paywall-cta { margin-top: 10px; padding: 8px 10px; border-radius: 10px; background: var(--accent-strong, #2a9d78); color: #fff; font-weight: 600; font-size: 13.5px; text-align: center; }
+.link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--accent-strong, #2a9d78); text-decoration: underline; cursor: pointer; }

@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3",
+    "@revenuecat/purchases-capacitor": "^13.7.3",
     "@supabase/supabase-js": "^2.45.4",
     "chart.js": "^4.4.4",
     "jspdf": "^2.5.2",
@@ -17,6 +21,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.5.3",
     "@vitejs/plugin-react": "^4.3.1",
     "vite": "^5.4.8"
   }

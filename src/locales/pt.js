@@ -485,5 +485,11 @@ export default {
  "Unlimited access on this account.": "Acesso ilimitado nesta conta.",
  "Continue with Google": "Continuar com o Google",
  "Continue with Apple": "Continuar com a Apple",
- "or": "ou"
+ "or": "ou",
+ "The purchase did not go through. You were not charged.": "A compra não foi concluída. Você não foi cobrado.",
+ "Purchases restored.": "Compras restauradas.",
+ "Nothing could be restored right now.": "Não foi possível restaurar nada neste momento.",
+ "Subscribe": "Assinar",
+ "Your subscription renews automatically unless you cancel it at least 24 hours before the period ends. Manage or cancel it any time in your App Store or Google Play account settings.": "Sua assinatura é renovada automaticamente, a menos que você a cancele pelo menos 24 horas antes do fim do período. Você pode gerenciá-la ou cancelá-la a qualquer momento nas configurações da sua conta da App Store ou do Google Play.",
+ "Restore purchases": "Restaurar compras"
 };

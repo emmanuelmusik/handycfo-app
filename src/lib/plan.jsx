@@ -1,5 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { api } from './api';
+import { useAuth } from '../hooks/useAuth';
+import { initBilling } from './billing';
 
 // Tells the screens which plan the person is on and how much of this month they have used.
 const PlanContext = createContext({ info: null, refresh: () => {}, openPaywall: () => {}, openManage: () => {}, gate: () => true });
@@ -8,10 +10,14 @@ export function PlanProvider({ children }) {
   const [info, setInfo] = useState(null);
   const [paywall, setPaywall] = useState(null);
   const [manage, setManage] = useState(false);
+  const { user } = useAuth();
 
   const refresh = useCallback(async () => {
     try { setInfo(await api.getPlan()); } catch { /* keep the last known plan */ }
   }, []);
+
+  // In the store app, tie the store account to this HandyCFO user.
+  useEffect(() => { initBilling(user?.id).catch(() => {}); }, [user?.id]);
 
   useEffect(() => {
     refresh();
