@@ -3,8 +3,8 @@
 Plans: Monthly (product id contains "monthly") and Quarterly (contains "quarterly").
 Use these product ids in both stores:
 
-- `handycfo_monthly`   - EUR 8.99 / month
-- `handycfo_quarterly` - EUR 22.99 / 3 months
+- `handycfo_monthly`   - EUR 9.99 / month (USD 9.99 in the US store)
+- `handycfo_quarterly` - EUR 24.99 / 3 months (USD 24.99 in the US store)
 
 How it fits together
 1. The app (Capacitor build) asks RevenueCat for the two packages and shows the store prices.

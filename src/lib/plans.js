@@ -5,7 +5,7 @@ export const PLAN_LIMITS = {
 };
 
 export const PRICES = {
-  monthly: { amount: 8.99, months: 1 },
-  quarterly: { amount: 22.99, months: 3 },
+  monthly: { amount: 9.99, months: 1 },
+  quarterly: { amount: 24.99, months: 3 },
 };
 export const currencyAmount = (n) => new Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR' }).format(n);
