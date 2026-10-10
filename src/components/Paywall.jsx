@@ -76,7 +76,7 @@ export default function Paywall() {
   const features = [
     t('Unlimited invoices'),
     t('Up to 3 businesses'),
-    t('About 150 receipt scans a month'),
+    t('100 receipt scans a month'),
     t('Automatic payment reminders'),
     t('Dropbox storage for receipts'),
     t('PDF export of reports'),

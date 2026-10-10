@@ -1,7 +1,7 @@
 // What the plans include and cost. Keep in step with the server (server/src/lib/plans.js) and the store listings.
 export const PLAN_LIMITS = {
   free: { businesses: 1, invoices: 5, scans: 10 },
-  paid: { businesses: 3, invoices: null, scans: 150 },
+  paid: { businesses: 3, invoices: null, scans: 100 },
 };
 
 export const PRICES = {

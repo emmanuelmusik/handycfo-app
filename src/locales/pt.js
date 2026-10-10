@@ -445,7 +445,7 @@ export default {
  "Exporting reports as PDF is part of the paid plans.": "Exportar relatórios em PDF faz parte dos planos pagos.",
  "Unlimited invoices": "Faturas ilimitadas",
  "Up to 3 businesses": "Até 3 empresas",
- "About 150 receipt scans a month": "Cerca de 150 leituras de recibos por mês",
+ "100 receipt scans a month": "100 leituras de recibos por mês",
  "Automatic payment reminders": "Lembretes de pagamento automáticos",
  "Dropbox storage for receipts": "Armazenamento de recibos na Dropbox",
  "PDF export of reports": "Exportação de relatórios em PDF",
