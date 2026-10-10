@@ -1,5 +1,9 @@
 {
   "appId": "biz.thejohmacos.handycfo",
   "appName": "HandyCFO",
-  "webDir": "dist"
+  "webDir": "dist",
+  "backgroundColor": "#FBFBFA",
+  "ios": {
+    "contentInset": "always"
+  }
 }
