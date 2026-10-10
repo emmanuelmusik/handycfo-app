@@ -28,6 +28,17 @@
 	<string>HandyCFO reads the receipt photos and files you choose so it can add them to your expenses.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>biz.thejohmacos.handycfo</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>biz.thejohmacos.handycfo</string>
+			</array>
+		</dict>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

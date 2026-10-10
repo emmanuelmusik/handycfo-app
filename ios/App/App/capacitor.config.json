@@ -7,6 +7,8 @@
 		"contentInset": "always"
 	},
 	"packageClassList": [
+		"AppPlugin",
+		"CAPBrowserPlugin",
 		"PurchasesPlugin"
 	]
 }

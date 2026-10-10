@@ -8,4 +8,4 @@ to open the project. If you run `npx cap sync`, Capacitor points the package bac
 that works too once `npm install` has been run.
 
 The web app inside is pre-built into `ios/App/App/public`. After changing the web app, rebuild with
-`npm run build && npx cap sync ios`.
+`./scripts/ios-sync.sh` (needs the env vars in the script header).

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { isNative, listenForAuthCallback, signInWithProviderNative } from '../lib/nativeAuth';
 
 const AuthContext = createContext(null);
 
@@ -9,6 +10,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    const stopListening = listenForAuthCallback();
 
     // Keeps state in sync across tabs/token refreshes without polling.
     const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
@@ -16,7 +18,7 @@ export function AuthProvider({ children }) {
       // same user. Keep the old one when nothing meaningful changed, so the app doesn't re-render.
       setSession((prev) => (prev && newSession && prev.user?.id === newSession.user?.id && prev.access_token === newSession.access_token ? prev : newSession));
     });
-    return () => sub.subscription.unsubscribe();
+    return () => { sub.subscription.unsubscribe(); stopListening(); };
   }, []);
 
   useEffect(() => {
@@ -38,7 +40,9 @@ export function AuthProvider({ children }) {
     signUp: (email, password) => supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin } }),
     signIn: (email, password) => supabase.auth.signInWithPassword({ email, password }),
     // Google / Apple: Supabase sends the person to the provider and back to this site, signed in.
-    signInWithProvider: (provider) => supabase.auth.signInWithOAuth({ provider, options: { redirectTo: window.location.origin } }),
+    signInWithProvider: (provider) => (isNative()
+      ? signInWithProviderNative(provider)
+      : supabase.auth.signInWithOAuth({ provider, options: { redirectTo: window.location.origin } })),
     signOut: () => supabase.auth.signOut(),
   };
 

@@ -24,6 +24,12 @@ export default function Login() {
     }
   }, []);
 
+  useEffect(() => {
+    const onError = (e) => setError(String(e.detail || t('Something went wrong')));
+    window.addEventListener('handycfo:auth-error', onError);
+    return () => window.removeEventListener('handycfo:auth-error', onError);
+  }, []);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
@@ -48,7 +54,8 @@ export default function Login() {
     setError('');
     setBusy(true);
     const { error } = await signInWithProvider(provider);
-    if (error) { setError(error.message || t('Something went wrong')); setBusy(false); }
+    if (error) setError(error.message || t('Something went wrong'));
+    setBusy(false);
   }
 
   if (checkInbox) {
