@@ -491,5 +491,8 @@ export default {
  "Nothing could be restored right now.": "Não foi possível restaurar nada neste momento.",
  "Subscribe": "Assinar",
  "Your subscription renews automatically unless you cancel it at least 24 hours before the period ends. Manage or cancel it any time in your App Store or Google Play account settings.": "Sua assinatura é renovada automaticamente, a menos que você a cancele pelo menos 24 horas antes do fim do período. Você pode gerenciá-la ou cancelá-la a qualquer momento nas configurações da sua conta da App Store ou do Google Play.",
- "Restore purchases": "Restaurar compras"
+ "Restore purchases": "Restaurar compras",
+  "{pct}% vs previous period": "{pct}% vs período anterior",
+  "No earlier data to compare": "Sem dados anteriores para comparar",
+  "Invoices by status": "Faturas por estado",
 };
