@@ -8,6 +8,8 @@ import { useT } from '../lib/i18n';
 
 Chart.register(...registerables);
 
+const COLORS = ['#3FBF9C', '#E3A768', '#7FA8D9', '#C77DBE', '#D97C63', '#8FBF6A'];
+const STATUS = [['Paid', '#3FBF9C'], ['Pending', '#E3A768'], ['Overdue', '#D97C63'], ['Draft', '#A8A8A3']];
 const DAY = 86400000;
 const toISO = (d) => d.toISOString().slice(0, 10);
 const parse = (s) => new Date(`${s}T00:00:00Z`);
@@ -147,7 +149,44 @@ export default function Dashboard({ business, userEmail }) {
 
   const trendRef = useRef(null);
   const trendChart = useRef(null);
+  const catRef = useRef(null);
+  const statusRef = useRef(null);
+  const catChart = useRef(null);
+  const statusChart = useRef(null);
   const loadingNow = invoicesLoading || expensesLoading;
+  useEffect(() => {
+    if (loadingNow || !catRef.current || !stats.categories.length) return undefined;
+    catChart.current?.destroy();
+    catChart.current = new Chart(catRef.current, {
+      type: 'pie',
+      data: {
+        labels: stats.categories.map(([n]) => t(n)),
+        datasets: [{ data: stats.categories.map(([, v]) => v), backgroundColor: stats.categories.map((_, i) => COLORS[i % COLORS.length]), borderColor: '#fff', borderWidth: 2 }],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.label}: ${fmtEUR(c.parsed, business.currency)}` } } },
+      },
+    });
+    return () => { catChart.current?.destroy(); };
+  }, [stats.categories, business.currency, t, loadingNow]);
+  useEffect(() => {
+    if (loadingNow || !statusRef.current || stats.mixTotal <= 0) return undefined;
+    statusChart.current?.destroy();
+    const used = STATUS.filter(([k]) => stats.mix[k] > 0);
+    statusChart.current = new Chart(statusRef.current, {
+      type: 'pie',
+      data: {
+        labels: used.map(([k]) => t(k)),
+        datasets: [{ data: used.map(([k]) => stats.mix[k]), backgroundColor: used.map(([, c]) => c), borderColor: '#fff', borderWidth: 2 }],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.label}: ${fmtEUR(c.parsed, business.currency)}` } } },
+      },
+    });
+    return () => { statusChart.current?.destroy(); };
+  }, [stats.mix, stats.mixTotal, business.currency, t, loadingNow]);
   useEffect(() => {
     if (loadingNow || !trendRef.current) return undefined;
     trendChart.current?.destroy();
@@ -257,20 +296,19 @@ export default function Dashboard({ business, userEmail }) {
               {stats.categories.length === 0 ? (
                 <p style={{ color: 'var(--text-faint)', fontSize: 13 }}>{t('No expenses in this period.')}</p>
               ) : (
-                <div className="hbars">
-                  {stats.categories.map(([name, value]) => {
-                    const pct = stats.expensesInPeriod > 0 ? (value / stats.expensesInPeriod) * 100 : 0;
-                    return (
-                      <div className="hbar" key={name}>
-                        <div className="hbar-head">
-                          <span>{t(name)}</span>
-                          <span><strong>{pct.toFixed(0)}%</strong> · {fmtEUR(value, business.currency)}</span>
-                        </div>
-                        <div className="hbar-track"><div className="hbar-fill" style={{ width: `${Math.max(pct, 2)}%` }} /></div>
+                <>
+                  <div className="chart-box small"><canvas ref={catRef} /></div>
+                  <div className="status-legend" style={{ marginTop: 14 }}>
+                    {stats.categories.map(([name, value], i) => (
+                      <div className="status-legend-item" key={name}>
+                        <span className="category-legend-dot" style={{ background: COLORS[i % COLORS.length] }} />
+                        <span>{t(name)}</span>
+                        <strong>{stats.expensesInPeriod > 0 ? ((value / stats.expensesInPeriod) * 100).toFixed(0) : 0}%</strong>
+                        <span className="status-amt">{fmtEUR(value, business.currency)}</span>
                       </div>
-                    );
-                  })}
-                </div>
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -278,15 +316,9 @@ export default function Dashboard({ business, userEmail }) {
           {stats.mixTotal > 0 && (
             <div className="panel">
               <div className="section-title">{t('Invoices by status')}</div>
-              <div className="statusbar" role="img" aria-label={t('Invoices by status')}>
-                {[['Paid', 'var(--green-dot)'], ['Pending', 'var(--amber-dot)'], ['Overdue', 'var(--red-dot)'], ['Draft', 'var(--text-faint)']]
-                  .filter(([k]) => stats.mix[k] > 0)
-                  .map(([k, color]) => (
-                    <div key={k} style={{ width: `${(stats.mix[k] / stats.mixTotal) * 100}%`, background: color }} title={`${t(k)}: ${fmtEUR(stats.mix[k], business.currency)}`} />
-                  ))}
-              </div>
-              <div className="status-legend">
-                {[['Paid', 'var(--green-dot)'], ['Pending', 'var(--amber-dot)'], ['Overdue', 'var(--red-dot)'], ['Draft', 'var(--text-faint)']].map(([k, color]) => (
+              <div className="chart-box small"><canvas ref={statusRef} /></div>
+              <div className="status-legend" style={{ marginTop: 14 }}>
+                {STATUS.map(([k, color]) => (
                   <div className="status-legend-item" key={k}>
                     <span className="category-legend-dot" style={{ background: color }} />
                     <span>{t(k)}</span>
