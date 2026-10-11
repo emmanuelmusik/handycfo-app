@@ -497,4 +497,6 @@ export default {
   "Invoices by status": "Factures par statut",
   "You're offline. Showing data last updated {when}. Changes are disabled.": "Vous êtes hors ligne. Données mises à jour le {when}. Les modifications sont désactivées.",
   "You're offline. Changes are disabled.": "Vous êtes hors ligne. Les modifications sont désactivées.",
+  "Good afternoon, {name} 👋": "Bon après-midi, {name} 👋",
+  "Good evening, {name} 👋": "Bonsoir, {name} 👋",
 };

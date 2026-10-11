@@ -220,14 +220,15 @@ export default function Dashboard({ business, userEmail }) {
     return () => { trendChart.current?.destroy(); };
   }, [months, business.currency, t, loadingNow]);
 
-  const firstName = (userEmail || '').split('@')[0];
+  const hour = new Date().getHours();
+  const greeting = hour < 5 ? 'Good evening, {name} 👋' : hour < 12 ? 'Good morning, {name} 👋' : hour < 18 ? 'Good afternoon, {name} 👋' : 'Good evening, {name} 👋';
   const loading = invoicesLoading || expensesLoading;
 
   return (
     <div>
       <div className="page-head">
         <div>
-          <h1 className="page-title">{t('Good morning, {name} 👋', { name: firstName || t('there') })}</h1>
+          <h1 className="page-title">{t(greeting, { name: business.name })}</h1>
           <p className="page-sub">{t("Here's where {name}'s money stands right now.", { name: business.name })}</p>
         </div>
       </div>
