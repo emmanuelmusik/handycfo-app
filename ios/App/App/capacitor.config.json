@@ -3,9 +3,6 @@
 	"appName": "HandyCFO",
 	"webDir": "dist",
 	"backgroundColor": "#FBFBFA",
-	"ios": {
-		"contentInset": "always"
-	},
 	"packageClassList": [
 		"AppPlugin",
 		"CAPBrowserPlugin",
