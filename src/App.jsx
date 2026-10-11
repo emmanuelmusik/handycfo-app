@@ -1,3 +1,4 @@
+import OfflineBanner from './components/OfflineBanner';
 import { useMemo, useState } from 'react';
 import { useAuth } from './hooks/useAuth';
 import { useBusinesses } from './hooks/useBusinesses';
@@ -133,6 +134,7 @@ function AuthenticatedApp({ userEmail, onSignOut }) {
 
       <main className="main">
         <MobileTopbar onOpenSidebar={() => setSidebarOpen(true)} />
+        <OfflineBanner />
         {activeBusiness && renderView({
           view: currentView,
           business: activeBusiness,

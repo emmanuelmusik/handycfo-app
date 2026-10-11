@@ -1,23 +1,30 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { api } from '../lib/api';
+import { readCache, writeCache } from '../lib/offlineCache';
 
 export function useInvoices(businessId) {
-  const [invoices, setInvoices] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const cacheKey = `invoices:${businessId}`;
+  const [invoices, setInvoices] = useState(() => readCache(cacheKey)?.data || []);
+  const [loading, setLoading] = useState(() => !readCache(cacheKey));
 
   const refetch = useCallback(async () => {
     if (!businessId) return;
-    setLoading(true);
+    if (!readCache(cacheKey)) setLoading(true);
     const { data, error } = await supabase
       .from('invoices')
       .select('*')
       .eq('business_id', businessId)
       .order('due_date', { ascending: true });
-    if (error) console.error('Failed to load invoices:', error);
-    setInvoices(data || []);
+    if (error) {
+      console.error('Failed to load invoices:', error);
+      if (!readCache(cacheKey)) setInvoices([]);
+    } else {
+      setInvoices(data || []);
+      writeCache(cacheKey, data || []);
+    }
     setLoading(false);
-  }, [businessId]);
+  }, [businessId, cacheKey]);
 
   useEffect(() => { refetch(); }, [refetch]);
 

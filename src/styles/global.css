@@ -815,6 +815,7 @@
 
   /* ---------- Reports ---------- */
 
+  .offline-banner { background: var(--amber-bg, #FFF4E0); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px; font-size: 12.5px; margin-bottom: 14px; }
   /* Dashboard charts */
   .dash-charts { margin-bottom: 16px; }
   .hbars { display: flex; flex-direction: column; gap: 14px; }

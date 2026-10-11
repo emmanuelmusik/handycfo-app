@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { useAuth } from './useAuth';
 import { api } from '../lib/api';
+import { readCache, writeCache } from '../lib/offlineCache';
 
 const AVATAR_PALETTE = ['#3FBF9C', '#E3A768', '#7FA8D9', '#C77DBE', '#D97C63', '#8FBF6A', '#B79ADB', '#5FB8B8'];
 
@@ -14,8 +15,8 @@ function initials(name) {
 
 export function useBusinesses() {
   const { user } = useAuth();
-  const [businesses, setBusinesses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [businesses, setBusinesses] = useState(() => readCache('businesses')?.data || []);
+  const [loading, setLoading] = useState(() => !readCache('businesses'));
 
   const userId = user?.id;
   const refetch = useCallback(async () => {
@@ -26,8 +27,12 @@ export function useBusinesses() {
       .from('businesses')
       .select('*')
       .order('created_at', { ascending: true });
-    if (error) console.error('Failed to load businesses:', error);
-    setBusinesses(data || []);
+    if (error) {
+      console.error('Failed to load businesses:', error);
+    } else {
+      setBusinesses(data || []);
+      writeCache('businesses', data || []);
+    }
     setLoading(false);
   }, [userId]);
 

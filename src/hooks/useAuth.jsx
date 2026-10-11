@@ -1,3 +1,4 @@
+import { clearCache } from '../lib/offlineCache';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { isNative, listenForAuthCallback, signInWithProviderNative } from '../lib/nativeAuth';
@@ -43,7 +44,7 @@ export function AuthProvider({ children }) {
     signInWithProvider: (provider) => (isNative()
       ? signInWithProviderNative(provider)
       : supabase.auth.signInWithOAuth({ provider, options: { redirectTo: window.location.origin } })),
-    signOut: () => supabase.auth.signOut(),
+    signOut: () => { clearCache(); return supabase.auth.signOut(); },
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

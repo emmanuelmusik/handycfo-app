@@ -495,4 +495,6 @@ export default {
   "{pct}% vs previous period": "{pct}% vs période précédente",
   "No earlier data to compare": "Pas de données antérieures à comparer",
   "Invoices by status": "Factures par statut",
+  "You're offline. Showing data last updated {when}. Changes are disabled.": "Vous êtes hors ligne. Données mises à jour le {when}. Les modifications sont désactivées.",
+  "You're offline. Changes are disabled.": "Vous êtes hors ligne. Les modifications sont désactivées.",
 };
