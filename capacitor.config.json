@@ -2,5 +2,9 @@
   "appId": "biz.thejohmacos.handycfo",
   "appName": "HandyCFO",
   "webDir": "dist",
-  "backgroundColor": "#FBFBFA"
+  "backgroundColor": "#FBFBFA",
+  "server": {
+    "url": "https://handycfo-app.vercel.app",
+    "cleartext": false
+  }
 }
