@@ -46,7 +46,7 @@ export default function Sidebar({
               <div className="biz-switcher-type">{currentBusiness?.business_type}</div>
             </div>
             <Icon name="chevronDown" size={14} strokeWidth={2} />
-          </button>}
+          </button>
           {bizMenuOpen && (
             <div className="biz-menu">
               {businesses.map((b) => (

@@ -4,7 +4,15 @@
 # Needs VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_API_URL (and the RevenueCat keys) in the environment.
 set -e
 cd "$(dirname "$0")/.."
+for v in VITE_SUPABASE_URL VITE_SUPABASE_ANON_KEY VITE_API_URL; do
+  eval "val=\${$v:-}"
+  case "$val" in
+    http*|eyJ*|sb_*) ;;
+    *) echo "Stopping: $v is missing or not a real value. The app would show a blank screen." >&2; exit 1 ;;
+  esac
+done
 npm run build
+if ! grep -rq "supabase.co" dist/assets; then echo "Stopping: the built app has no Supabase address in it." >&2; exit 1; fi
 npx cap sync ios
 PKG=ios/App/CapApp-SPM/Package.swift
 rm -rf ios/vendor && mkdir -p ios/vendor
