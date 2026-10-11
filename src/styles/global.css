@@ -1117,3 +1117,9 @@ body::before {
   z-index: 29;
   pointer-events: none;
 }
+
+/* Keep form controls (iOS date inputs especially) inside their cards */
+.field input, .field select { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+.field input[type="date"], .field input[type="month"] { -webkit-appearance: none; appearance: none; text-align: left; }
+.field-row > .field { min-width: 0; }
+.dash-charts > .panel, .metrics-grid > * { min-width: 0; }

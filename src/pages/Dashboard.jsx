@@ -287,11 +287,11 @@ export default function Dashboard({ business, userEmail }) {
 
 
           <div className="two-col dash-charts">
-            <div className="panel">
+            <div className="panel" style={{ padding: 18 }}>
               <div className="section-title">{t('Income vs. expenses')}</div>
               <div className="chart-box"><canvas ref={trendRef} /></div>
             </div>
-            <div className="panel">
+            <div className="panel" style={{ padding: 18 }}>
               <div className="section-title">{t('Where the money went')}</div>
               {stats.categories.length === 0 ? (
                 <p style={{ color: 'var(--text-faint)', fontSize: 13 }}>{t('No expenses in this period.')}</p>
@@ -314,7 +314,7 @@ export default function Dashboard({ business, userEmail }) {
           </div>
 
           {stats.mixTotal > 0 && (
-            <div className="panel">
+            <div className="panel" style={{ padding: 18 }}>
               <div className="section-title">{t('Invoices by status')}</div>
               <div className="chart-box small"><canvas ref={statusRef} /></div>
               <div className="status-legend" style={{ marginTop: 14 }}>
