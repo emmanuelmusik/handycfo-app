@@ -427,6 +427,7 @@ export default {
  "They are stored privately for you, or in your own Dropbox if you connected it. We never use them for advertising.": "Ils sont stockés de façon privée pour vous, ou dans votre propre Dropbox si vous l'avez connecté. Nous ne les utilisons jamais pour la publicité.",
  "You can withdraw this permission any time in Settings, and delete a receipt whenever you like.": "Vous pouvez retirer cette autorisation à tout moment dans les Réglages et supprimer un reçu quand vous le souhaitez.",
  "Read the Privacy Policy": "Lire la politique de confidentialité",
+ "Terms of Use": "Conditions d'utilisation",
  "Privacy Policy": "Politique de confidentialité",
  "Support": "Assistance",
  "Privacy and support": "Confidentialité et assistance",

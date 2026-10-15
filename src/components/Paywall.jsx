@@ -125,7 +125,9 @@ export default function Paywall() {
           <p className="paywall-note">
             <button type="button" className="link-btn" onClick={restorePurchases} disabled={!!busy}>{t('Restore purchases')}</button>
             {' · '}
-            <a href="/privacy" target="_blank" rel="noopener noreferrer">{t('Privacy Policy')}</a>
+            <a href="https://handycfo-app.vercel.app/privacy" target="_blank" rel="noopener noreferrer">{t('Privacy Policy')}</a>
+            {' · '}
+            <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer">{t('Terms of Use')}</a>
           </p>
         </>
       ) : (
