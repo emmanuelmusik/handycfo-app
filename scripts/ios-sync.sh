@@ -11,6 +11,10 @@ for v in VITE_SUPABASE_URL VITE_SUPABASE_ANON_KEY VITE_API_URL; do
     *) echo "Stopping: $v is missing or not a real value. The app would show a blank screen." >&2; exit 1 ;;
   esac
 done
+case "${VITE_REVENUECAT_IOS_KEY:-}" in
+  appl_*) ;;
+  *) echo "Stopping: VITE_REVENUECAT_IOS_KEY is missing. The app could not load the subscription plans." >&2; exit 1 ;;
+esac
 npm run build
 if ! grep -rq "supabase.co" dist/assets; then echo "Stopping: the built app has no Supabase address in it." >&2; exit 1; fi
 npx cap sync ios
@@ -23,4 +27,5 @@ for dir in $(grep -o 'node_modules/@[^"]*' "$PKG" | sed 's#node_modules/##' | so
   [ -f "node_modules/$dir/LICENSE" ] && cp "node_modules/$dir/LICENSE" "ios/vendor/$name/"
 done
 sed -i.bak -E 's#\.\./\.\./\.\./node_modules/@[^/]+/#../../vendor/#' "$PKG" && rm -f "$PKG.bak"
+if ! grep -rq "appl_" dist/assets; then echo "Stopping: the built app has no RevenueCat key in it." >&2; exit 1; fi
 echo "iOS project synced."
