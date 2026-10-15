@@ -27,7 +27,7 @@ export const PRIVACY = {
         'We do not sell your data, we do not show advertising, and we do not use advertising or tracking cookies.',
       ] },
       { h: 'Who receives your data', p: [
-        'We use service providers who process data on our behalf: Supabase (database, login and private file storage), Railway (server hosting), Vercel (website hosting), xAI (AI that reads receipt images and text), Resend (sending invoice and reminder emails), and Dropbox (only if you connect it, to keep receipt files in your own Dropbox).',
+        'We use service providers who process data on our behalf: Supabase (database, login and private file storage), Railway (server hosting), Vercel (website hosting), xAI (AI that reads receipt images and text), Resend (sending invoice and reminder emails), RevenueCat (manages paid subscriptions bought through the App Store; it receives your account ID and purchase status, never your card details), and Dropbox (only if you connect it, to keep receipt files in your own Dropbox).',
         'When you send an invoice, its content goes to the email address or HandyCFO user you choose. Some providers are located outside the EU/EEA, for example in the United States. Where that happens we rely on the EU Standard Contractual Clauses or an adequacy decision.',
       ] },
       { h: 'How long we keep it', p: [
@@ -68,7 +68,7 @@ export const PRIVACY = {
         'Wir verkaufen Ihre Daten nicht, zeigen keine Werbung und verwenden keine Werbe- oder Tracking-Cookies.',
       ] },
       { h: 'Wer Ihre Daten erhält', p: [
-        'Wir setzen Dienstleister ein, die in unserem Auftrag Daten verarbeiten: Supabase (Datenbank, Anmeldung und private Dateispeicherung), Railway (Server-Hosting), Vercel (Website-Hosting), xAI (KI, die Belegbilder und Texte liest), Resend (Versand von Rechnungs- und Erinnerungs-E-Mails) und Dropbox (nur wenn Sie es verbinden, um Belegdateien in Ihrer eigenen Dropbox abzulegen).',
+        'Wir setzen Dienstleister ein, die in unserem Auftrag Daten verarbeiten: Supabase (Datenbank, Anmeldung und private Dateispeicherung), Railway (Server-Hosting), Vercel (Website-Hosting), xAI (KI, die Belegbilder und Texte liest), Resend (Versand von Rechnungs- und Erinnerungs-E-Mails) RevenueCat (verwaltet über den App Store gekaufte Abonnements; erhält Ihre Konto-ID und den Kaufstatus, niemals Ihre Zahlungsdaten) und Dropbox (nur wenn Sie es verbinden, um Belegdateien in Ihrer eigenen Dropbox abzulegen).',
         'Wenn Sie eine Rechnung senden, geht ihr Inhalt an die E-Mail-Adresse oder den HandyCFO-Nutzer, den Sie wählen. Einige Anbieter sitzen außerhalb der EU/des EWR, etwa in den USA. Dann stützen wir uns auf die EU-Standardvertragsklauseln oder einen Angemessenheitsbeschluss.',
       ] },
       { h: 'Wie lange wir Daten speichern', p: [
