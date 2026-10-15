@@ -4,7 +4,7 @@ import Icon from './layout/Icon';
 import { useT } from '../lib/i18n';
 import { usePlan } from '../lib/plan';
 import { PRICES, currencyAmount } from '../lib/plans';
-import { isNativeApp, loadPackages, purchase, restore } from '../lib/billing';
+import { isNativeApp, loadPackages, purchase, restore, billingDiag } from '../lib/billing';
 
 // The upgrade screen. Shown when a free limit is reached, a paid feature is tapped, or from Settings.
 export default function Paywall() {
@@ -18,7 +18,7 @@ export default function Paywall() {
   useEffect(() => {
     if (!paywall || !native) return;
     setMessage('');
-    loadPackages().then(setPackages).catch(() => setPackages({}));
+    loadPackages().then(setPackages).catch((e) => { setPackages({}); setMessage(`Store error: ${e?.message || e}`); });
   }, [paywall, native]);
 
   // The store tells RevenueCat, RevenueCat tells our server, so the new plan can take a few seconds to arrive.
@@ -114,6 +114,9 @@ export default function Paywall() {
         })}
       </div>
       {message && <p className="paywall-note" role="status">{message}</p>}
+      {native && packages && !Object.keys(packages).length && billingDiag && (
+        <p className="paywall-note" role="status">{billingDiag}</p>
+      )}
       {native ? (
         <>
           <p className="paywall-note">

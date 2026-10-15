@@ -43,13 +43,30 @@ const planOf = (pkg) => {
 };
 
 // The two packages with the real prices from the store (already in the person's currency).
+export let billingDiag = '';
+
 export async function loadPackages() {
+  billingDiag = '';
+  if (!configuredFor) { billingDiag = 'Store not configured yet (key or sign-in missing).'; return {}; }
   const Purchases = await load();
-  const { current } = await Purchases.getOfferings();
+  let offerings;
+  try {
+    offerings = await Purchases.getOfferings();
+  } catch (err) {
+    billingDiag = `Could not reach the store: ${err?.message || err}`;
+    return {};
+  }
+  const { current } = offerings;
   const out = {};
   for (const pkg of current?.availablePackages || []) {
     const plan = planOf(pkg);
     if (plan) out[plan] = { pkg, price: pkg.product.priceString };
+  }
+  if (!Object.keys(out).length) {
+    const ids = Object.keys(offerings.all || {}).join(', ') || 'none';
+    billingDiag = current
+      ? `Offering "${current.identifier}" has ${current.availablePackages?.length || 0} usable products.`
+      : `No current offering in RevenueCat (offerings found: ${ids}).`;
   }
   return out;
 }
