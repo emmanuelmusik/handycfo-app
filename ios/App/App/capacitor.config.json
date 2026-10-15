@@ -3,10 +3,6 @@
 	"appName": "HandyCFO",
 	"webDir": "dist",
 	"backgroundColor": "#FBFBFA",
-	"server": {
-		"url": "https://handycfo-app.vercel.app",
-		"cleartext": false
-	},
 	"packageClassList": [
 		"AppPlugin",
 		"CAPBrowserPlugin",
