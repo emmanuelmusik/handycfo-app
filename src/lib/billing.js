@@ -77,7 +77,10 @@ export async function loadPackages() {
   const Purchases = await load();
   let offerings;
   try {
-    offerings = await Purchases.getOfferings();
+    offerings = await Promise.race([
+      Purchases.getOfferings(),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('the store did not answer in 60 seconds. Apple may not be returning the products yet')), 60000)),
+    ]);
   } catch (err) {
     billingDiag = `Could not reach the store: ${err?.message || err}`;
     return {};

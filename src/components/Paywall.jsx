@@ -113,6 +113,7 @@ export default function Paywall() {
             : <div key={plan} className={`paywall-plan ${best ? 'best' : ''}`}>{body}</div>;
         })}
       </div>
+      {native && packages === null && !message && <p className="paywall-note" role="status">Contacting the store… this can take up to a minute.</p>}
       {message && <p className="paywall-note" role="status">{message}</p>}
       {native && packages && !Object.keys(packages).length && billingDiag && (
         <p className="paywall-note" role="status">{billingDiag}</p>
