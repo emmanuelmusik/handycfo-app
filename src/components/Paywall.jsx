@@ -85,8 +85,16 @@ export default function Paywall() {
     t('Email support'),
   ];
 
-  const quarterlyPerMonth = PRICES.quarterly.amount / PRICES.quarterly.months;
-  const saving = Math.round((1 - quarterlyPerMonth / PRICES.monthly.amount) * 100);
+  // Prices come from the store when it answered (so they match what Apple charges in the person's country);
+  // the fixed prices are only the fallback.
+  const mp = packages?.monthly?.pkg?.product;
+  const qp = packages?.quarterly?.pkg?.product;
+  const fromStore = typeof mp?.price === 'number' && typeof qp?.price === 'number';
+  const quarterlyPerMonth = fromStore ? qp.price / PRICES.quarterly.months : PRICES.quarterly.amount / PRICES.quarterly.months;
+  const saving = Math.round((1 - quarterlyPerMonth / (fromStore ? mp.price : PRICES.monthly.amount)) * 100);
+  const perMonthText = fromStore
+    ? new Intl.NumberFormat(undefined, { style: 'currency', currency: qp.currencyCode || 'EUR' }).format(quarterlyPerMonth)
+    : currencyAmount(quarterlyPerMonth);
 
   return (
     <Modal title={t('Upgrade HandyCFO')} onClose={closePaywall} maxWidth={460}
@@ -101,12 +109,12 @@ export default function Paywall() {
           const price = packages?.[plan]?.price;
           const body = (
             <>
-              {best && <div className="paywall-tag">{t('Save {percent}%', { percent: saving })}</div>}
+              {best && saving > 0 && <div className="paywall-tag">{t('Save {percent}%', { percent: saving })}</div>}
               <div className="paywall-name">{best ? t('Quarterly') : t('Monthly')}</div>
               <div className="paywall-price">
                 {price || currencyAmount(PRICES[plan].amount)}<span>{best ? t('/ 3 months') : t('/ month')}</span>
               </div>
-              {best && <div className="paywall-sub">{t('{price} a month', { price: currencyAmount(quarterlyPerMonth) })}</div>}
+              {best && <div className="paywall-sub">{t('{price} a month', { price: perMonthText })}</div>}
               {native && packages?.[plan] && <div className="paywall-cta">{busy === plan ? t('Please wait…') : t('Subscribe')}</div>}
             </>
           );
