@@ -9,6 +9,7 @@ export default function Login() {
   const [mode, setMode] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [checkInbox, setCheckInbox] = useState(false);
@@ -95,13 +96,33 @@ export default function Login() {
           </div>
           <div className="field" style={{ marginBottom: 8 }}>
             <label>{t('Password')}</label>
-            <input
-              type="password"
-              required
-              minLength={8}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPw ? 'text' : 'password'}
+                required
+                minLength={8}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={{ width: '100%', paddingRight: 44, boxSizing: 'border-box' }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPw((v) => !v)}
+                aria-label={showPw ? t('Hide password') : t('Show password')}
+                title={showPw ? t('Hide password') : t('Show password')}
+                style={{
+                  position: 'absolute', right: 4, top: '50%', transform: 'translateY(-50%)',
+                  width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  background: 'none', border: 0, cursor: 'pointer', color: 'var(--text-soft)', padding: 0,
+                }}
+              >
+                {showPw ? (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                ) : (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                )}
+              </button>
+            </div>
           </div>
 
           {error && (
