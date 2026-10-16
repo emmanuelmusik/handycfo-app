@@ -4,6 +4,7 @@ import Icon from './layout/Icon';
 import { useT } from '../lib/i18n';
 import { usePlan } from '../lib/plan';
 import { PRICES, currencyAmount } from '../lib/plans';
+import { api } from '../lib/api';
 import { isNativeApp, loadPackages, purchase, restore, billingDiag } from '../lib/billing';
 
 // The upgrade screen. Shown when a free limit is reached, a paid feature is tapped, or from Settings.
@@ -24,6 +25,7 @@ export default function Paywall() {
   // The store tells RevenueCat, RevenueCat tells our server, so the new plan can take a few seconds to arrive.
   async function waitForPlan() {
     for (let i = 0; i < 10; i++) {
+      if (i % 3 === 0) await api.syncPlan().catch(() => {});
       await refresh();
       await new Promise((r) => setTimeout(r, 1500));
     }

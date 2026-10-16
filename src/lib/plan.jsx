@@ -17,7 +17,14 @@ export function PlanProvider({ children }) {
   }, []);
 
   // In the store app, tie the store account to this HandyCFO user.
-  useEffect(() => { initBilling(user?.id).catch(() => {}); }, [user?.id]);
+  // Once the store is connected, ask the server to double-check what this person has bought, so a late
+  // store notification can never leave a paying customer on Free.
+  useEffect(() => {
+    initBilling(user?.id)
+      .then((ok) => (ok ? api.syncPlan().catch(() => {}) : null))
+      .then(() => refresh())
+      .catch(() => {});
+  }, [user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     refresh();

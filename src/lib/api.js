@@ -64,6 +64,7 @@ const del = (path) => authedFetch(path, { method: 'DELETE' });
 
 export const api = {
   getPlan: () => authedFetch('/plan'),
+  syncPlan: () => authedFetch('/plan/sync', { method: 'POST' }),
   startDropboxConnect: () => authedFetch('/auth/dropbox/start'),
   disconnectDropbox: () => authedFetch('/auth/dropbox/disconnect', { method: 'POST' }),
 
