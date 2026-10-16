@@ -14,8 +14,11 @@ const platform = () => Capacitor.getPlatform();
 let sdk = null;
 let configuredFor = null;
 
+// The plugin object must never be returned from an async function or awaited directly: JavaScript would
+// look for its `then` method, Capacitor would send that to the phone, and nothing would ever answer.
+// So it travels inside a plain object.
 async function load() {
-  if (!sdk) sdk = (await import('@revenuecat/purchases-capacitor')).Purchases;
+  if (!sdk) sdk = { Purchases: (await import('@revenuecat/purchases-capacitor')).Purchases };
   return sdk;
 }
 
@@ -29,7 +32,7 @@ async function startStore(userId) {
   const apiKey = KEYS[platform()];
   if (!apiKey) { initError = 'This build has no store key.'; return false; }
   try {
-    const Purchases = await load();
+    const { Purchases } = await load();
     if (!configuredFor) {
       await Purchases.configure({ apiKey, appUserID: userId });
     } else if (configuredFor !== userId) {
@@ -74,7 +77,7 @@ export async function loadPackages() {
       : `The store could not start: ${initError || 'unknown reason'}`;
     return {};
   }
-  const Purchases = await load();
+  const { Purchases } = await load();
   let offerings;
   try {
     offerings = await Promise.race([
@@ -102,7 +105,7 @@ export async function loadPackages() {
 
 // Returns true when bought, false when the person backed out.
 export async function purchase(pkg) {
-  const Purchases = await load();
+  const { Purchases } = await load();
   try {
     await Purchases.purchasePackage({ aPackage: pkg });
     return true;
@@ -113,12 +116,12 @@ export async function purchase(pkg) {
 }
 
 export async function restore() {
-  const Purchases = await load();
+  const { Purchases } = await load();
   await Purchases.restorePurchases();
 }
 
 export async function logOutBilling() {
   if (!configuredFor) return;
-  try { (await load()).logOut(); } catch { /* already anonymous */ }
+  try { (await load()).Purchases.logOut(); } catch { /* already anonymous */ }
   configuredFor = null;
 }
