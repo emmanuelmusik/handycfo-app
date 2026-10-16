@@ -21,18 +21,36 @@ async function load() {
 
 // Call once the person is signed in. The RevenueCat user id is the HandyCFO user id, which is
 // how the server webhook knows whose plan to change.
+let lastUserId = null;
+let initError = '';
+let initRun = null;
+
+async function startStore(userId) {
+  const apiKey = KEYS[platform()];
+  if (!apiKey) { initError = 'This build has no store key.'; return false; }
+  try {
+    const Purchases = await load();
+    if (!configuredFor) {
+      await Purchases.configure({ apiKey, appUserID: userId });
+    } else if (configuredFor !== userId) {
+      await Purchases.logIn({ appUserID: userId });
+    }
+    configuredFor = userId;
+    initError = '';
+    return true;
+  } catch (err) {
+    initError = String(err?.message || err);
+    throw err;
+  }
+}
+
 export async function initBilling(userId) {
   if (!isNativeApp() || !userId) return false;
-  const apiKey = KEYS[platform()];
-  if (!apiKey) return false;
-  const Purchases = await load();
-  if (!configuredFor) {
-    await Purchases.configure({ apiKey, appUserID: userId });
-  } else if (configuredFor !== userId) {
-    await Purchases.logIn({ appUserID: userId });
-  }
-  configuredFor = userId;
-  return true;
+  lastUserId = userId;
+  // One start at a time, so a second call can never configure the store twice.
+  const run = (initRun || Promise.resolve()).catch(() => {}).then(() => startStore(userId));
+  initRun = run;
+  return run;
 }
 
 const planOf = (pkg) => {
@@ -47,7 +65,15 @@ export let billingDiag = '';
 
 export async function loadPackages() {
   billingDiag = '';
-  if (!configuredFor) { billingDiag = 'Store not configured yet (key or sign-in missing).'; return {}; }
+  if (!configuredFor && lastUserId) {
+    try { await initBilling(lastUserId); } catch { /* reason is kept in initError */ }
+  }
+  if (!configuredFor) {
+    billingDiag = !lastUserId
+      ? 'The store could not start because you are not signed in yet.'
+      : `The store could not start: ${initError || 'unknown reason'}`;
+    return {};
+  }
   const Purchases = await load();
   let offerings;
   try {
