@@ -5,7 +5,8 @@ import logoFull from '../assets/logo-full.png';
 
 export default function Login() {
   const { t } = useT();
-  const { signIn, signUp, signInWithProvider } = useAuth();
+  const { signIn, signUp, signInWithProvider, resetPassword } = useAuth();
+  const [notice, setNotice] = useState('');
   const [mode, setMode] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,6 +50,16 @@ export default function Login() {
     } finally {
       setBusy(false);
     }
+  }
+
+  async function handleForgot() {
+    setError(''); setNotice('');
+    if (!email) { setError(t('Type your email above first, then tap Forgot password.')); return; }
+    setBusy(true);
+    const { error } = await resetPassword(email);
+    setBusy(false);
+    if (error) setError(error.message || t('Something went wrong'));
+    else setNotice(t('We sent a link to {email}. Open it to choose a new password.', { email }));
   }
 
   async function handleProvider(provider) {
@@ -124,6 +135,14 @@ export default function Login() {
               </button>
             </div>
           </div>
+
+          {mode === 'signin' && (
+            <button type="button" className="btn btn-ghost" onClick={handleForgot} disabled={busy}
+              style={{ padding: '4px 0', fontSize: 13, background: 'none', border: 0, color: 'var(--green, #0f6b53)', textDecoration: 'underline', cursor: 'pointer' }}>
+              {t('Forgot password?')}
+            </button>
+          )}
+          {notice && <p style={{ color: 'var(--text-soft)', fontSize: 13, marginTop: 8, marginBottom: 8 }}>{notice}</p>}
 
           {error && (
             <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 8, marginBottom: 8 }}>{error}</p>

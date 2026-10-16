@@ -8,13 +8,16 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(undefined); // undefined = "still checking"
   const [profile, setProfile] = useState(null);
+  // True while the person is setting a new password after opening the reset link from their email.
+  const [recovery, setRecovery] = useState(() => /type=recovery/.test(window.location.hash));
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
     const stopListening = listenForAuthCallback();
 
     // Keeps state in sync across tabs/token refreshes without polling.
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, newSession) => {
+      if (event === 'PASSWORD_RECOVERY') setRecovery(true);
       // A token refresh when the page regains focus yields a new session object for the
       // same user. Keep the old one when nothing meaningful changed, so the app doesn't re-render.
       setSession((prev) => (prev && newSession && prev.user?.id === newSession.user?.id && prev.access_token === newSession.access_token ? prev : newSession));
@@ -44,6 +47,14 @@ export function AuthProvider({ children }) {
     signInWithProvider: (provider) => (isNative()
       ? signInWithProviderNative(provider)
       : supabase.auth.signInWithOAuth({ provider, options: { redirectTo: window.location.origin } })),
+    recovery,
+    // The email link opens the web app, where the new password is set; then sign in as usual.
+    resetPassword: (email) => supabase.auth.resetPasswordForEmail(email, { redirectTo: 'https://handycfo-app.vercel.app' }),
+    updatePassword: async (password) => {
+      const res = await supabase.auth.updateUser({ password });
+      if (!res.error) { setRecovery(false); window.history.replaceState(null, '', window.location.pathname); }
+      return res;
+    },
     signOut: () => { clearCache(); return supabase.auth.signOut(); },
   };
 

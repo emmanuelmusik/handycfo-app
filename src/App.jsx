@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { useAuth } from './hooks/useAuth';
 import { useBusinesses } from './hooks/useBusinesses';
 import Login from './pages/Login';
+import SetNewPassword from './pages/SetNewPassword';
 import CreateFirstBusiness from './pages/CreateFirstBusiness';
 import Dashboard from './pages/Dashboard';
 import Invoices from './pages/Invoices';
@@ -24,9 +25,10 @@ import Paywall from './components/Paywall';
 import ManageSubscription from './components/ManageSubscription';
 
 export default function App() {
-  const { user, loading: authLoading, signOut } = useAuth();
+  const { user, loading: authLoading, signOut, recovery } = useAuth();
 
   if (authLoading) return null; // avoid a login-page flash while the session check resolves
+  if (user && recovery) return <SetNewPassword />;
   if (!user) return <Login />;
 
   return (
