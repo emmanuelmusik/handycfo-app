@@ -59,7 +59,7 @@ export default function Login() {
     const { error } = await resetPassword(email);
     setBusy(false);
     if (error) setError(error.message || t('Something went wrong'));
-    else setNotice(t('We sent a link to {email}. Open it to choose a new password.', { email }));
+    else setNotice(t('Email sent! We sent a password reset link to {email}. Open your email (check Spam too) and tap the link.', { email }));
   }
 
   async function handleProvider(provider) {
@@ -139,10 +139,14 @@ export default function Login() {
           {mode === 'signin' && (
             <button type="button" className="btn btn-ghost" onClick={handleForgot} disabled={busy}
               style={{ padding: '4px 0', fontSize: 13, background: 'none', border: 0, color: 'var(--green, #0f6b53)', textDecoration: 'underline', cursor: 'pointer' }}>
-              {t('Forgot password?')}
+              {busy ? t('Sending…') : t('Forgot password?')}
             </button>
           )}
-          {notice && <p style={{ color: 'var(--text-soft)', fontSize: 13, marginTop: 8, marginBottom: 8 }}>{notice}</p>}
+          {notice && (
+            <div role="status" style={{ background: '#e6f4ee', border: '1px solid #0f6b53', color: '#0b4d3b', borderRadius: 10, padding: '10px 12px', fontSize: 14, fontWeight: 600, marginTop: 10, marginBottom: 8, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+              <span aria-hidden="true">✓</span><span>{notice}</span>
+            </div>
+          )}
 
           {error && (
             <p style={{ color: 'var(--red)', fontSize: 13, marginTop: 8, marginBottom: 8 }}>{error}</p>
