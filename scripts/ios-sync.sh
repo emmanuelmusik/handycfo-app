@@ -17,6 +17,7 @@ case "${VITE_REVENUECAT_IOS_KEY:-}" in
 esac
 npm run build
 if ! grep -rq "supabase.co" dist/assets; then echo "Stopping: the built app has no Supabase address in it." >&2; exit 1; fi
+rm -rf dist/ota   # update bundles are served from the website, not packed into the app
 npx cap sync ios
 PKG=ios/App/CapApp-SPM/Package.swift
 rm -rf ios/vendor && mkdir -p ios/vendor

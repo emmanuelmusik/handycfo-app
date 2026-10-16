@@ -6,6 +6,15 @@ import { I18nProvider } from './lib/i18n';
 import LanguageButton from './components/LanguageButton';
 import { PrivacyPage, SupportPage } from './pages/legal/LegalPages';
 import './styles/global.css';
+import { Capacitor } from '@capacitor/core';
+
+// Tell the live-update plugin this web bundle started fine. If it never hears this within 10 seconds,
+// it throws the new bundle away and goes back to the last working one.
+if (Capacitor.isNativePlatform()) {
+  import('@capgo/capacitor-updater')
+    .then(({ CapacitorUpdater }) => CapacitorUpdater.notifyAppReady())
+    .catch(() => {});
+}
 
 // Public pages the app stores ask for. They work without signing in.
 const path = window.location.pathname.replace(/\/+$/, '');

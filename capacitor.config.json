@@ -2,5 +2,13 @@
   "appId": "biz.thejohmacos.handycfo",
   "appName": "HandyCFO",
   "webDir": "dist",
-  "backgroundColor": "#FBFBFA"
+  "backgroundColor": "#FBFBFA",
+  "plugins": {
+    "CapacitorUpdater": {
+      "autoUpdate": true,
+      "updateUrl": "https://handycfo-app.vercel.app/api/ota",
+      "statsUrl": "",
+      "appReadyTimeout": 10000
+    }
+  }
 }
