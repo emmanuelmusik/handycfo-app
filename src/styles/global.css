@@ -954,6 +954,9 @@
   @media (max-width: 860px) {
     .sidebar { transform: translateX(-100%); box-shadow: var(--shadow-pop); }
     .sidebar.open { transform: translateX(0); }
+    /* Above the bottom tab bar, so the plan, Sign out and legal links at the bottom stay visible. */
+    .sidebar { z-index: 60; overflow-y: auto; }
+    .sidebar-scrim { z-index: 55; }
     .sidebar-scrim.open { display: block; }
     .main { margin-left: 0; padding: 20px 18px calc(84px + env(safe-area-inset-bottom, 0px)); }
     .mobile-topbar { display: flex; }
