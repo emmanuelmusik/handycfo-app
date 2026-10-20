@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { supabase } from './supabaseClient';
 
 const API_URL = String(import.meta.env.VITE_API_URL || '').trim().replace(/\/+$/, '');
@@ -88,7 +89,16 @@ export const api = {
   saveInvoice: (id, fields) => put(`/invoices/${id}`, fields),
   checkInvoice: (id) => authedFetch(`/invoices/${id}/check`),
   sendInvoice: (invoiceId, channels) => post(`/invoices/${invoiceId}/send`, channels ? { channels } : {}).then(usageChanged),
-  downloadInvoicePdf: (invoiceId) => downloadFile(`/invoices/${invoiceId}/pdf`, 'Invoice.pdf'),
+  downloadInvoicePdf: async (invoiceId) => {
+    // In the phone app a saved file has nowhere to go, so open a short-lived link in the in-app viewer.
+    if (Capacitor.isNativePlatform()) {
+      const { path } = await authedFetch(`/invoices/${invoiceId}/pdf-link`, { method: 'POST' });
+      const { Browser } = await import('@capacitor/browser');
+      await Browser.open({ url: `${API_URL}${path}` });
+      return;
+    }
+    return downloadFile(`/invoices/${invoiceId}/pdf`, 'Invoice.pdf');
+  },
 
   // Account
   deleteBusiness: (id) => del(`/businesses/${id}`),
