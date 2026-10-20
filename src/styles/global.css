@@ -1126,3 +1126,9 @@ body::before {
 .field input[type="date"], .field input[type="month"] { -webkit-appearance: none; appearance: none; text-align: left; }
 .field-row > .field { min-width: 0; }
 .dash-charts > .panel, .metrics-grid > * { min-width: 0; }
+
+/* Phones: iOS zooms the page when a field with text smaller than 16px is tapped, and then stays zoomed. */
+@media (max-width: 860px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+html { touch-action: manipulation; -webkit-text-size-adjust: 100%; }
