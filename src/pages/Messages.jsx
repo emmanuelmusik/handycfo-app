@@ -10,7 +10,7 @@ import { useT } from '../lib/i18n';
 
 export default function Messages({ business, initialContactId, onNavigate, onChanged }) {
   const { t } = useT();
-  const { contacts, loading: contactsLoading } = useContacts();
+  const { contacts, loading: contactsLoading, refetch: refetchContacts } = useContacts();
   const { messages, loading: msgLoading, refetch, markRead } = useMessages();
   const { docs } = useInbox(business.id);
   const [openId, setOpenId] = useState(initialContactId || null);
@@ -95,6 +95,7 @@ export default function Messages({ business, initialContactId, onNavigate, onCha
           messages={messages.filter((m) => m.contact_id === openContact.id)}
           onClose={() => setOpenId(null)}
           onSent={refetch}
+          onContactChanged={refetchContacts}
           onViewed={() => markRead(openContact.id).then(() => onChanged?.())}
         />
       )}
@@ -102,11 +103,14 @@ export default function Messages({ business, initialContactId, onNavigate, onCha
   );
 }
 
-function ChatModal({ contact, messages, onClose, onSent, onViewed }) {
+function ChatModal({ contact, messages, onClose, onSent, onViewed, onContactChanged }) {
   const { t } = useT();
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [panel, setPanel] = useState(null); // 'report' | null
+  const [reason, setReason] = useState('');
+  const [info, setInfo] = useState('');
   const threadRef = useRef(null);
   const unreadCount = messages.filter((m) => m.sender === 'them' && !m.read_at).length;
 
@@ -133,6 +137,26 @@ function ChatModal({ contact, messages, onClose, onSent, onViewed }) {
     }
   }
 
+  async function toggleBlock() {
+    setError(''); setInfo(''); setBusy(true);
+    try {
+      await api.blockContact(contact.id, !contact.blocked);
+      await onContactChanged();
+      setInfo(contact.blocked ? t('Unblocked.') : t('Blocked. You will no longer receive messages from this person.'));
+    } catch (err) { setError(err.message || t('Something went wrong')); } finally { setBusy(false); }
+  }
+
+  async function sendReport() {
+    setError(''); setInfo(''); setBusy(true);
+    try {
+      await api.reportContact(contact.id, reason);
+      if (!contact.blocked) await api.blockContact(contact.id, true);
+      await onContactChanged();
+      setPanel(null); setReason('');
+      setInfo(t('Thank you. We received your report and will review it within 24 hours. This person is now blocked.'));
+    } catch (err) { setError(err.message || t('Something went wrong')); } finally { setBusy(false); }
+  }
+
   return (
     <Modal title={contact.name} onClose={onClose}>
       <div style={{ margin: -20 }}>
@@ -143,7 +167,23 @@ function ChatModal({ contact, messages, onClose, onSent, onViewed }) {
           ))}
         </div>
         {error && <p style={{ color: 'var(--red)', fontSize: 12.5, margin: '0 20px 8px' }}>{error}</p>}
-        {contact.on_platform ? (
+        {info && <p style={{ color: 'var(--text-soft)', fontSize: 12.5, margin: '0 20px 8px' }}>{info}</p>}
+        {contact.on_platform && (
+          <div style={{ display: 'flex', gap: 8, margin: '0 20px 8px' }}>
+            <button type="button" className="btn btn-sm" onClick={() => { setPanel(panel === 'report' ? null : 'report'); setInfo(''); }} disabled={busy}>{t('Report')}</button>
+            <button type="button" className="btn btn-sm" onClick={toggleBlock} disabled={busy}>{contact.blocked ? t('Unblock') : t('Block')}</button>
+          </div>
+        )}
+        {panel === 'report' && (
+          <div style={{ margin: '0 20px 10px' }}>
+            <label style={{ fontSize: 12.5 }}>{t('What is wrong? (optional)')}</label>
+            <textarea rows={3} maxLength={500} value={reason} onChange={(e) => setReason(e.target.value)} style={{ width: '100%', boxSizing: 'border-box' }} />
+            <button type="button" className="btn btn-sm btn-primary" style={{ marginTop: 6 }} onClick={sendReport} disabled={busy}>{t('Send report and block')}</button>
+          </div>
+        )}
+        {contact.blocked ? (
+          <div className="chat-input-row cell-soft" style={{ fontSize: 12.5 }}>{t('You blocked this contact. Unblock them to send a message.')}</div>
+        ) : contact.on_platform ? (
           <div className="chat-input-row">
             <input
               type="text"
